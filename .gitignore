@@ -1,0 +1,15 @@
+data/
+smex-items
+.smex-items
+themes/
+elpa/
+eshell/
+.DS_Store
+auto-save-list
+backups
+notes
+tramp
+url
+projectile-bookmarks.eld
+cider-history
+custom.el
