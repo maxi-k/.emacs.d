@@ -1,4 +1,4 @@
-# My emacs.d #
+# My emacs settings #
 
 There's probably some unnecessary stuff in here.
 
