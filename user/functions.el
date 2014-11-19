@@ -170,4 +170,9 @@
    (lambda (attr) (set-face-attribute face nil (car attr) (cdr attr)))
    attrs))
 
+(defun my/call-times (fn times arg)
+  (let ((result arg))
+    (dotimes (n times result)
+      (setq result (funcall fn result)))))
+
 (provide 'functions)
