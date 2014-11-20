@@ -59,16 +59,19 @@
 ;; My ears!
 (setq visible-bell t)
 
-(defpowerline mode-bar
+(defpowerline evil-mode-bar
   (if (and (boundp 'evil-mode) evil-mode)
       ;; evil-mode is active
       (format "[EVIL - %s]" (upcase (symbol-name evil-state)))
     ;; evil-mode is not active
-    (if mark-active
-        (format "[VISUAL]")
-      (if (and (boundp 'god-local-mode) god-local-mode)
-          (format "[NORMAL]")
-        (format "[INSERT]")))))
+    " "))
+
+(defpowerline god-mode-bar
+  (if (and (boundp 'god-local-mode)
+           (not evil-mode)
+           god-local-mode)
+          (format "[GOD]")
+    " "))
 
 (defun setup-powerline-theme ()
   "Setup the default mode-line."
@@ -92,7 +95,8 @@
                           (lhs (list (powerline-raw "%*" face-nil 'l)
                                      (powerline-raw mode-line-mule-info face-nil 'l)
                                      (powerline-buffer-id face-nil 'l)
-                                     (mode-bar (powerline-evil-face) 'l)
+                                     (evil-mode-bar (powerline-evil-face) 'l)
+                                     (god-mode-bar face-nil 'l)
                                      (when (and (boundp 'which-func-mode) which-func-mode)
                                        (powerline-raw which-func-format face-nil 'l))
                                      (powerline-raw " ")
