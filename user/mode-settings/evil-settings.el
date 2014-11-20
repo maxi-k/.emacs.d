@@ -29,15 +29,18 @@
                     (cons (face-foreground (intern (format "powerline-evil-%s-face" (symbol-name arg)))) '(box))))
       my/evil-states)
 
-;; SET UP EVIL KEY-BINDINGS ;;
+;; BASIC BINDINGS ;;
 (define-key evil-normal-state-map (kbd "n") #'newline)
 (define-key evil-normal-state-map (kbd "<return>") #'newline)
+(define-key evil-normal-state-map (kbd "\\") #'evil-emacs-state)
+
 (define-key evil-insert-state-map (kbd "C-g") #'evil-normal-state)
 (define-key evil-insert-state-map (kbd "M-n") #'evil-normal-state)
 
-;; SET UP ACE-JUMP-MODE FOR EVIL ;;
 
-;; The basic bindings
+(define-key evil-emacs-state-map (kbd "C-,") #'evil-god-state)
+
+;; ACE JUMP MODE ;;
 (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode)
 (define-key evil-motion-state-map (kbd "C-SPC") #'evil-ace-jump-word-mode)
 
@@ -45,7 +48,6 @@
 (define-key evil-operator-state-map (kbd "C-SPC") #'evil-ace-jump-char-to-mode) ; similar to t
 (define-key evil-operator-state-map (kbd "M-SPC") #'evil-ace-jump-word-mode)
 
-;; SET UP PROJECTILE FOR EVIL ;;
 (define-key evil-normal-state-map (kbd "]f") #'projectile-find-file)
 
 ;; Different jumps for different visual modes
@@ -58,16 +60,12 @@
 (defadvice evil-visual-block (before spc-for-char-jump activate)
   (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode))
 
-
-;; SET UP EVIL SURROUND ;;
 (global-evil-surround-mode t)
 
+;; EVIL GOD STATE ;;
+(evil-define-key 'normal global-map (kbd "C-,") #'evil-god-state)
+(evil-define-key 'god global-map [escape] #'evil-god-state-bail)
+(evil-define-key 'god global-map (kbd "g") #'evil-god-state-bail)
+(evil-define-key 'god global-map (kbd "C-,") #'evil-emacs-state)
 
-;; SET UP EVIL GOD MODE ;;
-
-(evil-define-key 'normal global-map (kbd "C-,") 'evil-god-state)
-(evil-define-key 'god global-map [escape] 'evil-god-state-bail)
-(evil-define-key 'god global-map (kbd "g") 'evil-god-state-bail)
-
-;; SET UP EVIL LEADER MODE ;;
 (provide 'evil-settings)
