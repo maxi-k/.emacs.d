@@ -133,6 +133,7 @@
 ;; So good!
 (global-set-key (kbd "C-c g") 'magit-status)
 
+(define-key Buffer-menu-mode-map (kbd "a") 'Buffer-menu-this-window)
 (add-hook 'org-mode-hook (lambda ()
                            (local-set-key (kbd "M-n") 'outline-next-visible-heading)
                            (local-set-key (kbd "M-p") 'outline-previous-visible-heading)
