@@ -33,12 +33,20 @@
 (define-key evil-normal-state-map (kbd "n") #'newline)
 (define-key evil-normal-state-map (kbd "<return>") #'newline)
 (define-key evil-normal-state-map (kbd "\\") #'evil-emacs-state)
+(define-key evil-normal-state-map (kbd "C-,") #'evil-god-state)
 
-(define-key evil-insert-state-map (kbd "C-g") #'evil-normal-state)
 (define-key evil-insert-state-map (kbd "M-n") #'evil-normal-state)
-
+(define-key evil-insert-state-map (kbd "s-\\") #'evil-emacs-state)
+(define-key evil-insert-state-map (kbd "C-,") #'evil-god-state)
 
 (define-key evil-emacs-state-map (kbd "C-,") #'evil-god-state)
+(define-key evil-emacs-state-map (kbd "M-n") #'evil-normal-state)
+(define-key evil-emacs-state-map [escape] #'evil-normal-state)
+
+(define-key evil-god-state-map [escape] #'evil-god-state-bail)
+(define-key evil-god-state-map (kbd "g") #'evil-god-state-bail)
+(define-key evil-god-state-map (kbd "M-n") #'evil-god-state-bail)
+(define-key evil-god-state-map (kbd "C-,") #'evil-emacs-state)
 
 ;; ACE JUMP MODE ;;
 (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode)
@@ -51,21 +59,16 @@
 (define-key evil-normal-state-map (kbd "]f") #'projectile-find-file)
 
 ;; Different jumps for different visual modes
-(defadvice evil-visual-line (before spc-for-line-jump activate)
-  (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-line-mode))
+(lambda ()
+ (defadvice evil-visual-line (before spc-for-line-jump activate)
+   (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-line-mode))
 
-(defadvice evil-visual-char (before spc-for-char-jump activate)
-  (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode))
+ (defadvice evil-visual-char (before spc-for-char-jump activate)
+   (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode))
 
-(defadvice evil-visual-block (before spc-for-char-jump activate)
-  (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode))
+ (defadvice evil-visual-block (before spc-for-char-jump activate)
+   (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode)))
 
 (global-evil-surround-mode t)
-
-;; EVIL GOD STATE ;;
-(evil-define-key 'normal global-map (kbd "C-,") #'evil-god-state)
-(evil-define-key 'god global-map [escape] #'evil-god-state-bail)
-(evil-define-key 'god global-map (kbd "g") #'evil-god-state-bail)
-(evil-define-key 'god global-map (kbd "C-,") #'evil-emacs-state)
 
 (provide 'evil-settings)
