@@ -4,14 +4,21 @@
 (setq mc/cmds-to-run-for-all
       '(
         ace-jump-mode
+        ace-jump-move
         cljr-cycle-coll
         cljr-cycle-privacy
         cljr-raise-sexp
         cljr-slash
         dired-do-rename
         eval-last-sexp
+        evil-ace-jump-char-mode
+        evil-backward-char
+        evil-forward-char
+        evil-next-line
+        evil-previous-line
         god-local-mode
         indent-for-tab-command
+        indent-new-comment-line
         isearch-abort
         isearch-backward-regexp
         isearch-forward-regexp
@@ -54,6 +61,7 @@
 (setq mc/cmds-to-run-once
       '(
         cleanup-buffer
+        cljr-expand-let
         describe-key-briefly
         haskell-indentation-delete-backward-char
         ido-find-file
