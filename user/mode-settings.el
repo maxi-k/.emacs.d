@@ -23,11 +23,17 @@
 
 ;; Set the markdown command to the homebrew install
 (custom-set-variables
- '(markdown-command "/usr/local/bin/pandoc")
- '(remember-theme-file (concat user-emacs-save-directory ".theme")))
+ '(markdown-command "/usr/local/bin/pandoc"))
 
 ;; Don't clutter the home dir
-(setq remember-data-directory "~/.emacs.d/data/remember")
+(setq remember-data-directory (concat user-emacs-save-directory "remember"))
+;; Set the yasnippet directory
+(progn
+  (add-to-list 'yas-snippet-dirs (concat user-emacs-save-directory "snippets"))
+  (delete "~/.emacs.d/snippets" yas-snippet-dirs)
+  (add-hook 'after-init-hook 'yas-reload-all))
+;; Global yas mode
+(yas-global-mode)
 
 ;; Initialize key-chord mode
 (key-chord-mode 1)

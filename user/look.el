@@ -7,6 +7,8 @@
 
 ;; Load the last theme only if explicitely called
 (remove-hook 'after-init-hook 'remember-theme-load)
+(custom-set-variables
+ '(remember-theme-file (concat user-emacs-save-directory ".theme")))
 
 ;; Initialize the window
 (if window-system
@@ -70,7 +72,7 @@
   (if (and (boundp 'god-local-mode)
            (not evil-mode)
            god-local-mode)
-          (format "[GOD]")
+      (format "[GOD]")
     " "))
 
 (defun setup-powerline-theme ()
