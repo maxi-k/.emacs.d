@@ -175,4 +175,11 @@
     (dotimes (n times result)
       (setq result (funcall fn result)))))
 
+(defun my/insert-alphabet (separator)
+  (interactive "sSeparator: ")
+  (message separator)
+  (let ((alphabet "abcdefghijklmnopqrstuvwxyz"))
+    (mapc (lambda (c) (insert c) (insert separator))
+          (mapcar 'char-to-string (append alphabet nil)))))
+
 (provide 'functions)
