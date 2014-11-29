@@ -27,11 +27,7 @@
 
 ;; Don't clutter the home dir
 (setq remember-data-directory (concat user-emacs-save-directory "remember"))
-;; Set the yasnippet directory
-(progn
-  (add-to-list 'yas-snippet-dirs (concat user-emacs-save-directory "snippets"))
-  (delete "~/.emacs.d/snippets" yas-snippet-dirs)
-  (add-hook 'after-init-hook 'yas-reload-all))
+
 ;; Global yas mode
 (yas-global-mode)
 

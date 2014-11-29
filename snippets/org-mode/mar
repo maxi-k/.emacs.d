@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: org-latex-margin
+# key: \mar
+# binding: direct-keybinding
+# --
+#+latex_header: \usepackage[margin=$0cm]{geometry}
