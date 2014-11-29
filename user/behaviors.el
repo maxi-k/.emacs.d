@@ -1,5 +1,3 @@
-(setq user-emacs-save-directory (concat user-emacs-directory "data/"))
-
 ;; Start emacs as a server
 (if (and (fboundp 'server-running-p)
          (not (server-running-p)))

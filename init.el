@@ -7,6 +7,8 @@
 ;; Initialize the packages
 (package-initialize)
 
+(setq user-emacs-save-directory (concat user-emacs-directory "data/"))
+
 ;; Refresh it
 (when (not package-archive-contents)
   (package-refresh-contents))
