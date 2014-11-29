@@ -17,6 +17,7 @@
    dash-at-point
    dirtree
    doremi
+   drag-stuff
    elisp-slime-nav
    elm-mode
    emmet-mode
@@ -87,7 +88,7 @@
   (let ((fresh-installs '()))
     (dolist (package my/packages)
       (unless (package-installed-p package)
-        (setq fresh-installs (append fresh-installs (symbol-name package)))
+        (setq fresh-installs (cons (symbol-name package) fresh-installs))
         (package-install package)))
     (message "Installed the following packages: %s"
              (mapconcat 'identity fresh-installs ", "))))
