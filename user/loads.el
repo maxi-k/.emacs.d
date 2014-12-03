@@ -77,6 +77,7 @@
    undo-tree
    visual-regexp
    windata
+   writeroom-mode
    yasnippet))
 
 (defun install-missing-packages ()
