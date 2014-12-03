@@ -10,6 +10,7 @@
         cljr-raise-sexp
         cljr-slash
         dired-do-rename
+        electric-newline-and-maybe-indent
         eval-last-sexp
         evil-ace-jump-char-mode
         evil-backward-char
@@ -55,6 +56,7 @@
         save-region-or-current-line
         sgml-slash
         transpose-words
+        yas-expand
         yas/expand
         ))
 
