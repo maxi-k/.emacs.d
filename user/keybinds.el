@@ -134,19 +134,6 @@
 (global-set-key (kbd "C-c g") 'magit-status)
 
 (define-key Buffer-menu-mode-map (kbd "a") 'Buffer-menu-this-window)
-(add-hook 'org-mode-hook (lambda ()
-                           (local-set-key (kbd "M-n") 'outline-next-visible-heading)
-                           (local-set-key (kbd "M-p") 'outline-previous-visible-heading)
-                           ;; table
-                           (local-set-key (kbd "H-i") 'org-table-insert-row)
-                           (local-set-key (kbd "H-k") 'org-table-kill-row)
-                           (local-set-key (kbd "C-M-y") 'org-table-paste-rectangle)
-                           (local-set-key (kbd "C-M-l") 'org-table-sort-lines)
-                           ;; display images
-                           (local-set-key (kbd "M-I") 'org-toggle-iimage-in-org)
-                           ;; fix tab
-                           (local-set-key (kbd "C-y") 'yank)
-                           ;; Make todos easier
-                           (local-set-key (kbd "s-t") 'org-todo)))
+
 
 (provide 'keybinds)
