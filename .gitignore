@@ -1,6 +1,7 @@
 data/
 smex-items
 .smex-items
+.mc-lists.el
 
 elpa/
 eshell/
