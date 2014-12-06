@@ -97,6 +97,7 @@
                           (lhs (list (powerline-raw "%*" face-nil 'l)
                                      (powerline-raw mode-line-mule-info face-nil 'l)
                                      (powerline-buffer-id face-nil 'l)
+                                     (powerline-raw " " face-nil 'l)
                                      (funcall separator-right face-nil face-evil)
                                      (evil-mode-bar face-evil nil)
                                      (funcall separator-left face-evil face-nil)
