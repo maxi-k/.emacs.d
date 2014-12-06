@@ -9,7 +9,9 @@
         cljr-cycle-privacy
         cljr-raise-sexp
         cljr-slash
+        dired-do-chmod
         dired-do-rename
+        dired-previous-line
         electric-newline-and-maybe-indent
         eval-last-sexp
         evil-ace-jump-char-mode
