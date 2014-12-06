@@ -26,9 +26,6 @@
 ;; Make repeating easier
 (global-set-key (kbd "C-.") 'repeat)
 
-;; NERDTree for emacs: dirtree
-(global-set-key (kbd "s-t") 'dirtree)
-
 ;; Org-mode agenda stuff
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c t") 'org-capture)
