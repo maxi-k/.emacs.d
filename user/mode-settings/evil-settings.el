@@ -1,18 +1,37 @@
 (setq my/evil-states '(normal insert visual operator replace motion emacs god))
 
 (defface powerline-evil-god-face
-  '((t (:background "purple" :inherit powerline-evil-base-face)))
+  '((t (:background "purple" :foreground "white" :inherit powerline-evil-base-face)))
   "Powerline face for evil GOD state."
   :group 'powerline)
 
-;; The evil powerline faces should be changing the foreground, not the background
-(defun setup-powerline-evil-faces ()
-  (set-face-foreground 'powerline-evil-base-face nil)
+;; Sets up my evil faces for powerline and cursor
+;; faces :: evil-state -> (background, foreground)
+(let ((faces '((normal   . ("#9BEA00" . "#006600"))
+               (insert   . ("#0088B2" . "#70E1FF"))
+               (visual   . ("#FF7C00" . "#920000"))
+               (operator . ("#00FFFF" . "#000000"))
+               (replace  . ("red"     . "black"))
+               (motion   . ("#FF00FF" . "#000000"))
+               (emacs    . ("violet"  . "purple" ))
+               (god      . ("purple"  . "white")))))
   (mapc (lambda (arg)
-          (invert-face (intern (format "powerline-evil-%s-face" (symbol-name arg)))))
-        my/evil-states))
+          (let ((state (symbol-name (car arg)))
+                (background (cadr arg))
+                (foreground (cddr arg)))
+            (message background)
+            (custom-declare-face
+             (intern (format "my/evil-%s-face" state))
+             `((t (:background ,background :foreground ,foreground)))
+             (format "Face for the evil %s state" state)
+             :group 'my/evil)))
+        faces))
 
-(setup-powerline-evil-faces)
+(defun my/cur-evil-face ()
+  "Returns the right my/evil-<state>-face for the current
+  evil state"
+  (let* ((face (intern (format "my/evil-%s-face" (symbol-name evil-state)))))
+    (if (facep face) face nil)))
 
 (defun reset-cursor-face ()
   (interactive)
@@ -26,7 +45,7 @@
 (add-hook 'evil-mode-hook 'reset-cursor-face)
 
 (mapc (lambda (arg) (set (intern (format "evil-%s-state-cursor" (symbol-name arg)))
-                    (cons (face-foreground (intern (format "powerline-evil-%s-face" (symbol-name arg)))) '(box))))
+                    (cons (face-background (intern (format "my/evil-%s-face" (symbol-name arg)))) '(box))))
       my/evil-states)
 
 ;; BASIC BINDINGS ;;
@@ -60,14 +79,14 @@
 
 ;; Different jumps for different visual modes
 (lambda ()
- (defadvice evil-visual-line (before spc-for-line-jump activate)
-   (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-line-mode))
+  (defadvice evil-visual-line (before spc-for-line-jump activate)
+    (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-line-mode))
 
- (defadvice evil-visual-char (before spc-for-char-jump activate)
-   (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode))
+  (defadvice evil-visual-char (before spc-for-char-jump activate)
+    (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode))
 
- (defadvice evil-visual-block (before spc-for-char-jump activate)
-   (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode)))
+  (defadvice evil-visual-block (before spc-for-char-jump activate)
+    (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode)))
 
 (global-evil-surround-mode t)
 

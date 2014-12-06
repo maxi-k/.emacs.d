@@ -59,7 +59,6 @@
    pkg-info
    popup
    powerline
-   powerline-evil
    projectile
    queue
    rainbow-delimiters
@@ -74,6 +73,7 @@
    string-utils
    tex-math-preview
    tree-mode
+   twig-mode
    undo-tree
    visual-regexp
    windata
