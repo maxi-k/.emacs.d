@@ -60,8 +60,7 @@
 (global-set-key (kbd "M-w") 'save-region-or-current-line)
 
 ;; Projectile is awesome!
-(global-unset-key (kbd "s-p"))
-(setq projectile-keymap-prefix (kbd "s-p"))
+(global-set-key (kbd "s-p") 'projectile-command-map)
 
 ;; Completion that uses many different methods to find options.
 (global-set-key (kbd "M-/") 'hippie-expand)

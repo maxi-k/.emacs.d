@@ -36,6 +36,7 @@
 
 ;; Projectile is awesome, so it'll be everywhere
 (projectile-global-mode)
+(setq projectile-require-project-root nil)
 
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'text-mode-hook 'turn-on-flyspell)
