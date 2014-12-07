@@ -3,6 +3,8 @@
 ;; Bind the fn key to be the hyper key
 (setq ns-function-modifier 'hyper)
 
+;; Unset some mac-specific keys
+(global-unset-key (kbd "s-t"))
 ;; Set up german umlaut support
 (global-set-key (kbd "H-a") (lambda () (interactive) (insert "ä"))) ;; ä
 (global-set-key (kbd "H-A") (lambda () (interactive) (insert "Ä"))) ;; Ä
