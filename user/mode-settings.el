@@ -61,6 +61,7 @@
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 ;; AC slows down writing too much
 ;; (add-hook 'prog-mode-hook 'auto-complete-mode)
+
 ;;;;;; LOADING MODE-SETTIGS ;;;;;;
 
 (require 'evil-settings)
