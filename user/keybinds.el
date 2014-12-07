@@ -22,6 +22,7 @@
 
 ;; Rebind the 'execute command' key to smex
 (global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
 ;; Make repeating easier
 (global-set-key (kbd "C-.") 'repeat)
