@@ -90,4 +90,8 @@
 
 (global-evil-surround-mode t)
 
+(progn
+  (add-hook 'multiple-cursors-mode-enabled-hook 'evil-emacs-state)
+  (add-hook 'multiple-cursors-mode-disabled-hook 'evil-normal-state))
+
 (provide 'evil-settings)
