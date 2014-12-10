@@ -57,6 +57,7 @@
 (define-key evil-insert-state-map (kbd "M-n") #'evil-normal-state)
 (define-key evil-insert-state-map (kbd "s-\\") #'evil-emacs-state)
 (define-key evil-insert-state-map (kbd "C-,") #'evil-god-state)
+(define-key evil-insert-state-map (kbd "C-;") #'evil-execute-in-normal-state)
 
 (define-key evil-emacs-state-map (kbd "C-,") #'evil-god-state)
 (define-key evil-emacs-state-map (kbd "M-n") #'evil-normal-state)
