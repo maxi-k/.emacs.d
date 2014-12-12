@@ -71,6 +71,7 @@
    smooth-scroll
    ssh
    string-utils
+   tagedit
    tex-math-preview
    tree-mode
    twig-mode
