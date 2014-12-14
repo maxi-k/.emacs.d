@@ -33,6 +33,7 @@
    f
    fill-column-indicator
    flycheck
+   fiplr
    git-commit-mode
    git-rebase-mode
    god-mode

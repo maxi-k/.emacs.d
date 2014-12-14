@@ -64,6 +64,8 @@
 ;; Projectile is awesome!
 (global-set-key (kbd "s-p") 'projectile-command-map)
 
+;; Fiplr is too!
+(global-set-key (kbd "s-o") 'fiplr-find-file)
 ;; Completion that uses many different methods to find options.
 (global-set-key (kbd "M-/") 'hippie-expand)
 
