@@ -15,6 +15,7 @@
    command-log-mode
    dash
    dash-at-point
+   discover
    dirtree
    doremi
    drag-stuff
