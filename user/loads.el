@@ -46,7 +46,6 @@
    idle-highlight-mode
    ido-ubiquitous
    iy-go-to-char
-   key-chord
    latex-preview-pane
    list-utils
    lorem-ipsum

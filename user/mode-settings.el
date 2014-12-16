@@ -31,9 +31,6 @@
 ;; Global yas mode
 (yas-global-mode)
 
-;; Initialize key-chord mode
-(key-chord-mode 1)
-
 ;; Projectile is awesome, so it'll be everywhere
 (projectile-global-mode)
 (setq projectile-require-project-root nil)
