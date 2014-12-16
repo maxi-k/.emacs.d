@@ -53,6 +53,9 @@
 (define-key evil-normal-state-map (kbd "<return>") #'newline)
 (define-key evil-normal-state-map (kbd "\\") #'evil-emacs-state)
 (define-key evil-normal-state-map (kbd "C-,") #'evil-god-state)
+;; Swap ; and : in normal mode
+(define-key evil-normal-state-map ":" #'evil-repeat-find-char)
+(define-key evil-normal-state-map ";" #'evil-ex)
 
 (define-key evil-insert-state-map (kbd "M-n") #'evil-normal-state)
 (define-key evil-insert-state-map (kbd "s-\\") #'evil-emacs-state)
