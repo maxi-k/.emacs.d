@@ -5,11 +5,6 @@
   (add-to-list 'custom-theme-load-path theme-path)
   (add-subfolders-to-theme-load-path theme-path))
 
-;; Load the last theme only if explicitely called
-(remove-hook 'after-init-hook 'remember-theme-load)
-(custom-set-variables
- '(remember-theme-file (concat user-emacs-save-directory ".theme")))
-
 ;; Initialize the window
 (if window-system
     (progn
@@ -20,7 +15,7 @@
       (scroll-bar-mode 0)
       (setq-default fill-column 90)
       (setq-default indicate-empty-lines t)
-      (remember-theme-load))
+      (add-hook 'after-init-hook (lambda () (load-theme-exclusively 'my-light))))
   (progn
     (menu-bar-mode -1)))
 

@@ -64,7 +64,6 @@
    queue
    rainbow-delimiters
    rainbow-identifiers
-   remember-theme
    s
    simple-httpd
    slime
