@@ -49,7 +49,11 @@
       my/evil-states)
 
 ;; BASIC BINDINGS ;;
-(define-key evil-normal-state-map (kbd "n") #'newline)
+(define-key evil-normal-state-map (kbd "n")
+  (lambda (arg) (interactive "P")
+    (when arg (previous-line))
+    (move-end-of-line nil)
+    (insert "\n")))
 (define-key evil-normal-state-map (kbd "<return>") #'newline)
 (define-key evil-normal-state-map (kbd "\\") #'evil-emacs-state)
 (define-key evil-normal-state-map (kbd "C-,") #'evil-god-state)
