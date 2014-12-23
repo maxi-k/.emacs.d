@@ -66,6 +66,10 @@
 
 ;; Fiplr is too!
 (global-set-key (kbd "s-o") 'fiplr-find-file)
+
+;; As well as quickrun
+(global-set-key (kbd "s-r") 'quickrun)
+
 ;; Completion that uses many different methods to find options.
 (global-set-key (kbd "M-/") 'hippie-expand)
 
@@ -114,6 +118,9 @@
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "C-x O") (lambda () (interactive) (other-window -1))) ;; back one
 (global-set-key (kbd "C-x C-o") (lambda () (interactive) (other-window 2))) ;; forward two
+
+;; Toggle horizontal/vertical split
+(global-set-key (kbd "M-O") 'toggle-window-split)
 
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
