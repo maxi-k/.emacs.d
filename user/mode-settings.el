@@ -38,9 +38,14 @@
 (projectile-global-mode)
 (setq projectile-require-project-root nil)
 
+;; Fiplr should recognize projectile files
+(add-to-list 'fiplr-root-markers ".projectile")
+
+;; Make text-mode nicer
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'text-mode-hook 'turn-on-flyspell)
 
+;; Add /usr/local/bin to eshell
 (add-hook 'eshell-mode-hook
           (lambda () (setq eshell-path-env (concat "/usr/local/bin:" eshell-path-env))))
 
