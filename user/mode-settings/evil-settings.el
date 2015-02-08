@@ -19,7 +19,6 @@
           (let ((state (symbol-name (car arg)))
                 (background (cadr arg))
                 (foreground (cddr arg)))
-            (message background)
             (custom-declare-face
              (intern (format "my/evil-%s-face" state))
              `((t (:background ,background :foreground ,foreground)))
@@ -44,12 +43,13 @@
 ;; This fixes that
 (add-hook 'evil-mode-hook 'reset-cursor-face)
 
+;; Switch the cursor color when changing modes
 (mapc (lambda (arg) (set (intern (format "evil-%s-state-cursor" (symbol-name arg)))
                     (cons (face-background (intern (format "my/evil-%s-face" (symbol-name arg)))) '(box))))
       my/evil-states)
 
 ;; BASIC BINDINGS ;;
-(define-key evil-normal-state-map (kbd "n")
+(define-key evil-normal-state-map (kbd "C-<return>")
   (lambda (arg) (interactive "P")
     (when arg (previous-line))
     (move-end-of-line nil)
