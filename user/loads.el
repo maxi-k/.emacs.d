@@ -65,6 +65,7 @@
    rainbow-delimiters
    rainbow-identifiers
    s
+   scala-mode
    simple-httpd
    slime
    smex
