@@ -1,3 +1,7 @@
+[submodule "user/plugins/org-reveal"]
+           path = user/plugins/org-reveal
+           url = https://github.com/yjwen/org-reveal
+
 [submodule "snippets/clojure-mode"]
            path = snippets/clojure-mode
            url = https://github.com/swanodette/clojure-snippets
