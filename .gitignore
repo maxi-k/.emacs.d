@@ -16,3 +16,4 @@ projectile-bookmarks.eld
 SessionDesktop.el
 cider-history
 custom.el
+*.elc
