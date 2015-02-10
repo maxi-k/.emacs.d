@@ -7,17 +7,14 @@
    auto-complete
    browse-kill-ring
    browse-url-dwim
-   buffer-move
    cider
    clj-refactor
    clojure-mode
    clojure-snippets
-   command-log-mode
    dash
    dash-at-point
    discover
    dirtree
-   doremi
    drag-stuff
    elisp-slime-nav
    elm-mode
