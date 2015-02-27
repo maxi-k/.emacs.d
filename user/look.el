@@ -51,7 +51,7 @@
 
 ;; Set the initial window size
 (setq initial-frame-alist
-      '((top . 20) (left . 20) (width . 100) (height . 37)))
+      '((top . 0) (left . 0) (width . 92) (height . 40)))
 
 ;; My ears!
 (setq visible-bell t)
