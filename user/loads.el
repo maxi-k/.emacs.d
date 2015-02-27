@@ -23,6 +23,7 @@
    evil
    evil-god-state
    evil-leader
+   evil-nerd-commenter
    evil-org
    evil-paredit
    evil-surround

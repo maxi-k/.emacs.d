@@ -48,6 +48,23 @@
                     (cons (face-background (intern (format "my/evil-%s-face" (symbol-name arg)))) '(box))))
       my/evil-states)
 
+;; Set the evil leader key
+(evil-leader/set-leader ",")
+;; Set the leader bindings
+(evil-leader/set-key
+  ;; byte-compile lisp
+  "lc" 'byte-compile-file
+  ;; evil-nerd-commenter
+  "ci" 'evilnc-comment-or-uncomment-lines
+  "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
+  "cc" 'evilnc-copy-and-comment-lines
+  "cp" 'evilnc-comment-or-uncomment-paragraphs
+  "cr" 'comment-or-uncomment-region
+  "cv" 'evilnc-toggle-invert-comment-line-by-line
+  "\\" 'evilnc-comment-operator)
+;; Activate leader whenever evil is active
+(global-evil-leader-mode)
+
 ;; BASIC BINDINGS ;;
 (define-key evil-normal-state-map (kbd "C-<return>")
   (lambda (arg) (interactive "P")
@@ -57,9 +74,11 @@
 (define-key evil-normal-state-map (kbd "<return>") #'newline)
 (define-key evil-normal-state-map (kbd "\\") #'evil-emacs-state)
 (define-key evil-normal-state-map (kbd "C-,") #'evil-god-state)
-;; Swap ; and : in normal mode
+;; Swap ; and : in normal and visual mode
 (define-key evil-normal-state-map ":" #'evil-repeat-find-char)
 (define-key evil-normal-state-map ";" #'evil-ex)
+(define-key evil-visual-state-map ":" #'evil-repeat-find-char)
+(define-key evil-visual-state-map ";" #'evil-ex)
 
 (define-key evil-insert-state-map (kbd "M-n") #'evil-normal-state)
 (define-key evil-insert-state-map (kbd "s-\\") #'evil-emacs-state)
