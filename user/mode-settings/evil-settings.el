@@ -62,8 +62,12 @@
   "cr" 'comment-or-uncomment-region
   "cv" 'evilnc-toggle-invert-comment-line-by-line
   "\\" 'evilnc-comment-operator)
-;; Activate leader whenever evil is active
+;; Activate leader everywhere (, + command)
 (global-evil-leader-mode)
+;; Activate evil-surround everywhere (cs'" => 'text' -> "text")
+(global-evil-surround-mode t)
+;; Activate evil visualstar everywhere (*)
+(global-evil-visualstar-mode t)
 
 ;; BASIC BINDINGS ;;
 (define-key evil-normal-state-map (kbd "C-<return>")
@@ -114,7 +118,5 @@
 
   (defadvice evil-visual-block (before spc-for-char-jump activate)
     (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode)))
-
-(global-evil-surround-mode t)
 
 (provide 'evil-settings)
