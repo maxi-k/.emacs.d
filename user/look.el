@@ -32,9 +32,9 @@
     :group 'basic-faces))
 
 ;; Keep track of the default cursor color
-(setq my/emacs-cursor-face (face-all-attributes 'cursor (car (frame-list))))
-(defadvice load-theme (after set-cursor-variable activate)
+(defun my/set-cursor-variable ()
   (setq my/emacs-cursor-face (face-all-attributes 'cursor (car (frame-list)))))
+(defadvice load-theme (after set-cursor-variable activate) (my/set-cursor-variable))
 
 ;; Turn on fill column indicator mode
 (define-globalized-minor-mode global-fci-mode fci-mode (lambda () (fci-mode 1)))
