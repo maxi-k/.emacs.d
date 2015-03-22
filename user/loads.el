@@ -39,6 +39,7 @@
    goto-chg
    haskell-mode
    helm
+   helm-itunes
    highlight-indentation
    htmlize
    idle-highlight-mode
