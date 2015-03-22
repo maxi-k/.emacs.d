@@ -34,6 +34,9 @@
 ;; Enable smartscan
 (smartscan-mode 1)
 
+;; Set the writeroom width to the fillcolumn width
+(setq writeroom-width (+ fill-column 10))
+
 ;; Projectile is awesome, so it'll be everywhere
 (projectile-global-mode)
 (setq projectile-require-project-root nil)
