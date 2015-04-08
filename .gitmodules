@@ -55,8 +55,8 @@
            url = https://github.com/jmdeldin/ir-black-theme.el
 
 [submodule "themes/material-theme"]
-           path = themes/material-theme
-           url = https://github.com/cpaulik/emacs-material-theme
+	path = themes/material-theme
+	url = https://github.com/cpaulik/emacs-material-theme
 
 [submodule "themes/monokai"]
            path = themes/monokai
