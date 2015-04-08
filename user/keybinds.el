@@ -140,7 +140,7 @@
 ;; Eval and insert after s-exp
 (global-set-key (kbd "C-c i") 'eval-and-insert)
 ;; Eval and insert after s-exp as comment
-(global-set-key (kbd "C-c c") 'eval-and-insert-as-comment)
+(global-set-key (kbd "C-x c") 'eval-and-insert-as-comment)
 
 ;; M-S-6 is awkward
 (global-set-key (kbd "s-l") 'join-line)
