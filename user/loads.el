@@ -19,6 +19,7 @@
    elisp-slime-nav
    elm-mode
    emmet-mode
+   engine-mode
    epl
    evil
    evil-god-state
@@ -102,6 +103,8 @@
 ;; Prompt the user to remove the package from my/packages
 (defadvice package-delete (after remove-from-pkg-list activate)
   (find-alternate-file-other-window (concat user-emacs-directory "user/loads.el")))
+
+(setq magit-last-seen-setup-instructions "1.4.0")
 
 (mapc 'require
       my/packages)

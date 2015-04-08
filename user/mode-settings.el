@@ -21,6 +21,15 @@
       ido-handle-duplicate-virtual-buffers 2
       ido-max-prospects 10)
 
+;; Activate engine mode and define some engines for
+;; searching from within emacs
+(engine-mode t)
+(defengine google "https://google.com/#q=google" "g")
+(defengine github "https://github.com/search?ref=simplesearch&q=%s")
+(defengine wikipedia "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s" "w")
+(defengine wikipedia-deutsch "http://www.wikipedia.org/search-redirect.php?language=de&go=Go&search=%s" "d")
+(defengine stack-overflow "https://stackoverflow.com/search?q=%s" "s")
+
 ;; Set the markdown command to the homebrew install
 (custom-set-variables
  '(markdown-command "/usr/local/bin/pandoc"))
