@@ -2,6 +2,10 @@
            path = user/plugins/org-reveal
            url = https://github.com/yjwen/org-reveal
 
+[submodule "user/plugins/deft"]
+           path = user/plugins/deft
+           url = git://jblevins.org/git/deft.git
+
 [submodule "snippets/clojure-mode"]
            path = snippets/clojure-mode
            url = https://github.com/swanodette/clojure-snippets

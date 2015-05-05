@@ -10,6 +10,13 @@
       org-startup-indented t
       org-footnote-auto-adjust t)
 
+;; Set up quick note taking with deft
+(require 'deft)
+(setq deft-extension "org"
+      deft-directory (concat org-directory "deft/")
+      deft-text-mode 'org-mode)
+(global-set-key (kbd "<f9>") 'deft)
+
 ;; Add the MacTeX programs to the exec-path & PATH
 (add-to-PATH "/Library/TeX/Distributions/Programs/texbin")
 (set-exec-path-to-PATH)
