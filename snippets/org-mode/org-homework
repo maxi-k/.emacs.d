@@ -8,3 +8,4 @@
 #+OPTIONS: toc:nil date:nil
 #+LaTeX_HEADER:\usepackage[margin=3cm]{geometry}
 #+LaTeX_HEADER:\usepackage{setspace}
+\onehalfspacing
