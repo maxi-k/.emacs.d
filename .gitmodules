@@ -8,7 +8,7 @@
 
 [submodule "snippets/clojure-mode"]
            path = snippets/clojure-mode
-           url = https://github.com/swanodette/clojure-snippets
+           url = https://github.com/swannodette/clojure-snippets
 
 [submodule "themes/ample"]
            path = themes/ample
