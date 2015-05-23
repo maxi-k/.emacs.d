@@ -23,12 +23,13 @@
 
 ;; Activate engine mode and define some engines for
 ;; searching from within emacs
+(engine/set-keymap-prefix (kbd "s-/"))
 (engine-mode t)
-(defengine google "https://google.com/#q=google" "g")
+(defengine google "https://google.com/#q=google" :keybinding "g")
 (defengine github "https://github.com/search?ref=simplesearch&q=%s")
-(defengine wikipedia "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s" "w")
-(defengine wikipedia-deutsch "http://www.wikipedia.org/search-redirect.php?language=de&go=Go&search=%s" "d")
-(defengine stack-overflow "https://stackoverflow.com/search?q=%s" "s")
+(defengine wikipedia "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s" :keybinding "w")
+(defengine wikipedia-deutsch "http://www.wikipedia.org/search-redirect.php?language=de&go=Go&search=%s" :keybinding"d")
+(defengine stack-overflow "https://stackoverflow.com/search?q=%s" :keybinding "s")
 
 ;; Set the markdown command to the homebrew install
 (custom-set-variables
