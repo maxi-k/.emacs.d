@@ -78,6 +78,7 @@
    twig-mode
    undo-tree
    visual-regexp
+   web-mode
    windata
    writeroom-mode
    yasnippet))

@@ -80,6 +80,9 @@
 ;; AC slows down writing too much
 ;; (add-hook 'prog-mode-hook 'auto-complete-mode)
 
+;; Web mode for html files (embedded js/css is common)
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+
 ;;;;;; LOADING MODE-SETTIGS ;;;;;;
 
 (require 'evil-settings)
