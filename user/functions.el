@@ -181,6 +181,7 @@
   (let ((alphabet "abcdefghijklmnopqrstuvwxyz"))
     (mapc (lambda (c) (insert c) (insert separator))
           (mapcar 'char-to-string (append alphabet nil)))))
+
 (defun toggle-window-split ()
   (interactive)
   (if (= (count-windows) 2)
@@ -210,5 +211,9 @@
   (interactive "sURL: ")
   (url-retrieve url
                 (lambda (status) (switch-to-buffer (current-buffer)))))
+
+(defun open-folder-in-finder ()
+    (interactive)
+  (shell-command "open ."))
 
 (provide 'functions)
