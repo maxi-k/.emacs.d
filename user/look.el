@@ -20,7 +20,7 @@
     (menu-bar-mode -1)))
 
 ;; Increase the font size
-(set-frame-font "Monaco-16" nil t)
+(set-frame-font "Source Code Pro-16" nil t)
 
 (custom-set-variables
  '(linum-format " %2d ")
