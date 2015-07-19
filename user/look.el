@@ -8,6 +8,7 @@
 ;; Initialize the window
 (if window-system
     (progn
+      (setq frame-resize-pixelwise t)
       (setq frame-title-format '(buffer-file-name "%f" ("%b")))
       (tooltip-mode -1)
       (mouse-wheel-mode t)
