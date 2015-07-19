@@ -33,12 +33,12 @@
    f
    fill-column-indicator
    flycheck
-   fiplr
    god-mode
    goto-chg
    haskell-mode
    helm
    helm-itunes
+   helm-projectile
    highlight-indentation
    htmlize
    idle-highlight-mode

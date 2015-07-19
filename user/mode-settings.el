@@ -8,18 +8,17 @@
 ;; Initialize smex
 (smex-initialize)
 
-;; Initialize ido mode
-(ido-mode t)
-(ido-ubiquitous t)
-(setq ido-save-directory-list-file (concat user-emacs-save-directory ".ido.last")
-      ido-enable-prefix nil
-      ido-enable-flex-matching t
-      ido-auto-merge-work-directories-length nil
-      ido-create-new-buffer 'always
-      ido-use-filename-at-point 'guess
-      ido-use-virtual-buffers t
-      ido-handle-duplicate-virtual-buffers 2
-      ido-max-prospects 10)
+;; Enable helm everywhere
+;; (setq helm-mode-fuzzy-match t)
+(helm-mode 1)
+(setq helm-buffers-fuzzy-matching t)
+(setq helm-recentf-fuzzy-match t)
+
+;; Enable projectile caching
+(setq projectile-completion-system 'helm)
+(setq projectile-enable-caching t)
+(helm-projectile-on)
+
 
 ;; Activate engine mode and define some engines for
 ;; searching from within emacs
@@ -50,9 +49,6 @@
 ;; Projectile is awesome, so it'll be everywhere
 (projectile-global-mode)
 (setq projectile-require-project-root nil)
-
-;; Fiplr should recognize projectile files
-(add-to-list 'fiplr-root-markers ".projectile")
 
 ;; Make text-mode nicer
 (add-hook 'text-mode-hook 'turn-on-auto-fill)

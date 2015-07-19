@@ -29,6 +29,7 @@
       sentence-end-double-space nil
       ;; set-mark-command-repeat-pop t
       shift-select-mode nil
+      transient-mark-mode t
       uniquify-buffer-name-style 'forward
       whitespace-line-column 80
       whitespace-style '(face trailing lines-tail tabs))

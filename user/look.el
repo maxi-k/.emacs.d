@@ -1,3 +1,4 @@
+
 ;; Add the themes folder and its subfolders to the load path
 ;; loading a theme is handled by the package 'remember-theme',
 ;; which loads the last theme used before quitting emacs
