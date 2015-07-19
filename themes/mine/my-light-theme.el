@@ -2,10 +2,10 @@
   "A custom light theme loosely based on the macvim theme.
   Unfinished.")
 
-
-(let ((bg "#fff")
-      (fg "#000")
-      (hl "ns_selection_bg_color")
+;; #f0f0f0
+(let ((bg "#ffffff")
+      (fg "#000000")
+      (hl "#D4EDFF")
       (cursor "#000")
       (string "#036DD0")
       (light-gray "#E6E6E6")
