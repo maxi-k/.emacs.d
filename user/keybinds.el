@@ -104,7 +104,7 @@
 ;; Clean up the buffer
 (global-set-key (kbd "s-c") 'cleanup-buffer)
 
-;; (fset 'quick-switch-buffer [?\C-x ?b return])
+(fset 'quick-switch-buffer [?\C-x ?b return])
 
 (global-set-key (kbd "s-v") 'quick-switch-buffer)
 (global-set-key (kbd "s-k") 'kill-this-buffer)
