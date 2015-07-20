@@ -12,12 +12,9 @@
    clojure-mode
    clojure-snippets
    dash
-   dash-at-point
    discover
-   dirtree
    drag-stuff
    elisp-slime-nav
-   elm-mode
    emmet-mode
    engine-mode
    epl
@@ -37,6 +34,7 @@
    goto-chg
    haskell-mode
    helm
+   helm-dash
    helm-itunes
    helm-projectile
    highlight-indentation
@@ -66,7 +64,6 @@
    scala-mode
    simple-httpd
    slime
-   smex
    smooth-scroll
    ssh
    string-utils
