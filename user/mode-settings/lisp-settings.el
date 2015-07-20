@@ -48,4 +48,7 @@
               (turn-on-paredit)))
   )
 
+;; Init helm-dash
+(add-hook 'clojure-mode-hook (lambda () (setq-local helm-dash-docsets '("clojure"))))
+
 (provide 'lisp-settings)

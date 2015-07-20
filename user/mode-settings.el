@@ -2,12 +2,6 @@
 ;; filename|folder
 (setq uniquify-buffer-name-style 'post-forward)
 
-;; Set the smex save items file
-(setq smex-save-file (concat user-emacs-save-directory ".smex-items"))
-
-;; Initialize smex
-(smex-initialize)
-
 ;; Enable helm everywhere
 ;; (setq helm-mode-fuzzy-match t)
 (helm-mode 1)
@@ -19,6 +13,8 @@
 (setq projectile-enable-caching t)
 (helm-projectile-on)
 
+;; Configure helm-dash
+(setq helm-dash-browser-func 'eww)
 
 ;; Activate engine mode and define some engines for
 ;; searching from within emacs
@@ -39,9 +35,6 @@
 
 ;; Global yas mode
 (yas-global-mode)
-
-;; Enable smartscan
-(smartscan-mode 1)
 
 ;; Set the writeroom width to the fillcolumn width
 (setq writeroom-width (+ fill-column 10))
