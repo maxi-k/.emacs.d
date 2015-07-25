@@ -6,7 +6,11 @@
       org-export-default-language "de"
       ;; Remove the annoying link in org mode exported html
       ;; org 8.0 (setq org-html-validation-link nil)
-      org-export-html-validation-link nil
+      org-html-validation-link nil
+      ;; Allow for local bindings in org documents
+      ;; e.g #+BIND: org-html-validation-link t
+      org-export-allow-bind-keywords t
+      org-export-async-debug nil
       org-startup-indented t
       org-footnote-auto-adjust t)
 
@@ -39,6 +43,16 @@
             (define-key map (kbd "s-s") (lambda () (interactive)
                                           (save-buffer)
                                           (org-reveal-export-to-html)))
+            map))
+
+(define-minor-mode org-html-auto-export-mode
+  "A minor mode for automatically exporting the org file
+  you are working on to html whenever you save the file."
+  :lighter "org-html-auto-export"
+  :keymap (let ((map (make-sparse-keymap)))
+            (define-key map (kbd "s-s") (lambda () (interactive)
+                                          (save-buffer)
+                                          (org-html-export-to-html t)))
             map))
 
 (custom-set-variables
