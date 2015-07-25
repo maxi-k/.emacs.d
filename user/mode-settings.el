@@ -2,11 +2,12 @@
 ;; filename|folder
 (setq uniquify-buffer-name-style 'post-forward)
 
-;; Enable helm everywhere
+;; Configure helm and enable everywhere
 ;; (setq helm-mode-fuzzy-match t)
 (helm-mode 1)
 (setq helm-buffers-fuzzy-matching t)
 (setq helm-recentf-fuzzy-match t)
+(setq helm-locate-command "mdfind -name %s %s")
 
 ;; Enable projectile caching
 (setq projectile-completion-system 'helm)
@@ -58,6 +59,8 @@
 (add-hook 'sgml-mode-hook 'emmet-mode)
 ;; Enable emmet for css abbreviation
 (add-hook 'css-mode-hook 'emmet-mode)
+;; Enable emmet for web mode
+(add-hook 'web-mode-hook 'emmet-mode)
 
 ;; Use the right ispell version
 (setq ispell-program-name "/usr/local/bin/ispell")
