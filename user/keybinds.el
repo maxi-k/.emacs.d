@@ -77,6 +77,8 @@
 
 ;; Helm mini!
 (global-set-key (kbd "s-m") 'helm-mini)
+;; Helm locate!
+(global-set-key (kbd "s-.") 'helm-locate)
 
 ;; As well as quickrun
 (global-set-key (kbd "s-r") 'quickrun)

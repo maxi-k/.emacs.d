@@ -41,6 +41,7 @@
    htmlize
    idle-highlight-mode
    ido-ubiquitous
+   impatient-mode
    iy-go-to-char
    latex-preview-pane
    list-utils
