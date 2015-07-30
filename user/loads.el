@@ -12,6 +12,7 @@
    clojure-mode
    clojure-snippets
    dash
+   deft
    discover
    drag-stuff
    elisp-slime-nav
