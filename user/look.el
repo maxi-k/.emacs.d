@@ -1,4 +1,3 @@
-
 ;; Add the themes folder and its subfolders to the load path
 ;; loading a theme is handled by the package 'remember-theme',
 ;; which loads the last theme used before quitting emacs
@@ -15,7 +14,7 @@
       (mouse-wheel-mode t)
       (blink-cursor-mode -1)
       (scroll-bar-mode 0)
-      (setq-default fill-column 90)
+      (setq-default fill-column 80)
       (setq-default indicate-empty-lines t)
       (add-hook 'after-init-hook (lambda () (load-theme-exclusively 'my-light))))
   (progn
@@ -38,9 +37,11 @@
   (setq my/emacs-cursor-face (face-all-attributes 'cursor (car (frame-list)))))
 (defadvice load-theme (after set-cursor-variable activate) (my/set-cursor-variable))
 
-;; Turn on fill column indicator mode
-(define-globalized-minor-mode global-fci-mode fci-mode (lambda () (fci-mode 1)))
-(global-fci-mode 1)
+;; Use whitespace mode for fill column indicator
+(setq
+ whitespace-line-column 80
+ whitespace-style       '(face lines-tail trailing tabs))
+(global-whitespace-mode)
 
 ;; Make the fringe the same color as the background
 (update-fringe-background)
