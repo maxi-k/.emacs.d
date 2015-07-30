@@ -1,4 +1,5 @@
 (setq my/evil-states '(normal insert visual operator replace motion emacs god))
+(setq evil-default-state 'emacs)
 
 (defface powerline-evil-god-face
   '((t (:background "purple" :foreground "white" :inherit powerline-evil-base-face)))
@@ -72,7 +73,7 @@
 ;; BASIC BINDINGS ;;
 (define-key evil-normal-state-map (kbd "C-<return>")
   (lambda (arg) (interactive "P")
-    (when arg (previous-line))
+    (when arg (forward-line -1))
     (move-end-of-line nil)
     (insert "\n")))
 (define-key evil-normal-state-map (kbd "<return>") #'newline)
@@ -118,5 +119,8 @@
 
   (defadvice evil-visual-block (before spc-for-char-jump activate)
     (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode)))
+
+;; The default state is emacs mode, so evil may aswell be activated
+(evil-mode 1)
 
 (provide 'evil-settings)
