@@ -28,7 +28,6 @@
    evil-visualstar
    expand-region
    f
-   fill-column-indicator
    flycheck
    god-mode
    goto-chg
@@ -43,6 +42,7 @@
    ido-ubiquitous
    impatient-mode
    iy-go-to-char
+   js2-mode
    latex-preview-pane
    list-utils
    lorem-ipsum
@@ -64,6 +64,7 @@
    s
    scala-mode
    simple-httpd
+   skewer-mode
    slime
    smooth-scroll
    ssh

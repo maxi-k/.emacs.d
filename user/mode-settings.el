@@ -65,7 +65,7 @@
 ;; Use the right ispell version
 (setq ispell-program-name "/usr/local/bin/ispell")
 ;; Set flyspell to german
-(setq ispell-dictionary "german8")
+(setq ispell-dictionary "english")
 
 ;; Activate rainbow delimiters everywhere
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
@@ -74,6 +74,13 @@
 
 ;; Web mode for html files (embedded js/css is common)
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+;; js2-mode for Javascript files
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
+;; Activate skewer mode for html, css and js
+(add-hook 'js2-mode-hook 'skewer-mode)
+(add-hook 'css-mode-hook 'skewer-css-mode)
+(add-hook 'html-mode-hook 'skewer-html-mode)
 
 ;;;;;; LOADING MODE-SETTIGS ;;;;;;
 
