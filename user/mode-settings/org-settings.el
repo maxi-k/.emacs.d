@@ -33,6 +33,11 @@
 
 ;; Set the org-reveal settings (ox-reveal)
 (setq org-reveal-root "file:///Users/Maxi/Applications/reveal-js")
+;; Make a function to load the ox-reveal library
+(defun activate-org-reveal ()
+  (interactive)
+  (load-library "ox-reveal"))
+
 
 (define-minor-mode org-reveal-auto-export-mode
   "A minor mode for automatically exporting the org file
