@@ -23,6 +23,10 @@
    `(cursor  ((t (:foreground ,bg :background ,cursor))))
    `(fringe ((t (:background ,bg))))
    `(region ((t (:background ,hl))))
+   `(whitespace-line  ((t (:foreground nil :background ,light-gray))))
+   `(whitespace-empty  ((t (:foreground nil :background ,light-gray))))
+   `(whitespace-tab  ((t (:foreground nil :background ,light-gray))))
+   `(whitespace-trailing  ((t (:foreground nil :background ,light-gray))))
 
    ;; fontlock
    `(font-lock-builtin-face ((t (:foreground ,fg))))
