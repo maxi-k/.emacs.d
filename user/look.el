@@ -32,11 +32,6 @@
     "Stop that annoying paren-face error"
     :group 'basic-faces))
 
-;; Keep track of the default cursor color
-(defun my/set-cursor-variable ()
-  (setq my/emacs-cursor-face (face-all-attributes 'cursor (car (frame-list)))))
-(defadvice load-theme (after set-cursor-variable activate) (my/set-cursor-variable))
-
 ;; Use whitespace mode for fill column indicator
 (setq
  whitespace-line-column 80

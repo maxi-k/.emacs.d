@@ -33,20 +33,27 @@
   (let* ((face (intern (format "my/evil-%s-face" (symbol-name evil-state)))))
     (if (facep face) face nil)))
 
-(defun reset-cursor-face ()
-  (interactive)
-  (unless evil-mode
-    (my/set-face-from-attributes 'cursor my/emacs-cursor-face))
-  (setq cursor-type 'box))
-
 ;; When exiting from evil mode when it's in
 ;; insert state, the cursor stays a line
-;; This fixes that
-(add-hook 'evil-mode-hook 'reset-cursor-face)
+;; This fixes that, as well as resetting the color
+(add-hook 'evil-mode-hook
+          (lambda () (unless evil-mode
+                  (my/set-face-from-attributes 'cursor my/emacs-cursor-face))))
+
+;; When loading a theme, save it's cursor face to
+;; the variable my/emacs-cursor-face
+;; If in evil mode, set the cursor to the appropriate evil face
+(defadvice load-theme (after set-cursor-face activate)
+  (setq my/emacs-cursor-face (face-all-attributes 'cursor
+                                                  (car (frame-list))))
+  (when evil-mode (evil-refresh-cursor)))
 
 ;; Switch the cursor color when changing modes
 (mapc (lambda (arg) (set (intern (format "evil-%s-state-cursor" (symbol-name arg)))
-                    (cons (face-background (intern (format "my/evil-%s-face" (symbol-name arg)))) '(box))))
+                    (cons (face-background (intern
+                                            (format "my/evil-%s-face"
+                                                    (symbol-name arg))))
+                          '(box))))
       my/evil-states)
 
 ;; Set the evil leader key
