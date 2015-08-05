@@ -166,9 +166,9 @@
 (defun my/set-face-from-attributes (face attrs)
   "Sets all the face attributes of given
   face from given attribute-value list"
-  (mapc
-   (lambda (attr) (set-face-attribute face nil (car attr) (cdr attr)))
-   attrs))
+  (mapc (lambda (attr)
+          (set-face-attribute face nil (car attr) (cdr attr)))
+        attrs))
 
 (defun my/call-times (fn times arg)
   (let ((result arg))
