@@ -52,6 +52,7 @@
    markdown-mode+
    multiple-cursors
    org
+   ox-reveal
    pabbrev
    paredit
    php-mode
