@@ -38,7 +38,6 @@
   (interactive)
   (load-library "ox-reveal"))
 
-
 (define-minor-mode org-reveal-auto-export-mode
   "A minor mode for automatically exporting the org file
   you are working on to html whenever you save the file.
