@@ -23,4 +23,6 @@
 ;; Setting mode-specific stuff
 (require 'mode-settings)
 
+(delete-dups (add-PATH-to-exec-path))
+
 (provide 'user-init)

@@ -1,10 +1,11 @@
 (defun add-to-PATH (s)
   "Adds given String (without :) to the PATH"
-  (setenv "PATH" (concat (getenv "PATH") (concat ":" s))))
+  (setenv "PATH" (concat (getenv "PATH") (concat path-separator s))))
 
-(defun set-exec-path-to-PATH ()
+(defun add-PATH-to-exec-path ()
   "Sets the exec-path to the same value as PATH"
-  (setq exec-path (split-string (getenv "PATH") path-separator)))
+  (setq exec-path (append exec-path
+                          (split-string (getenv "PATH") path-separator))))
 
 (defun set-exec-path-from-shell-PATH ()
   "Sets the exec-path to the same value used by the user shell"

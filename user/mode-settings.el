@@ -48,10 +48,6 @@
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'text-mode-hook 'turn-on-flyspell)
 
-;; Add /usr/local/bin to eshell
-(add-hook 'eshell-mode-hook
-          (lambda () (setq eshell-path-env (concat "/usr/local/bin:" eshell-path-env))))
-
 ;; Remove trailing whitespace when saving
 (add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
 
@@ -94,5 +90,6 @@
 
 (require 'haskell-settings)
 
+(require 'ox-confluence)
 
 (provide 'mode-settings)

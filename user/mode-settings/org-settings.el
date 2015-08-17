@@ -12,7 +12,9 @@
       org-export-allow-bind-keywords t
       org-export-async-debug nil
       org-startup-indented t
-      org-footnote-auto-adjust t)
+      org-footnote-auto-adjust t
+      ;; fontify code in code blocks
+      org-src-fontify-natively t)
 
 ;; Set up quick note taking with deft
 (require 'deft)
@@ -21,15 +23,21 @@
       deft-text-mode 'org-mode)
 (global-set-key (kbd "<f9>") 'deft)
 
-;; Add the MacTeX programs to the exec-path & PATH
+;; Add the MacTeX programs to the PATH
 (add-to-PATH "/Library/TeX/Distributions/Programs/texbin")
-(set-exec-path-to-PATH)
 
 ;; Use the MathToWeb jar for converting LaTeX to MathML/odf
 (setq org-latex-to-mathml-convert-command
       "java -jar %j -unicode -force -df %o %I"
       org-latex-to-mathml-jar-file
       "~/Applications/MathToWeb/mathtoweb.jar")
+
+(require 'ox-latex)
+(setenv "PDFLATEX" "pdflatex -shell-escape")
+(setq org-latex-pdf-process '("texi2dvi --pdf %f"))
+;; Enable LaTeX (pdf) syntax highlighting
+(add-to-list 'org-latex-packages-alist '("" "minted"))
+(setq org-latex-listings 'minted)
 
 ;; Set the org-reveal settings (ox-reveal)
 (setq org-reveal-root "file:///Users/Maxi/Applications/reveal-js")
