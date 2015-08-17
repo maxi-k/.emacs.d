@@ -52,6 +52,7 @@
    markdown-mode+
    multiple-cursors
    org
+   ox-gfm
    ox-reveal
    pabbrev
    paredit
