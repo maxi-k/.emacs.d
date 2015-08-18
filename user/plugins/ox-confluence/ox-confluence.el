@@ -114,7 +114,7 @@
          (language (if (string= lang "sh") "bash" ;; FIXME: provide a mapping of some sort
                      lang))
          (content (org-export-format-code-default src-block info)))
-    (org-confluence--block language "Emacs" content)))
+    (org-confluence--block language org-confluence-src-block-theme content)))
 
 (defun org-confluence-strike-through (strike-through contents info)
   (format "-%s-" contents))

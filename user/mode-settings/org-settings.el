@@ -16,6 +16,8 @@
       ;; fontify code in code blocks
       org-src-fontify-natively t)
 
+(setq org-confluence-src-block-theme "Default")
+
 ;; Set up quick note taking with deft
 (require 'deft)
 (setq deft-extension "org"
