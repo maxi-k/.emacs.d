@@ -16,6 +16,7 @@
       ;; fontify code in code blocks
       org-src-fontify-natively t)
 
+;; Change per-file with #+BIND: org-confluence-src-block-theme "Emacs"
 (setq org-confluence-src-block-theme "Default")
 
 ;; Set up quick note taking with deft
@@ -68,9 +69,6 @@
                                           (save-buffer)
                                           (org-html-export-to-html t)))
             map))
-
-(custom-set-variables
- '(org-agenda-files (quote ("~/Documents/Org/scratch.org"))))
 
 ;; Define some local keybindings
 (let ((bindings `((,(kbd "M-h") . kill-region-or-backward-word)
