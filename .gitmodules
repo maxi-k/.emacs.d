@@ -50,6 +50,10 @@
            path = themes/ir-black-theme
            url = https://github.com/jmdeldin/ir-black-theme.el
 
+[submodule "themes/leuven-theme"]
+           path = themes/leuven-theme
+           url = https://github.com/fniessen/emacs-leuven-theme
+
 [submodule "themes/material-theme"]
            path = themes/material-theme
            url = https://github.com/cpaulik/emacs-material-theme
