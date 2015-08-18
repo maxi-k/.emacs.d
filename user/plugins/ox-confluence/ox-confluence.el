@@ -26,7 +26,7 @@
 ;; using the ox.el export engine.
 ;;
 ;; Put this file into your load-path and the following into your ~/.emacs:
-;;	 (require 'ox-confluence)
+;;       (require 'ox-confluence)
 ;;
 ;; Export Org files to confluence:
 ;; M-x org-confluence-export-as-confluence RET
@@ -39,23 +39,23 @@
 ;; Define the backend itself
 (org-export-define-derived-backend 'confluence 'ascii
   :translate-alist '((bold . org-confluence-bold)
-		     (example-block . org-confluence-example-block)
-		     (fixed-width . org-confluence-fixed-width)
-		     (footnote-definition . org-confluence-empty)
-		     (footnote-reference . org-confluence-empty)
-		     (headline . org-confluence-headline)
-		     (italic . org-confluence-italic)
+                     (example-block . org-confluence-example-block)
+                     (fixed-width . org-confluence-fixed-width)
+                     (footnote-definition . org-confluence-empty)
+                     (footnote-reference . org-confluence-empty)
+                     (headline . org-confluence-headline)
+                     (italic . org-confluence-italic)
                      (item . org-confluence-item)
-		     (link . org-confluence-link)
-		     (property-drawer . org-confluence-property-drawer)
-		     (section . org-confluence-section)
-		     (src-block . org-confluence-src-block)
-		     (strike-through . org-confluence-strike-through)
-		     (table . org-confluence-table)
-		     (table-cell . org-confluence-table-cell)
-		     (table-row . org-confluence-table-row)
-		     (template . org-confluence-template)
-		     (underline . org-confluence-underline)))
+                     (link . org-confluence-link)
+                     (property-drawer . org-confluence-property-drawer)
+                     (section . org-confluence-section)
+                     (src-block . org-confluence-src-block)
+                     (strike-through . org-confluence-strike-through)
+                     (table . org-confluence-table)
+                     (table-cell . org-confluence-table-cell)
+                     (table-row . org-confluence-table-row)
+                     (template . org-confluence-template)
+                     (underline . org-confluence-underline)))
 
 ;; All the functions we use
 (defun org-confluence-bold (bold contents info)
@@ -168,7 +168,7 @@
 
 ;; main interactive entrypoint
 (defun org-confluence-export-as-confluence
-  (&optional async subtreep visible-only body-only ext-plist)
+    (&optional async subtreep visible-only body-only ext-plist)
   "Export current buffer to a text buffer.
 
 If narrowing is active in the current buffer, only export its
