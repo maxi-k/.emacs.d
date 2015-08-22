@@ -103,6 +103,9 @@
 (define-key key-translation-map [?\C-h] [?\C-?])
 (global-set-key (kbd "M-h") 'kill-region-or-backward-word)
 
+;; Browse the kill ring
+(global-set-key (kbd "C-x C-y") 'browse-kill-ring)
+
 ;; Clean up the buffer
 (global-set-key (kbd "s-c") 'cleanup-buffer)
 
