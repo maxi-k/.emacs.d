@@ -6,7 +6,7 @@
 (let ((bg "#ffffff")
       (fg "#000000")
       (hl "#D4EDFF")
-      (cursor "#000")
+      (cursor "red")
       (string "#036DD0")
       (light-gray "#E6E6E6")
       (medium-gray "#7F7F7F")
