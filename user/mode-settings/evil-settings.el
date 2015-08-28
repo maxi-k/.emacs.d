@@ -1,6 +1,8 @@
 (setq my/evil-states '(normal insert visual operator replace motion emacs god))
 (setq evil-default-state 'emacs)
 
+;;;;;;; LOOK ;;;;;;;;
+
 (defface powerline-evil-god-face
   '((t (:background "purple" :foreground "white" :inherit powerline-evil-base-face)))
   "Powerline face for evil GOD state."
@@ -56,10 +58,17 @@
                           '(box))))
       my/evil-states)
 
+
+;;;;;;;; CONTROLS ;;;;;;;;
+
 ;; Set the evil leader key
-(evil-leader/set-leader ",")
+(evil-leader/set-leader "SPC")
 ;; Set the leader bindings
 (evil-leader/set-key
+  ;; Meta x
+  "x" 'execute-extended-command
+  ;; Projectile
+  "p" 'projectile-command-map
   ;; byte-compile lisp
   "lc" 'byte-compile-file
   ;; evil-nerd-commenter
@@ -69,7 +78,12 @@
   "cp" 'evilnc-comment-or-uncomment-paragraphs
   "cr" 'comment-or-uncomment-region
   "cv" 'evilnc-toggle-invert-comment-line-by-line
-  "\\" 'evilnc-comment-operator)
+  "\\" 'evilnc-comment-operator
+  "jj" 'evil-ace-jump-char-mode
+  "jw" 'evil-ace-jump-word-mode
+  "jt" 'evil-ace-jump-char-to-mode
+  )
+
 ;; Activate leader everywhere (, + command)
 (global-evil-leader-mode)
 ;; Activate evil-surround everywhere (cs'" => 'text' -> "text")
@@ -86,6 +100,7 @@
 (define-key evil-normal-state-map (kbd "<return>") #'newline)
 (define-key evil-normal-state-map (kbd "\\") #'evil-emacs-state)
 (define-key evil-normal-state-map (kbd "C-,") #'evil-god-state)
+
 ;; Swap ; and : in normal and visual mode
 (define-key evil-normal-state-map ":" #'evil-repeat-find-char)
 (define-key evil-normal-state-map ";" #'evil-ex)
@@ -105,27 +120,6 @@
 (define-key evil-god-state-map (kbd "g") #'evil-god-state-bail)
 (define-key evil-god-state-map (kbd "M-n") #'evil-god-state-bail)
 (define-key evil-god-state-map (kbd "C-,") #'evil-emacs-state)
-
-;; ACE JUMP MODE ;;
-(define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode)
-(define-key evil-motion-state-map (kbd "C-SPC") #'evil-ace-jump-word-mode)
-
-(define-key evil-operator-state-map (kbd "SPC") #'evil-ace-jump-char-mode)      ; similar to f
-(define-key evil-operator-state-map (kbd "C-SPC") #'evil-ace-jump-char-to-mode) ; similar to t
-(define-key evil-operator-state-map (kbd "M-SPC") #'evil-ace-jump-word-mode)
-
-(define-key evil-normal-state-map (kbd "]f") #'projectile-find-file)
-
-;; Different jumps for different visual modes
-(lambda ()
-  (defadvice evil-visual-line (before spc-for-line-jump activate)
-    (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-line-mode))
-
-  (defadvice evil-visual-char (before spc-for-char-jump activate)
-    (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode))
-
-  (defadvice evil-visual-block (before spc-for-char-jump activate)
-    (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode)))
 
 ;; The default state is emacs mode, so evil may aswell be activated
 (evil-mode 1)
