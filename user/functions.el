@@ -54,10 +54,16 @@
               (remove-if-not 'buffer-file-name (buffer-list)))))
 
 (defun org-scratch-buffer ()
-  "Create a second scratch buffer in org mode."
+  "Create a scratch buffer in org mode."
   (interactive)
   (switch-to-buffer (get-buffer-create "*scratch-org*"))
   (org-mode))
+
+(defun new-scratch-buffer (name)
+  "Create a scratch-buffer with given name (*scratch-{name}*)"
+  (interactive "sName: ")
+  (switch-to-buffer (get-buffer-create (concat "*scratch-" name "*")))
+  (lisp-interaction-mode))
 
 (defun jump-to-mark ()
   "Jumps to the local mark, respecting the `mark-ring' order.
