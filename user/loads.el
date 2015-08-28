@@ -81,6 +81,7 @@
    web-mode
    windata
    writeroom-mode
+   yaml-mode
    yasnippet))
 
 (defun install-missing-packages ()
