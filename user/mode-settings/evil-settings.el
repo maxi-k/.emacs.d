@@ -67,9 +67,9 @@
 (evil-leader/set-key
   ;; Meta x
   "x" 'execute-extended-command
-  ;; Projectile
+  "b" 'switch-to-buffer
   "p" 'projectile-command-map
-  ;; byte-compile lisp
+  "g" 'keyboard-quit
   "lc" 'byte-compile-file
   ;; evil-nerd-commenter
   "ci" 'evilnc-comment-or-uncomment-lines
