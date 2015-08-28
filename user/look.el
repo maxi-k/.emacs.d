@@ -52,7 +52,13 @@
       '((top . 0) (left . 0) (width . 92) (height . 40)))
 
 ;; My ears!
-(setq visible-bell t)
+(defun bell-modeline-flash ()
+  "A friendlier visual bell effect."
+  (invert-face 'mode-line)
+  (run-with-timer 0.1 nil 'invert-face 'mode-line))
+
+(setq visible-bell nil
+      ring-bell-function 'bell-modeline-flash)
 
 (defpowerline evil-mode-bar
   (if (and (boundp 'evil-mode) evil-mode)
