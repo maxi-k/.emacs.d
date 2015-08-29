@@ -38,6 +38,9 @@
  whitespace-style       '(face lines-tail trailing tabs))
 (global-whitespace-mode)
 
+;; Always highlight the line the cursor is on
+(global-hl-line-mode)
+
 ;; Make the fringe the same color as the background
 (update-fringe-background)
 

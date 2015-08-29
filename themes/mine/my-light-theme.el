@@ -7,6 +7,7 @@
       (fg "#000000")
       (hl "#D4EDFF")
       (cursor "red")
+      (line-hl "#F7F7F7")
       (string "#036DD0")
       (light-gray "#E6E6E6")
       (medium-gray "#7F7F7F")
@@ -21,6 +22,7 @@
    'my-light
    `(default ((t (:foreground ,fg :background ,bg))))
    `(cursor  ((t (:foreground ,bg :background ,cursor))))
+   `(hl-line ((t (:background ,line-hl))))
    `(fringe ((t (:background ,bg))))
    `(region ((t (:background ,hl))))
    `(whitespace-line  ((t (:foreground nil :background ,light-gray))))
