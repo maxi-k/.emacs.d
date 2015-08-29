@@ -1,5 +1,5 @@
 (setq my/evil-states '(normal insert visual operator replace motion emacs god))
-(setq evil-default-state 'emacs)
+(setq evil-default-state 'normal)
 
 ;;;;;;; LOOK ;;;;;;;;
 
@@ -121,7 +121,7 @@
 (define-key evil-god-state-map (kbd "M-n") #'evil-god-state-bail)
 (define-key evil-god-state-map (kbd "C-,") #'evil-emacs-state)
 
-;; The default state is emacs mode, so evil may aswell be activated
+;; Activate evil-mode by default
 (evil-mode 1)
 
 (provide 'evil-settings)
