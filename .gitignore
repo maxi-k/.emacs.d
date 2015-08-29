@@ -17,3 +17,6 @@ SessionDesktop.el
 cider-history
 custom.el
 *.elc
+
+*.swp
+type-break
