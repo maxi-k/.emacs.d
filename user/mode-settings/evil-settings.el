@@ -121,6 +121,9 @@
 (define-key evil-god-state-map (kbd "M-n") #'evil-god-state-bail)
 (define-key evil-god-state-map (kbd "C-,") #'evil-emacs-state)
 
+;; Make the evil visual selection behave like emacs
+;; (ends before the point, not on the point)
+(setq evil-visual-char 'exclusive)
 ;; Activate evil-mode by default
 (evil-mode 1)
 
