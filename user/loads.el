@@ -23,7 +23,6 @@
    evil-god-state
    evil-leader
    evil-nerd-commenter
-   evil-org
    evil-paredit
    evil-surround
    evil-visualstar
@@ -42,6 +41,7 @@
    idle-highlight-mode
    ido-ubiquitous
    impatient-mode
+   inf-ruby
    iy-go-to-char
    js2-mode
    latex-preview-pane
@@ -52,6 +52,7 @@
    markdown-mode+
    multiple-cursors
    org
+   org-bullets
    ox-gfm
    ox-reveal
    pabbrev
