@@ -43,7 +43,7 @@
 (setq org-latex-listings 'minted)
 
 ;; Used for extracting org-source-blocks into their own files
-(require 'ob-tangle))
+(require 'ob-tangle)
 
 ;; Load more languages for org-babel
 (org-babel-do-load-languages
