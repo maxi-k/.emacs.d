@@ -3,6 +3,7 @@ smex-items
 .smex-items
 .mc-lists.el
 projectile.cache
+skewer-cache/
 
 elpa/
 eshell/
