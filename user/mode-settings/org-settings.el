@@ -42,6 +42,29 @@
 (add-to-list 'org-latex-packages-alist '("" "minted"))
 (setq org-latex-listings 'minted)
 
+;; Used for extracting org-source-blocks into their own files
+(require 'ob-tangle))
+
+;; Load more languages for org-babel
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((sh         . t)
+   (js         . t)
+   (emacs-lisp . t)
+   (perl       . t)
+   (scala      . t)
+   (clojure    . t)
+   (python     . t)
+   (ruby       . t)
+   (dot        . t)
+   (css        . t)
+   (plantuml   . t)))
+
+;; Don't ask before evaluating code snippets
+(setq org-confirm-babel-evaluate nil)
+;; Make tab in source blocks behave like it would in the language
+(setq org-src-tab-acts-natively t)
+
 ;; Set the org-reveal settings (ox-reveal)
 (setq org-reveal-root "file:///Users/Maxi/Applications/reveal-js")
 ;; Make a function to load the ox-reveal library
@@ -84,5 +107,8 @@
   (mapc (lambda (arg)
           (define-key org-mode-map (car arg) (cdr arg)))
         bindings))
+
+;; Make the bullets look nicer
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 (provide 'org-settings)
