@@ -1,0 +1,16 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: project-header
+# key: project
+# binding: direct-keybinding
+# --
+#+TITLE: $1
+#+AUTHOR: Maximilian Kuschewski
+#+EMAIL: maxi.kuschewski@gmail.com
+#+LANGUAGE: en
+#+OPTIONS: reveal_single_file:t
+#+OPTIONS: date:nil creator:nil timestamp:nil
+#+LaTeX_HEADER:\usepackage[margin=3cm]{geometry}
+#+LaTeX_HEADER:\usepackage{setspace}
+#+LaTeX_HEADER: \usemintedstyle{autumn}
+#+REVEAL_THEME: serif
+#+REVEAL_TRANS: linear

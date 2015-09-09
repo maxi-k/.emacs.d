@@ -12,12 +12,10 @@
    clojure-mode
    clojure-snippets
    dash
-   dash-at-point
+   deft
    discover
-   dirtree
    drag-stuff
    elisp-slime-nav
-   elm-mode
    emmet-mode
    engine-mode
    epl
@@ -25,25 +23,27 @@
    evil-god-state
    evil-leader
    evil-nerd-commenter
-   evil-org
    evil-paredit
    evil-surround
    evil-visualstar
    expand-region
    f
-   fill-column-indicator
    flycheck
-   fiplr
    god-mode
    goto-chg
    haskell-mode
    helm
+   helm-dash
    helm-itunes
+   helm-projectile
    highlight-indentation
    htmlize
    idle-highlight-mode
    ido-ubiquitous
+   impatient-mode
+   inf-ruby
    iy-go-to-char
+   js2-mode
    latex-preview-pane
    list-utils
    lorem-ipsum
@@ -52,6 +52,9 @@
    markdown-mode+
    multiple-cursors
    org
+   org-bullets
+   ox-gfm
+   ox-reveal
    pabbrev
    paredit
    php-mode
@@ -65,8 +68,8 @@
    s
    scala-mode
    simple-httpd
+   skewer-mode
    slime
-   smex
    smooth-scroll
    ssh
    string-utils
@@ -79,6 +82,7 @@
    web-mode
    windata
    writeroom-mode
+   yaml-mode
    yasnippet))
 
 (defun install-missing-packages ()

@@ -2,24 +2,20 @@
 ;; filename|folder
 (setq uniquify-buffer-name-style 'post-forward)
 
-;; Set the smex save items file
-(setq smex-save-file (concat user-emacs-save-directory ".smex-items"))
+;; Configure helm and enable everywhere
+;; (setq helm-mode-fuzzy-match t)
+(helm-mode 1)
+(setq helm-buffers-fuzzy-matching t)
+(setq helm-recentf-fuzzy-match t)
+(setq helm-locate-command "mdfind -name %s %s")
 
-;; Initialize smex
-(smex-initialize)
+;; Enable projectile caching
+(setq projectile-completion-system 'helm)
+(setq projectile-enable-caching t)
+(helm-projectile-on)
 
-;; Initialize ido mode
-(ido-mode t)
-(ido-ubiquitous t)
-(setq ido-save-directory-list-file (concat user-emacs-save-directory ".ido.last")
-      ido-enable-prefix nil
-      ido-enable-flex-matching t
-      ido-auto-merge-work-directories-length nil
-      ido-create-new-buffer 'always
-      ido-use-filename-at-point 'guess
-      ido-use-virtual-buffers t
-      ido-handle-duplicate-virtual-buffers 2
-      ido-max-prospects 10)
+;; Configure helm-dash
+(setq helm-dash-browser-func 'eww)
 
 ;; Activate engine mode and define some engines for
 ;; searching from within emacs
@@ -41,9 +37,6 @@
 ;; Global yas mode
 (yas-global-mode)
 
-;; Enable smartscan
-(smartscan-mode 1)
-
 ;; Set the writeroom width to the fillcolumn width
 (setq writeroom-width (+ fill-column 10))
 
@@ -51,16 +44,9 @@
 (projectile-global-mode)
 (setq projectile-require-project-root nil)
 
-;; Fiplr should recognize projectile files
-(add-to-list 'fiplr-root-markers ".projectile")
-
 ;; Make text-mode nicer
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'text-mode-hook 'turn-on-flyspell)
-
-;; Add /usr/local/bin to eshell
-(add-hook 'eshell-mode-hook
-          (lambda () (setq eshell-path-env (concat "/usr/local/bin:" eshell-path-env))))
 
 ;; Remove trailing whitespace when saving
 (add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
@@ -69,11 +55,15 @@
 (add-hook 'sgml-mode-hook 'emmet-mode)
 ;; Enable emmet for css abbreviation
 (add-hook 'css-mode-hook 'emmet-mode)
+;; Enable emmet for web mode
+(add-hook 'web-mode-hook 'emmet-mode)
+;; Enable emment for xml
+(add-hook 'nxml-mode-hook 'emmet-mode)
 
 ;; Use the right ispell version
 (setq ispell-program-name "/usr/local/bin/ispell")
 ;; Set flyspell to german
-(setq ispell-dictionary "german8")
+(setq ispell-dictionary "english")
 
 ;; Activate rainbow delimiters everywhere
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
@@ -82,6 +72,16 @@
 
 ;; Web mode for html files (embedded js/css is common)
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+;; js2-mode for Javascript files
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
+;; Activate skewer mode for html, css and js
+(add-hook 'js2-mode-hook 'skewer-mode)
+(add-hook 'css-mode-hook 'skewer-css-mode)
+(add-hook 'html-mode-hook 'skewer-html-mode)
+
+;; Remove the quickrun timeout, so it doesn't shut down after 10s
+(setq quickrun-timeout-seconds 120)
 
 ;;;;;; LOADING MODE-SETTIGS ;;;;;;
 
@@ -95,5 +95,6 @@
 
 (require 'haskell-settings)
 
+(require 'ox-confluence)
 
 (provide 'mode-settings)

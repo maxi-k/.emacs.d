@@ -1,10 +1,11 @@
 (defun add-to-PATH (s)
   "Adds given String (without :) to the PATH"
-  (setenv "PATH" (concat (getenv "PATH") (concat ":" s))))
+  (setenv "PATH" (concat (getenv "PATH") (concat path-separator s))))
 
-(defun set-exec-path-to-PATH ()
+(defun add-PATH-to-exec-path ()
   "Sets the exec-path to the same value as PATH"
-  (setq exec-path (split-string (getenv "PATH") path-separator)))
+  (setq exec-path (append exec-path
+                          (split-string (getenv "PATH") path-separator))))
 
 (defun set-exec-path-from-shell-PATH ()
   "Sets the exec-path to the same value used by the user shell"
@@ -53,10 +54,16 @@
               (remove-if-not 'buffer-file-name (buffer-list)))))
 
 (defun org-scratch-buffer ()
-  "Create a second scratch buffer in org mode."
+  "Create a scratch buffer in org mode."
   (interactive)
   (switch-to-buffer (get-buffer-create "*scratch-org*"))
   (org-mode))
+
+(defun new-scratch-buffer (name)
+  "Create a scratch-buffer with given name (*scratch-{name}*)"
+  (interactive "sName: ")
+  (switch-to-buffer (get-buffer-create (concat "*scratch-" name "*")))
+  (lisp-interaction-mode))
 
 (defun jump-to-mark ()
   "Jumps to the local mark, respecting the `mark-ring' order.
@@ -166,9 +173,9 @@
 (defun my/set-face-from-attributes (face attrs)
   "Sets all the face attributes of given
   face from given attribute-value list"
-  (mapc
-   (lambda (attr) (set-face-attribute face nil (car attr) (cdr attr)))
-   attrs))
+  (mapc (lambda (attr)
+          (set-face-attribute face nil (car attr) (cdr attr)))
+        attrs))
 
 (defun my/call-times (fn times arg)
   (let ((result arg))

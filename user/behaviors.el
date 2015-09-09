@@ -3,8 +3,12 @@
          (not (server-running-p)))
     (server-start))
 
-;; call function now
-(set-exec-path-from-shell-PATH)
+;; Append missing items to the PATH
+(mapc 'add-to-PATH
+      '("/Users/Maxi/Applications/scripts:"
+        "/Users/Maxi/.cabal/bin:"
+        "/Applications/ghc-7.8.3.app/Contents/bin:"
+        "/usr/local/bin:"))
 
 ;; Use spotlight for the locate command
 (setq locate-command "mdfind")
@@ -29,6 +33,7 @@
       sentence-end-double-space nil
       ;; set-mark-command-repeat-pop t
       shift-select-mode nil
+      transient-mark-mode t
       uniquify-buffer-name-style 'forward
       whitespace-line-column 80
       whitespace-style '(face trailing lines-tail tabs))

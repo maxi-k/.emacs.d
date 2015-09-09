@@ -2,11 +2,12 @@
   "A custom light theme loosely based on the macvim theme.
   Unfinished.")
 
-
-(let ((bg "#fff")
-      (fg "#000")
-      (hl "ns_selection_bg_color")
-      (cursor "#000")
+;; #f0f0f0
+(let ((bg "#ffffff")
+      (fg "#000000")
+      (hl "#D4EDFF")
+      (cursor "red")
+      (line-hl "#F7F7F7")
       (string "#036DD0")
       (light-gray "#E6E6E6")
       (medium-gray "#7F7F7F")
@@ -21,8 +22,13 @@
    'my-light
    `(default ((t (:foreground ,fg :background ,bg))))
    `(cursor  ((t (:foreground ,bg :background ,cursor))))
+   `(hl-line ((t (:background ,line-hl))))
    `(fringe ((t (:background ,bg))))
    `(region ((t (:background ,hl))))
+   `(whitespace-line  ((t (:foreground nil :background ,light-gray))))
+   `(whitespace-empty  ((t (:foreground nil :background ,light-gray))))
+   `(whitespace-tab  ((t (:foreground nil :background ,light-gray))))
+   `(whitespace-trailing  ((t (:foreground nil :background ,light-gray))))
 
    ;; fontlock
    `(font-lock-builtin-face ((t (:foreground ,fg))))

@@ -14,7 +14,7 @@
       (mouse-wheel-mode t)
       (blink-cursor-mode -1)
       (scroll-bar-mode 0)
-      (setq-default fill-column 90)
+      (setq-default fill-column 80)
       (setq-default indicate-empty-lines t)
       (add-hook 'after-init-hook (lambda () (load-theme-exclusively 'my-light))))
   (progn
@@ -32,14 +32,14 @@
     "Stop that annoying paren-face error"
     :group 'basic-faces))
 
-;; Keep track of the default cursor color
-(defun my/set-cursor-variable ()
-  (setq my/emacs-cursor-face (face-all-attributes 'cursor (car (frame-list)))))
-(defadvice load-theme (after set-cursor-variable activate) (my/set-cursor-variable))
+;; Use whitespace mode for fill column indicator
+(setq
+ whitespace-line-column 80
+ whitespace-style       '(face lines-tail trailing tabs))
+(global-whitespace-mode)
 
-;; Turn on fill column indicator mode
-(define-globalized-minor-mode global-fci-mode fci-mode (lambda () (fci-mode 1)))
-(global-fci-mode 1)
+;; Always highlight the line the cursor is on
+(global-hl-line-mode)
 
 ;; Make the fringe the same color as the background
 (update-fringe-background)
@@ -55,7 +55,13 @@
       '((top . 0) (left . 0) (width . 92) (height . 40)))
 
 ;; My ears!
-(setq visible-bell t)
+(defun bell-modeline-flash ()
+  "A friendlier visual bell effect."
+  (invert-face 'mode-line)
+  (run-with-timer 0.1 nil 'invert-face 'mode-line))
+
+(setq visible-bell nil
+      ring-bell-function 'bell-modeline-flash)
 
 (defpowerline evil-mode-bar
   (if (and (boundp 'evil-mode) evil-mode)

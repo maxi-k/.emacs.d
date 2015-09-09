@@ -1,3 +1,7 @@
+;; Make sure control is actually control
+(setq mac-control-modifier 'control)
+;; Make sure the alt key is meta
+(setq mac-option-modifier 'meta)
 ;; Bind the cmd key to be the super key
 (setq mac-command-modifier 'super)
 ;; Bind the fn key to be the hyper key
@@ -5,6 +9,12 @@
 
 ;; Unset some mac-specific keys
 (global-unset-key (kbd "s-t"))
+
+;; Set some mac-typical bindings
+(global-set-key (kbd "s-s") 'save-buffer)
+(global-set-key (kbd "s-a") 'mark-whole-buffer)
+(global-set-key (kbd "s-q") 'save-buffers-kill-emacs)
+
 ;; Set up german umlaut support
 (global-set-key (kbd "H-a") (lambda () (interactive) (insert "ä"))) ;; ä
 (global-set-key (kbd "H-A") (lambda () (interactive) (insert "Ä"))) ;; Ä
@@ -23,8 +33,8 @@
 (global-set-key (kbd "s-<escape>") 'evil-mode)
 
 ;; Rebind the 'execute command' key to smex
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; (global-set-key (kbd "M-x") 'smex)
+;; (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
 ;; Make repeating easier
 (global-set-key (kbd "C-.") 'repeat)
@@ -63,9 +73,12 @@
 
 ;; Projectile is awesome!
 (global-set-key (kbd "s-p") 'projectile-command-map)
+(global-set-key (kbd "s-o") 'helm-projectile-find-file)
 
-;; Fiplr is too!
-(global-set-key (kbd "s-o") 'fiplr-find-file)
+;; Helm mini!
+(global-set-key (kbd "s-m") 'helm-mini)
+;; Helm locate!
+(global-set-key (kbd "s-.") 'helm-locate)
 
 ;; As well as quickrun
 (global-set-key (kbd "s-r") 'quickrun)
@@ -90,12 +103,16 @@
 (define-key key-translation-map [?\C-h] [?\C-?])
 (global-set-key (kbd "M-h") 'kill-region-or-backward-word)
 
+;; Browse the kill ring
+(global-set-key (kbd "C-x C-y") 'browse-kill-ring)
+
 ;; Clean up the buffer
 (global-set-key (kbd "s-c") 'cleanup-buffer)
 
 (fset 'quick-switch-buffer [?\C-x ?b return])
 
 (global-set-key (kbd "s-v") 'quick-switch-buffer)
+(global-set-key (kbd "s-k") 'kill-this-buffer)
 
 ;; Use regex searches by default.
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
