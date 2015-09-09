@@ -57,6 +57,8 @@
 (add-hook 'css-mode-hook 'emmet-mode)
 ;; Enable emmet for web mode
 (add-hook 'web-mode-hook 'emmet-mode)
+;; Enable emment for xml
+(add-hook 'nxml-mode-hook 'emmet-mode)
 
 ;; Use the right ispell version
 (setq ispell-program-name "/usr/local/bin/ispell")
@@ -77,6 +79,9 @@
 (add-hook 'js2-mode-hook 'skewer-mode)
 (add-hook 'css-mode-hook 'skewer-css-mode)
 (add-hook 'html-mode-hook 'skewer-html-mode)
+
+;; Remove the quickrun timeout, so it doesn't shut down after 10s
+(setq quickrun-timeout-seconds 120)
 
 ;;;;;; LOADING MODE-SETTIGS ;;;;;;
 
