@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: org-emacs-config
+# key: emacs-config
+# binding: direct-keybinding
+# --
+#+TITLE: $1
+#+AUTHOR: Maximilian Kuschewski
+`emacs-config-marker`
