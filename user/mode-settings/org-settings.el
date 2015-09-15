@@ -1,7 +1,7 @@
 ;; Set the org settings
-(setq org-directory "~/Documents/Org/local/"
+(setq org-directory "~/Documents/Org/"
       org-mobile-directory "~/Dropbox/Apps/MobileOrg"
-      org-mobile-inbox-for-pull "~/Documents/Org/mobile/pulled.org"
+      org-mobile-inbox-for-pull (concat org-directory "mobile/pulled.org")
       org-mobile-files (list org-directory)
       org-export-default-language "de"
       ;; Remove the annoying link in org mode exported html
@@ -14,7 +14,10 @@
       org-startup-indented t
       org-footnote-auto-adjust t
       ;; fontify code in code blocks
-      org-src-fontify-natively t)
+      org-src-fontify-natively t
+      ;; Add a :CLOSED tag with timestamp
+      ;; to todo items when they are done
+      org-log-done 'time)
 
 ;; Change per-file with #+BIND: org-confluence-src-block-theme "Emacs"
 (setq org-confluence-src-block-theme "Default")
@@ -110,5 +113,22 @@
 
 ;; Make the bullets look nicer
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
+(setq org-agenda-include-diary t)
+(setq diary-file (concat org-directory "diary/diary"))
+(setq org-default-notes-file (concat org-directory "capture/notes.org"))
+
+(defun markdown-file-to-org ()
+  (interactive)
+  (let* ((md-file-name (file-truename buffer-file-name))
+         (file-base-name (file-name-sans-extension (file-truename buffer-file-name)))
+         (command (concat "pandoc -f markdown -t org -o "
+                          file-base-name ".org "
+                          md-file-name)))
+    (shell-command command)))
+
+;; Beautify org mode
+(ignore-errors(require 'org-beautify-theme)
+              (enable-theme 'org-beautify-theme))
 
 (provide 'org-settings)
