@@ -1,3 +1,9 @@
+;; Default: 800000 bytes
+;; Now: 1MB
+;; Emacs shouldn't garbage-collect so quickly
+;; which would also slow down initialization
+(setq gc-cons-threshold 100000000)
+
 (require 'package)
 ;; Add the package archives
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
