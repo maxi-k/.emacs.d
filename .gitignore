@@ -4,6 +4,7 @@ smex-items
 .mc-lists.el
 projectile.cache
 skewer-cache/
+bookmarks
 
 elpa/
 eshell/

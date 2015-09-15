@@ -53,6 +53,7 @@
    multiple-cursors
    org
    org-bullets
+   org-mac-iCal
    ox-gfm
    ox-reveal
    pabbrev
