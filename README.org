@@ -1,0 +1,57 @@
+#+TITLE: My emacs settings
+#+AUTHOR: Maximilian
+#+OPTIONS: toc:nil date:nil
+#+LaTeX_HEADER:\usepackage[margin=3cm]{geometry}
+#+LaTeX_HEADER:\usepackage{setspace}
+
+* Disclaimer
+This README is mostly a note for myself, but someone else might find it useful.
+
+There's probably some unnecessary stuff in here.
+
+The custom file, packages, backup files, and persistent data are all excluded.
+
+Both the gui- and terminal versions are working, though some keybindings won't be usable
+in the terminal.
+
+The settings are optimized for the standard US Mac keyboard.
+
+* Org-mode config files?
+I was inspired by [[https://github.com/howardabrams/dot-files][Howard Abrams]] excellent video [[http://www.howardism.org/Technical/Emacs/literate-devops.html]["Literate DevOps"]] to convert my
+configuration files to org-mode files where the actual setup code is embedded in
+code-blocks, which is surrounded by explanation.
+
+The commentary is still very sparse, which I will change over time.
+
+When first starting emacs after cloning the repo, the elisp files
+will be automatically generated from the org-files, and stored in ~user/elisp~.
+They are then byte-compiled, and the original ~.el~ files deleted.
+
+To do that again, run this provided command:
+#+begin_src emacs-lisp
+  ;; C-u M-x emacs-config-compile RET
+    (emacs-config-compile t)
+#+end_src
+If the first argument (= prefix argument) is non-nil, the whole ~elisp~ folder
+will be deleted and recreated first.
+
+** Writing configuration files
+I use a slightly different approach to Howard Abrams - his can be found in his
+dot-files available on github:
+
+Emacs org configuration files must have the following property set:
+#+begin_src org
+#+PROPERTY: my-file-type emacs-config
+#+end_src
+
+There is a org-mode safe-hook which checks for the presence of this property. If
+it's there, the File will automatically be byte-compiled on save and stored in
+the ~user/elisp~ directory. The org-file does not have to be in the ~.emacs.d~
+directory for that to happen.
+
+However, for the ~emacs-config-compile~ command to work (which is used to
+compile all configuration files at once), the configuration file
+has to be in ~.emacs.d/user~.
+
+All of the code doing this can be found in ~user/user-init.el~, which is the
+only emacs-lisp file in that directory.
