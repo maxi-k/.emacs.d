@@ -43,6 +43,7 @@ Emacs org configuration files must have the following property set:
 #+begin_src org
 #+PROPERTY: my-file-type emacs-config
 #+end_src
+This string is stored in the variable ~emacs-config-marker~
 
 There is a org-mode safe-hook which checks for the presence of this property. If
 it's there, the File will automatically be byte-compiled on save and stored in
