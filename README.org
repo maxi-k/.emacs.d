@@ -30,7 +30,7 @@ They are then byte-compiled, and the original ~.el~ files deleted.
 To do that again, run this provided command:
 #+begin_src emacs-lisp
   ;; C-u M-x emacs-config-compile RET
-    (emacs-config-compile t)
+  (emacs-config-compile t)
 #+end_src
 If the first argument (= prefix argument) is non-nil, the whole ~elisp~ folder
 will be deleted and recreated first.
