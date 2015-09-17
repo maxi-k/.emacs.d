@@ -1,0 +1,87 @@
+#+TITLE: Setup editing
+#+DESCRIPTION: Require some editing-specific packages and set up some nice bindings
+#+AUTHOR: Maximilian Kuschewski
+#+PROPERTY: my-file-type emacs-config
+
+* Require packages
+#+begin_src emacs-lisp
+  (require-packages
+   '(yasnippet
+     browse-kill-ring
+     expand-region
+     multiple-cursors
+     ))
+#+end_src
+
+* Configure
+** Built-in
+Configure built-in functions.
+
+Repeat the last command.
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-.") 'repeat)
+#+end_src
+
+Copy the current line if there is no active region
+#+begin_src emacs-lisp
+(global-set-key (kbd "M-w") 'save-region-or-current-line)
+#+end_src
+
+Expand the word using the context of killed words/known symbols
+#+begin_src emacs-lisp
+(global-set-key (kbd "M-/") 'hippie-expand)
+#+end_src
+
+Delete whitespace around the point, only leaving one:
+#+begin_src emacs-lisp
+;; M-SPC is bound to iTerm already
+(global-set-key (kbd "H-SPC") 'just-one-space)
+#+end_src
+
+Control-h and Meta-h for deleting backwards
+#+begin_src emacs-lisp
+(define-key key-translation-map [?\C-h] [?\C-?])
+(global-set-key (kbd "M-h") 'kill-region-or-backward-word)
+#+end_src
+
+Not quite built-in, but defined myself:
+#+begin_src emacs-lisp
+(global-set-key (kbd "s-c") 'cleanup-buffer)
+#+end_src
+
+Join lines more easily
+#+begin_src emacs-lisp
+;; M-S-6 is awkward
+(global-set-key (kbd "s-l") 'join-line)
+#+end_src
+
+** Yasnippet
+#+begin_src emacs-lisp
+(yas-global-mode)
+#+end_src
+
+** Expand Region
+Every time this key is pressed, expand the region out one step further
+#+begin_src emacs-lisp
+(global-set-key (kbd "s-e") 'er/expand-region)
+#+end_src
+
+** Multiple cursors
+Most. Awesome. Thing. Ever.
+#+begin_src emacs-lisp
+(global-set-key (kbd "s-d") 'mc/mark-next-like-this)
+(global-set-key (kbd "s-g") 'mc/mark-all-like-this)
+;; (global-set-key (kbd "C-s-d") 'mc /mark-all-dwim)
+#+end_src
+
+** Browse kill ring
+Look through the kill ring and insert exactly what you want.
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-x C-y") 'browse-kill-ring)
+#+end_src
+
+**
+* Provide it
+#+begin_src emacs-lisp
+(provide 'setup-editing)
+#+end_src

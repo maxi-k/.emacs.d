@@ -1,0 +1,64 @@
+#+TITLE: Setup Helm
+#+DESCRIPTION:
+#+AUTHOR: Maximilian Kuschewski
+#+PROPERTY: my-file-type emacs-config
+
+* Require it
+#+begin_src emacs-lisp
+  (require-packages '(helm
+                      helm-dash
+                      helm-itunes
+                      helm-projectile))
+#+end_src
+
+* Configure it
+** Helm locate
+Use spotlight to locate any file if on a mac
+#+begin_src emacs-lisp
+  (when (is-mac)
+    (setq helm-locate-command "mdfind -name %s %s"))
+#+end_src
+** Fuzzy matching
+Don't enable it everywhere for now, it's too slow:
+#+begin_src emacs-lisp
+;; (setq helm-mode-fuzzy-match t)
+#+end_src
+
+Instead, enable it selectively:
+#+begin_src emacs-lisp
+(setq helm-buffers-fuzzy-matching t)
+(setq helm-recentf-fuzzy-match t)
+#+end_src
+
+** Plugins
+*** Helm Projectile
+Enable helm in for projectile
+#+begin_src emacs-lisp
+(helm-projectile-on)
+#+end_src
+*** Helm Dash
+Browse dash-documentation inside emacs,
+not outside.
+#+begin_src emacs-lisp
+(setq helm-dash-browser-func 'eww)
+#+end_src
+** Keys
+Helm mini can be quite useful
+#+begin_src emacs-lisp
+(global-set-key (kbd "s-m") 'helm-mini)
+#+end_src
+
+Use spotlight/locate to find anything
+#+begin_src emacs-lisp
+(global-set-key (kbd "s-.") 'helm-locate)
+#+end_src
+* Activate it
+Enable helm everywhere:
+#+begin_src emacs-lisp
+(helm-mode 1)
+#+end_src
+
+* Provide it
+#+begin_src emacs-lisp
+(provide 'setup-helm)
+#+end_src

@@ -1,0 +1,70 @@
+#+TITLE: Setup buffers
+#+DESCRIPTION: Setup buffer movement, killing, initial-buffers etc
+#+AUTHOR: Maximilian Kuschewski
+#+PROPERTY: my-file-type emacs-config
+
+* Require packages
+
+* Initial Buffers
+
+* Killing
+Kill the current buffer
+#+begin_src emacs-lisp
+(global-set-key (kbd "s-k") 'kill-this-buffer)
+#+end_src
+
+* Movement
+Open the buffer menu, not the buffer list, and define a key to open the selected
+buffer in the buffer-menu window
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-x C-b") 'buffer-menu)
+(define-key Buffer-menu-mode-map (kbd "a") 'Buffer-menu-this-window)
+#+end_src
+
+Quickly switch to the most recent buffer with cmd-v
+#+begin_src emacs-lisp
+(fset 'quick-switch-buffer [?\C-x ?b return])
+(global-set-key (kbd "s-v") 'quick-switch-buffer)
+#+end_src
+
+Switch to another file and show it in another window
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
+#+end_src
+
+Move to the buffer in 'direction' with shift + arrow-key
+#+begin_src emacs-lisp
+(windmove-default-keybindings)
+#+end_src
+
+Switch windows more easily
+(C-x o goes to the next window)
+#+begin_src emacs-lisp
+(global-set-key (kbd "M-o") 'other-window)
+(global-set-key (kbd "C-x O") (lambda () (interactive) (other-window -1))) ;; back one
+(global-set-key (kbd "C-x C-o") (lambda () (interactive) (other-window 2))) ;; forward two
+#+end_src
+
+* Manipulate
+Bury and revert buffers more easily
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-c y") 'bury-buffer)
+(global-set-key (kbd "C-c r") 'revert-buffer)
+#+end_src
+
+Toggle horizontal and vertical window split
+#+begin_src emacs-lisp
+(global-set-key (kbd "M-O") 'toggle-window-split)
+#+end_src
+
+Enlarge/shrink windows
+#+begin_src emacs-lisp
+(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "S-C-<down>") 'shrink-window)
+(global-set-key (kbd "S-C-<up>") 'enlarge-window)
+#+end_src
+* Provide it
+#+begin_src emacs-lisp
+(provide 'setup-buffers-windows)
+#+end_src

@@ -1,60 +1,92 @@
-;; Add the themes folder and its subfolders to the load path
-;; loading a theme is handled by the package 'remember-theme',
-;; which loads the last theme used before quitting emacs
+#+TITLE: Setup Look
+#+DESCRIPTION: The main place where the look of emacs is configured
+#+AUTHOR: Maximilian Kuschewski
+#+PROPERTY: my-file-type emacs-config
+
+* Require packages
+#+begin_src emacs-lisp
+  (require-packages
+   '(
+     powerline
+     ))
+#+end_src
+
+* Setup theme-path
+Add the themes folder and its subfolders to the load path
+#+begin_src emacs-lisp
 (let ((theme-path "~/.emacs.d/themes/"))
   (add-to-list 'custom-theme-load-path theme-path)
   (add-subfolders-to-theme-load-path theme-path))
+#+end_src
 
-;; Initialize the window
-(if window-system
+* General settings
+** Gui-dependent
+#+begin_src emacs-lisp
+  (if window-system
+      (progn
+        (setq frame-resize-pixelwise t)
+        (setq frame-title-format '(buffer-file-name "%f" ("%b")))
+        (tooltip-mode -1)
+        (tool-bar-mode -1)
+        (mouse-wheel-mode t)
+        (blink-cursor-mode -1)
+        (scroll-bar-mode 0)
+        (setq-default fill-column 80)
+        (setq-default indicate-empty-lines t)
+        (add-hook 'after-init-hook (lambda () (load-theme-exclusively 'my-light))))
     (progn
-      (setq frame-resize-pixelwise t)
-      (setq frame-title-format '(buffer-file-name "%f" ("%b")))
-      (tooltip-mode -1)
-      (mouse-wheel-mode t)
-      (blink-cursor-mode -1)
-      (scroll-bar-mode 0)
-      (setq-default fill-column 80)
-      (setq-default indicate-empty-lines t)
-      (add-hook 'after-init-hook (lambda () (load-theme-exclusively 'my-light))))
-  (progn
-    (menu-bar-mode -1)))
+      (menu-bar-mode -1)))
+#+end_src
 
-;; Increase the font size
+** Font
+Increase the font size and set it to the very nice source-code-pro font, if
+available.
+#+begin_src emacs-lisp
 (set-frame-font "Source Code Pro-16" nil t)
+#+end_src
 
+** Line numbers & fringe
+#+begin_src emacs-lisp
 (custom-set-variables
  '(linum-format " %2d ")
  '(fringe-mode 4 nil (fringe)))
+;; Make the fringe the same color as the background
+(update-fringe-background)
 
-(unless (facep 'paren-face)
-  (defface paren-face '()
-    "Stop that annoying paren-face error"
-    :group 'basic-faces))
+;; Update the fringe everytime the theme changes
+(defadvice load-theme (after update-fringe-color-load activate)
+  (update-fringe-background))
 
+(defadvice disable-theme (after update-fringe-color-disable activate)
+  (update-fringe-background))
+#+end_src
+
+** Fill Column
+80 Characters should be the maximum length per line
+#+begin_src emacs-lisp
 ;; Use whitespace mode for fill column indicator
 (setq
  whitespace-line-column 80
  whitespace-style       '(face lines-tail trailing tabs))
 (global-whitespace-mode)
+#+end_src
 
-;; Always highlight the line the cursor is on
+** Highlight cursor line
+Highlight the line the cursor is currently on
+#+begin_src emacs-lisp
 (global-hl-line-mode)
+#+end_src
 
-;; Make the fringe the same color as the background
-(update-fringe-background)
-
-;; Turn of the toolbar
-(tool-bar-mode -1)
-
-;; You can also set the initial frame parameters
-(setq initial-frame-alist '((tool-bar-lines . 0)))
-
-;; Set the initial window size
+** Initial Frame size and position:
+#+begin_src emacs-lisp
 (setq initial-frame-alist
       '((top . 0) (left . 0) (width . 92) (height . 40)))
+#+end_src
 
-;; My ears!
+** Error Bell
+Make the modeline flash instead of having a loud noise, or having a square
+appear in the middle of the screen:
+#+begin_src emacs-lisp
 (defun bell-modeline-flash ()
   "A friendlier visual bell effect."
   (invert-face 'mode-line)
@@ -62,7 +94,12 @@
 
 (setq visible-bell nil
       ring-bell-function 'bell-modeline-flash)
+#+end_src
 
+** Powerline
+
+*** Definitions
+#+begin_src emacs-lisp
 (defpowerline evil-mode-bar
   (if (and (boundp 'evil-mode) evil-mode)
       ;; evil-mode is active
@@ -76,7 +113,11 @@
            god-local-mode)
       (format " GOD ")
     " "))
+#+end_src
 
+*** Set up the powerline theme
+Create a function for setting it up:
+#+begin_src emacs-lisp
 (defun setup-powerline-theme ()
   "Setup the default mode-line."
   (interactive)
@@ -132,6 +173,22 @@
                              (powerline-fill mode-line (powerline-width rhs))
                              (powerline-render rhs)))))))
 
-(setup-powerline-theme)
 
-(provide 'look)
+#+end_src
+
+Actually do so:
+#+begin_src emacs-lisp
+(setup-powerline-theme)
+#+end_src
+** Misc
+There was a very annoying error where 'paren-face' was undefined...
+#+begin_src emacs-lisp
+(unless (facep 'paren-face)
+  (defface paren-face '()
+    "Stop that annoying paren-face error"
+    :group 'basic-faces))
+#+end_src
+* Provide it
+#+begin_src emacs-lisp
+(provide 'setup-look)
+#+end_src

@@ -1,0 +1,36 @@
+#+TITLE: Setup Projectile
+#+DESCRIPTION:
+#+AUTHOR: Maximilian Kuschewski
+#+PROPERTY: my-file-type emacs-config
+
+* Require it
+#+begin_src emacs-lisp
+(do-require-package 'projectile)
+#+end_src
+
+* Settings
+** Helm
+#+begin_src emacs-lisp
+(setq projectile-completion-system 'helm)
+#+end_src
+** Caching
+#+begin_src emacs-lisp
+(setq projectile-enable-caching t)
+#+end_src
+
+** Keys
+#+begin_src emacs-lisp
+(global-set-key (kbd "s-p") 'projectile-command-map)
+(global-set-key (kbd "s-o") 'helm-projectile-find-file)
+#+end_src
+* Activate it
+Projectile should be accessible from everywhere, even if there's no apparent
+project root:
+#+begin_src emacs-lisp
+(setq projectile-require-project-root nil)
+(projectile-global-mode)
+#+end_src
+* Provide it
+#+begin_src emacs-lisp
+(provide 'setup-projectile)
+#+end_src

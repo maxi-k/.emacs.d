@@ -1,0 +1,49 @@
+#+TITLE: Setup simple Packages
+#+DESCRIPTION: Load 'simple' packages that don't require any setup
+#+AUTHOR: Maximilian Kuschewski
+#+PROPERTY: my-file-type emacs-config
+
+These packages don't need any setup. Just load and require them.
+* Require them
+#+begin_src emacs-lisp
+  (require-packages
+   '(async
+     auto-complete
+     browse-url-dwim
+     dash
+     discover
+     drag-stuff
+     epl
+     f
+     flycheck
+     goto-chg
+     highlight-indentation
+     idle-highlight-mode
+     ido-ubiquitous
+     inf-ruby
+     latex-preview-pane
+     list-utils
+     pabbrev
+     pkg-info
+     popup
+     queue
+     s
+     scala-mode
+     slime
+     smooth-scroll
+     ssh
+     string-utils
+     tex-math-preview
+     tree-mode
+     undo-tree
+     visual-regexp
+     windata
+     yaml-mode
+     ))
+#+end_src
+
+
+* Provide it
+#+begin_src emacs-lisp
+(provide 'setup-simple-packages)
+#+end_src

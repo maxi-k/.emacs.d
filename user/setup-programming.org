@@ -1,0 +1,53 @@
+#+TITLE: Setup programming
+#+DESCRIPTION: Setup prog-mode, which is the major mode all programming major modes extend from, and other stuff that has to do with programming
+#+AUTHOR: Maximilian Kuschewski
+#+PROPERTY: my-file-type emacs-config
+
+* Require packages
+#+begin_src emacs-lisp
+  (require-packages
+   '(
+     rainbow-delimiters
+     rainbow-identifiers
+     quickrun
+     ))
+#+end_src
+
+* Configure
+** Hooks
+Rainbow delimiters everywhere!
+#+begin_src emacs-lisp
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+#+end_src
+
+Don't to autocomplete for now - it slows down writing quite a bit
+#+begin_src emacs-lisp
+;; (add-hook 'prog-mode-hook 'auto-complete-mode)
+#+end_src
+
+** Plugins
+*** Quickrun
+Don't timeout after 10 seconds already:
+#+begin_src emacs-lisp
+(setq quickrun-timeout-seconds 120)
+#+end_src
+
+Bind quickrun globally
+#+begin_src emacs-lisp
+(global-set-key (kbd "s-r") 'quickrun)
+#+end_src
+
+* Specific mode-setups
+Require the mode-specific setup files that configure programming-modes:
+#+begin_src emacs-lisp
+  (require-all
+   '(setup-lisp
+     setup-markdown
+     setup-haskell
+     setup-web
+     ))
+#+end_src
+* Provide it
+#+begin_src emacs-lisp
+(provide 'setup-programming)
+#+end_src

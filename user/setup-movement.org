@@ -1,0 +1,55 @@
+#+TITLE: Setup movement
+#+DESCRIPTION: Setup some packages/keybindings that are awesome for moving around
+#+AUTHOR: Maximilian Kuschewski
+#+PROPERTY: my-file-type emacs-config
+
+* Require it
+#+begin_src emacs-lisp
+  (require-packages
+   '(ace-jump-mode
+     iy-go-to-char
+     ))
+#+end_src
+
+* Configure it
+** Built in
+Jump through the mark-ring
+#+begin_src emacs-lisp
+(global-set-key (kbd "M-`") 'jump-to-mark)
+#+end_src
+
+Go to a specific line - who needs line-numbers?
+#+begin_src emacs-lisp
+(global-set-key (kbd "s-L") 'goto-line)
+#+end_src
+
+Isearch: Use regex by default:
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "C-r") 'isearch-backward-regexp)
+(global-set-key (kbd "C-M-s") 'isearch-forward)
+(global-set-key (kbd "C-M-r") 'isearch-backward)
+#+end_src
+
+Jump to a definition in the current file.
+#+begin_src emacs-lisp
+(global-set-key (kbd "s-i") 'imenu)
+#+end_src
+
+** Ace-jump-mode
+Bind it to some nice keys:
+#+begin_src emacs-lisp
+(global-set-key (kbd "s-j") 'ace-jump-mode)
+(global-set-key (kbd "s-J") 'ace-jump-char-mode)
+#+end_src
+** Iy-go-to-char
+Go to the next/previous occurrence of the a character more easily.
+Press the wanted character again to go to the occurrence after that etc.
+#+begin_src emacs-lisp
+(global-set-key (kbd "s-f") 'iy-go-to-char)
+(global-set-key (kbd "s-b") 'iy-go-to-char-backward)
+#+end_src
+* Provide it
+#+begin_src emacs-lisp
+(provide 'setup-movement)
+#+end_src

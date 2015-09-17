@@ -1,0 +1,22 @@
+#+TITLE: Configure God Mode
+#+DESCRIPTION: God mode is awesome - configuring it here
+#+AUTHOR: Maximilian Kuschewski
+#+PROPERTY: my-file-type emacs-config
+
+* Require it
+#+begin_src emacs-lisp
+(require-package 'god-mode)
+(require 'god-mode)
+#+end_src
+
+* The keys
+#+begin_src emacs-lisp
+(global-set-key (kbd "s-,") 'god-mode-all)
+(define-key god-local-mode-map (kbd "i") 'god-local-mode)
+(define-key god-local-mode-map (kbd ".") 'repeat)
+#+end_src
+
+* Provide it
+#+begin_src emacs-lisp
+(provide 'setup-god-mode)
+#+end_src

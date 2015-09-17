@@ -1,0 +1,58 @@
+#+TITLE: Set up Mac-specifics
+#+AUTHOR: Maximilian Kuschewski
+#+DESCRIPTION: Set up some mac-specific stuff, making sure it's only called when on a mac.
+#+PROPERTY: my-file-type emacs-config
+
+
+* Utility-functions
+A few mac-specific utility functions...
+
+** Mac-check
+#+begin_src elisp
+  (defun is-mac ()
+    "Returns non-nil if the system emacs is
+  running on is a mac"
+    (and
+     (eq window-system 'ns)
+     (eq system-type 'darwin)))
+#+end_src
+
+
+* Keys
+
+** Modifier keys
+On the mac, try to use all four available modifier-keys:
+#+begin_src elisp
+;; Make sure control is actually control
+(setq mac-control-modifier 'control)
+;; Make sure the alt key is meta
+(setq mac-option-modifier 'meta)
+;; Bind the cmd key to be the super key
+(setq mac-command-modifier 'super)
+;; Bind the fn key to be the hyper key
+(setq ns-function-modifier 'hyper)
+#+end_src
+** Unset presets
+There are some nasty pre-sets on some emacs-mac builds:
+#+begin_src elisp
+  ;; Like cmd-t opening the typography options
+  (when (is-mac)
+    (global-unset-key (kbd "s-t"))
+    )
+#+end_src
+** Set mac favorites
+#+begin_src elisp
+  ;; Set some mac-typical bindings
+  (when (is-mac)
+    (global-set-key (kbd "s-s") 'save-buffer)
+    (global-set-key (kbd "s-a") 'mark-whole-buffer)
+    (global-set-key (kbd "s-q") 'save-buffers-kill-emacs))
+#+end_src
+
+
+
+
+* Provide it
+#+begin_src elisp
+  (provide 'setup-mac)
+#+end_src

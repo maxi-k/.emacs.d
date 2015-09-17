@@ -1,4 +1,23 @@
-;; Set the org settings
+#+TITLE: Setup Org Mode
+#+DESCRIPTION: Setup Org in Org - Homoiconicity for the win!
+#+AUTHOR: Maximilian Kuschewski
+#+PROPERTY: my-file-type emacs-config
+
+* Require Packages
+#+begin_src emacs-lisp
+  (require-packages '(org
+                      org-bullets
+                      org-mac-iCal
+                      ox-gfm
+                      ox-reveal))
+  (ignore-errors
+    (do-require-package 'org-beautify-theme))
+;; This was pulled from github manually and is in plugins/ox-confluence
+(ignore-errors (require 'ox-confluence))
+#+end_src
+
+* Behaviors
+#+begin_src emacs-lisp
 (setq org-directory "~/Documents/Org/"
       org-mobile-directory "~/Dropbox/Apps/MobileOrg"
       org-mobile-inbox-for-pull (concat org-directory "mobile/pulled.org")
@@ -19,19 +38,8 @@
       ;; to todo items when they are done
       org-log-done 'time)
 
-;; Change per-file with #+BIND: org-confluence-src-block-theme "Emacs"
-(setq org-confluence-src-block-theme "Default")
-
-;; Set up quick note taking with deft
-(require 'deft)
-(setq deft-extension "org"
-      deft-directory (concat org-directory "deft/")
-      deft-text-mode 'org-mode)
-(global-set-key (kbd "<f9>") 'deft)
-
 ;; Add the MacTeX programs to the PATH
 (add-to-PATH "/Library/TeX/Distributions/Programs/texbin")
-
 ;; Use the MathToWeb jar for converting LaTeX to MathML/odf
 (setq org-latex-to-mathml-convert-command
       "java -jar %j -unicode -force -df %o %I"
@@ -44,9 +52,6 @@
 ;; Enable LaTeX (pdf) syntax highlighting
 (add-to-list 'org-latex-packages-alist '("" "minted"))
 (setq org-latex-listings 'minted)
-
-;; Used for extracting org-source-blocks into their own files
-(require 'ob-tangle)
 
 ;; Load more languages for org-babel
 (org-babel-do-load-languages
@@ -95,7 +100,21 @@
                                           (save-buffer)
                                           (org-html-export-to-html t)))
             map))
+(setq org-agenda-include-diary t)
+(setq diary-file (concat org-directory "diary/diary"))
+(setq org-default-notes-file (concat org-directory "capture/notes.org"))
 
+#+end_src
+* Keys
+** Global
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c t") 'org-capture)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c b") 'org-iswitchb)
+#+end_src
+** Org-local
+#+begin_src emacs-lisp
 ;; Define some local keybindings
 (let ((bindings `((,(kbd "M-h") . kill-region-or-backward-word)
                   (,(kbd "M-n") . outline-next-visible-heading)
@@ -111,13 +130,9 @@
           (define-key org-mode-map (car arg) (cdr arg)))
         bindings))
 
-;; Make the bullets look nicer
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-
-(setq org-agenda-include-diary t)
-(setq diary-file (concat org-directory "diary/diary"))
-(setq org-default-notes-file (concat org-directory "capture/notes.org"))
-
+#+end_src
+* Functions
+#+begin_src emacs-lisp
 (defun markdown-file-to-org ()
   (interactive)
   (let* ((md-file-name (file-truename buffer-file-name))
@@ -127,8 +142,32 @@
                           md-file-name)))
     (shell-command command)))
 
-;; Beautify org mode
-(ignore-errors(require 'org-beautify-theme)
-              (enable-theme 'org-beautify-theme))
+#+end_src
+** Global-Keys
+* Looks
+** Org Indent
+** Org Bullets
+   #+begin_src emacs-lisp
+;; Make the bullets look nicer
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+   #+end_src
 
-(provide 'org-settings)
+** Org Beautify Theme
+#+begin_src emacs-lisp
+  (defun do-beautify-org ()
+    (enable-theme 'org-beautify-theme))
+
+  (defadvice load-theme (after enable-org-beauty)
+    (do-beautify-org))
+#+end_src
+* Plugins
+** Org-Confluence
+#+begin_src emacs-lisp
+;; Change per-file with #+BIND: org-confluence-src-block-theme "Emacs"
+(setq org-confluence-src-block-theme "Default")
+#+end_src
+
+* Provide it
+  #+begin_src emacs-lisp
+(provide 'setup-org)
+  #+end_src

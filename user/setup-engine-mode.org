@@ -1,0 +1,38 @@
+#+TITLE: Setup engine mode
+#+DESCRIPTION:
+#+AUTHOR: Maximilian Kuschewski
+#+PROPERTY: my-file-type emacs-config
+
+
+* Require it
+#+begin_src emacs-lisp
+(require-package 'engine-mode)
+(require 'engine-mode)
+#+end_src
+
+* Set it up
+Engine mode allows you to use search-providing sites from within emacs. Awesome!
+** Keys
+#+begin_src emacs-lisp
+(engine/set-keymap-prefix (kbd "s-/"))
+#+end_src
+** Activate
+#+begin_src emacs-lisp
+(engine-mode t)
+#+end_src
+** Define engines
+#+begin_src emacs-lisp
+  (add-hook
+   'after-init-hook
+   (lambda ()
+     (defengine google "https://google.com/#q=google" :keybinding "g")
+     (defengine github "https://github.com/search?ref=simplesearch&q=%s")
+     (defengine wikipedia "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s" :keybinding "w")
+     (defengine wikipedia-deutsch "http://www.wikipedia.org/search-redirect.php?language=de&go=Go&search=%s" :keybinding"d")
+     (defengine stack-overflow "https://stackoverflow.com/search?q=%s" :keybinding "s")))
+#+end_src
+
+* Provide it
+#+begin_src emacs-lisp
+(provide 'setup-engine-mode)
+#+end_src

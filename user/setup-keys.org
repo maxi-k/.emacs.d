@@ -1,0 +1,39 @@
+#+TITLE: Setup Keys
+#+DESCRIPTION: Set up general keybindings
+#+AUTHOR: Maximilian Kuschewski
+#+PROPERTY: my-file-type emacs-config
+
+* German Umlauts
+I don't use them often, but when I write something in German, they have to be
+there:
+#+begin_src emacs-lisp
+;; Set up german umlaut support
+(global-set-key (kbd "H-a") (lambda () (interactive) (insert "ä"))) ;; ä
+(global-set-key (kbd "H-A") (lambda () (interactive) (insert "Ä"))) ;; Ä
+(global-set-key (kbd "H-o") (lambda () (interactive) (insert "ö"))) ;; ö
+(global-set-key (kbd "H-O") (lambda () (interactive) (insert "Ö"))) ;; Ö
+(global-set-key (kbd "H-u") (lambda () (interactive) (insert "ü"))) ;; ü
+(global-set-key (kbd "H-U") (lambda () (interactive) (insert "Ü"))) ;; Ü
+(global-set-key (kbd "H-s") (lambda () (interactive) (insert "ß"))) ;; ß
+#+end_src
+
+
+* General keybinds
+Increase/decrease the text size more easily
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-+") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
+#+end_src
+
+Start an eshell:
+#+begin_src emacs-lisp
+;; Start eshell or switch to it if it's active.
+(global-set-key (kbd "C-x m") 'eshell)
+
+;; Start a new eshell even if one is active.
+(global-set-key (kbd "C-x M") (lambda () (interactive) (eshell t)))
+#+end_src
+* Provide it
+#+begin_src emacs-lisp
+(provide 'setup-keys)
+#+end_src

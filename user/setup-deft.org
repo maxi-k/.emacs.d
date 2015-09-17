@@ -1,0 +1,23 @@
+#+TITLE:Setup Deft
+#+DESCRIPTION:
+#+AUTHOR: Maximilian Kuschewski
+#+PROPERTY: my-file-type emacs-config
+
+* Require it
+#+begin_src emacs-lisp
+(do-require-package 'deft)
+#+end_src
+
+* Configure it
+#+begin_src emacs-lisp
+;; Set up quick note taking with deft
+(setq deft-extension "org"
+      deft-directory (concat org-directory "deft/")
+      deft-text-mode 'org-mode)
+(global-set-key (kbd "<f9>") 'deft)
+#+end_src
+
+* Provide it
+#+begin_src emacs-lisp
+(provide 'setup-deft)
+#+end_src

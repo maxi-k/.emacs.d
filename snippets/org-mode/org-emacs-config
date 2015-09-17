@@ -4,5 +4,13 @@
 # binding: direct-keybinding
 # --
 #+TITLE: $1
+#+DESCRIPTION: $2
 #+AUTHOR: Maximilian Kuschewski
 `emacs-config-marker`
+
+$3
+
+* Provide it
+#+begin_src emacs-lisp
+(provide '`(file-name-base (buffer-file-name))`)
+#+end_src
