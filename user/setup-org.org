@@ -154,11 +154,10 @@
 
 ** Org Beautify Theme
 #+begin_src emacs-lisp
-  (defun do-beautify-org ()
+  (defun do-beautify-org (&optional theme)
     (enable-theme 'org-beautify-theme))
 
-  (defadvice load-theme (after enable-org-beauty)
-    (do-beautify-org))
+  (advice-add 'load-theme :after #'do-beautify-org)
 #+end_src
 * Plugins
 ** Org-Confluence

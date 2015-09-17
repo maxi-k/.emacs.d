@@ -47,18 +47,15 @@ available.
 
 ** Line numbers & fringe
 #+begin_src emacs-lisp
-(custom-set-variables
- '(linum-format " %2d ")
- '(fringe-mode 4 nil (fringe)))
-;; Make the fringe the same color as the background
-(update-fringe-background)
+  (custom-set-variables
+   '(linum-format " %2d ")
+   '(fringe-mode 4 nil (fringe)))
+  ;; Make the fringe the same color as the background
+  (update-fringe-background)
 
-;; Update the fringe everytime the theme changes
-(defadvice load-theme (after update-fringe-color-load activate)
-  (update-fringe-background))
-
-(defadvice disable-theme (after update-fringe-color-disable activate)
-  (update-fringe-background))
+  ;; Update the fringe everytime the theme changes
+  (advice-add 'load-theme :after #'update-fringe-background)
+  (advice-add 'disable-theme :after #'update-fringe-background)
 #+end_src
 
 ** Fill Column

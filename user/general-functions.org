@@ -20,7 +20,7 @@
 
 ** Theme setup
 #+begin_src emacs-lisp
-(defun update-fringe-background ()
+(defun update-fringe-background (&optional theme)
   (set-face-background 'fringe
                        (face-attribute 'default :background)))
 

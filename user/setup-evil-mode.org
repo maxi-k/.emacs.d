@@ -186,10 +186,11 @@ A small utility function for getting the right face for the current evil state:
  ~my/emacs-cursor-face~. If in evil mode, set the cursor to the appropriate evil
  face depending on the state:
  #+begin_src emacs-lisp
-(defadvice load-theme (after set-cursor-face activate)
-  (setq my/emacs-cursor-face (face-all-attributes 'cursor
-                                                  (car (frame-list))))
-  (when evil-mode (evil-refresh-cursor)))
+   (defun my/evil-look-loadtheme-after (&optional theme)
+     (setq my/emacs-cursor-face (face-all-attributes 'cursor (car (frame-list))))
+     (when evil-mode (evil-refresh-cursor)))
+
+   (advice-add 'load-theme :after #'my/evil-look-loadtheme-after)
  #+end_src
 
  When exiting from evil mode when it's in insert state, the cursor stays a line
