@@ -5,7 +5,7 @@
 #+LaTeX_HEADER:\usepackage{setspace}
 
 * Disclaimer
-This README is mostly a note for myself, but someone else might find it useful.
+*This README is mostly a note for myself*, but someone else might find it useful.
 
 There's probably some unnecessary stuff in here.
 
