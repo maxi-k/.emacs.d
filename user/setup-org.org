@@ -5,15 +5,15 @@
 
 * Require Packages
 #+begin_src emacs-lisp
-  (require-packages '(org
-                      org-bullets
-                      org-mac-iCal
-                      ox-gfm
-                      ox-reveal))
-  (ignore-errors
-    (do-require-package 'org-beautify-theme))
-;; This was pulled from github manually and is in plugins/ox-confluence
-(ignore-errors (require 'ox-confluence))
+    (require-packages '(org
+                        org-bullets
+                        org-mac-iCal
+                        ox-gfm
+                        ox-reveal))
+
+  (require-package 'org-beautify-theme)
+  ;; This was pulled from github manually and is in plugins/ox-confluence
+  (ignore-errors (require 'ox-confluence))
 #+end_src
 
 * Behaviors
@@ -153,12 +153,16 @@
    #+end_src
 
 ** Org Beautify Theme
+Setup bigger fonts instead of lots of colors for headings and more:
 #+begin_src emacs-lisp
   (defun do-beautify-org (&optional theme)
-    (enable-theme 'org-beautify-theme))
+    (ignore-errors (require 'org-beautify-theme))
+    (org-bullets-mode)
+    (org-bullets-mode))
 
   (advice-add 'load-theme :after #'do-beautify-org)
 #+end_src
+
 * Plugins
 ** Org-Confluence
 #+begin_src emacs-lisp
