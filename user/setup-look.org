@@ -11,12 +11,66 @@
      ))
 #+end_src
 
-* Setup theme-path
+* Themes
+
+** Utility functions
+*** Theme Path
+#+begin_src emacs-lisp
+(defun add-subfolders-to-theme-load-path (parent-dir)
+  "Add subfolders of given parent directory to theme load path"
+  (dolist (f (directory-files parent-dir))
+    (let ((name (concat parent-dir f)))
+      (when (and (file-directory-p name)
+                 (not (equal f ".."))
+                 (not (equal f ".")))
+        (add-to-list 'custom-theme-load-path name)))))
+#+end_src
+
+*** Theme setup
+#+begin_src emacs-lisp
+(defun update-fringe-background (&optional theme)
+  (set-face-background 'fringe
+                       (face-attribute 'default :background)))
+
+(defun disable-all-themes ()
+  "Disables all active themes."
+  (interactive)
+  (dolist (i custom-enabled-themes)
+    (disable-theme i)))
+
+(defun load-theme-exclusively (theme)
+  "Disables all active themes, then loads
+  given theme."
+  (interactive
+   (list
+    (intern (completing-read "Load custom theme: "
+                             (mapcar 'symbol-name
+                                     (custom-available-themes))))))
+  (disable-all-themes)
+  (load-theme theme))
+#+end_src
+
+** Setup theme-path
 Add the themes folder and its subfolders to the load path
 #+begin_src emacs-lisp
 (let ((theme-path "~/.emacs.d/themes/"))
   (add-to-list 'custom-theme-load-path theme-path)
   (add-subfolders-to-theme-load-path theme-path))
+#+end_src
+
+** Easy theme loading
+Define a default light and dark theme and functions for loading them:
+#+begin_src emacs-lisp
+  (defconst my/default-dark-theme 'sanityinc-tomorrow-eighties)
+  (defconst my/default-light-theme 'my-light)
+
+  (defun load-theme-dark ()
+    (interactive)
+    (load-theme-exclusively my/default-dark-theme))
+
+  (defun load-theme-light ()
+    (interactive)
+    (load-theme-exclusively my/default-light-theme))
 #+end_src
 
 * General settings
