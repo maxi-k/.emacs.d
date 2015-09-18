@@ -87,7 +87,7 @@ Define a default light and dark theme and functions for loading them:
         (scroll-bar-mode 0)
         (setq-default fill-column 80)
         (setq-default indicate-empty-lines t)
-        (add-hook 'after-init-hook (lambda () (load-theme-exclusively 'my-light))))
+        (add-hook 'after-init-hook (lambda () (load-theme-light))))
     (progn
       (menu-bar-mode -1)))
 #+end_src
