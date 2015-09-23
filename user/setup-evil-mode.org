@@ -94,10 +94,10 @@ I want to be able to create new lines in normal-mode:
 
 Swap the ~:~ and ~;~ keys in normal and visual state:
 #+begin_src emacs-lisp
-(define-key evil-normal-state-map ":" #'evil-repeat-find-char)
-(define-key evil-normal-state-map ";" #'evil-ex)
-(define-key evil-visual-state-map ":" #'evil-repeat-find-char)
-(define-key evil-visual-state-map ";" #'evil-ex)
+;;(define-key evil-normal-state-map ":" #'evil-repeat-find-char)
+;;(define-key evil-normal-state-map ";" #'evil-ex)
+;;(define-key evil-visual-state-map ":" #'evil-repeat-find-char)
+;;(define-key evil-visual-state-map ";" #'evil-ex)
 #+end_src
 
 
