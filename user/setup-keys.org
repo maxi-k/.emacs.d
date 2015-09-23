@@ -17,7 +17,6 @@ there:
 (global-set-key (kbd "H-s") (lambda () (interactive) (insert "ß"))) ;; ß
 #+end_src
 
-
 * General keybinds
 Increase/decrease the text size more easily
 #+begin_src emacs-lisp

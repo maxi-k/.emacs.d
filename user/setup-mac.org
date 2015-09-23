@@ -12,14 +12,12 @@ A few mac-specific utility functions...
   (defun is-mac ()
     "Returns non-nil if the system emacs is
   running on is a mac"
-    (and
+    (or
      (eq window-system 'ns)
      (eq system-type 'darwin)))
 #+end_src
 
-
 * Keys
-
 ** Modifier keys
 On the mac, try to use all four available modifier-keys:
 #+begin_src elisp
@@ -31,6 +29,7 @@ On the mac, try to use all four available modifier-keys:
 (setq mac-command-modifier 'super)
 ;; Bind the fn key to be the hyper key
 (setq ns-function-modifier 'hyper)
+(setq mac-function-modifier 'hyper)
 #+end_src
 ** Unset presets
 There are some nasty pre-sets on some emacs-mac builds:
@@ -48,8 +47,6 @@ There are some nasty pre-sets on some emacs-mac builds:
     (global-set-key (kbd "s-a") 'mark-whole-buffer)
     (global-set-key (kbd "s-q") 'save-buffers-kill-emacs))
 #+end_src
-
-
 
 
 * Provide it
