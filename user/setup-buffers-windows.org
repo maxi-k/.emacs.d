@@ -6,6 +6,13 @@
 * Require packages
 
 * Initial Buffers
+Set the initial buffer choice to the remember-notes buffer, which is persisted
+throughout sessions. Also set its mode to org-mode: The lisp-evaluation keys
+work globally, so it's better than lisp-interaction-mode
+#+begin_src emacs-lisp
+  (setq initial-buffer-choice 'remember-notes
+        remember-notes-initial-major-mode 'org-mode)
+#+end_src
 
 * Killing
 Kill the current buffer
