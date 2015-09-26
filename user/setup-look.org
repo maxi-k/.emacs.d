@@ -8,6 +8,7 @@
   (require-packages
    '(
      powerline
+     page-break-lines
      ))
 #+end_src
 
@@ -128,6 +129,11 @@ Highlight the line the cursor is currently on
 (global-hl-line-mode)
 #+end_src
 
+** Page Break Lines
+Make emacs page breaks (^L character) look like lines:
+#+begin_src emacs-lisp
+(global-page-break-lines-mode)
+#+end_src
 ** Initial Frame size and position:
 #+begin_src emacs-lisp
 (setq initial-frame-alist
