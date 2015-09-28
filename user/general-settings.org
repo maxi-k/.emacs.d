@@ -52,7 +52,7 @@ Use spotlight for the locate command
 
   ;; Use the right ispell version, if it exists
   (let ((path "/usr/local/bin/ispell"))
-    (when (file-exists-p path) (setq ispell-program-name)))
+    (when (file-exists-p path) (setq ispell-program-name path)))
 
   ;; Set flyspell to german
   (setq ispell-dictionary "english")
