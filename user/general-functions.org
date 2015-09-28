@@ -91,16 +91,6 @@
 
 * 3rd Party Programs Integration
 #+begin_src emacs-lisp
-(defun google ()
-  "Google the selected region if any, display a query prompt otherwise."
-  (interactive)
-  (browse-url
-   (concat
-    "http://www.google.com/search?ie=utf-8&oe=utf-8&q="
-    (url-hexify-string (if mark-active
-                           (buffer-substring (region-beginning) (region-end))
-                         (read-string "Google: "))))))
-
 (defun open-in-browser ()
   "Open the buffer file in the standard browser."
   (interactive)
