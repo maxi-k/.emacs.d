@@ -103,7 +103,7 @@ available.
 
   (defun font-set-by-preference (font-list size)
     "Sets the first font in `font-list' that exists with given `size'."
-    (catch breakout
+    (catch 'breakout
       (mapc (lambda (f)
               (when (font-exists-p f)
                 (set-frame-font (concat f "-" (number-to-string size)) nil t)
