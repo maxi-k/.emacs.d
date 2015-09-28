@@ -57,6 +57,10 @@ and then requires them."
 
 ;; Keep emacs Custom-settings in separate file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+;; Create the custom file if it does not exist yet
+(unless (file-exists-p custom-file)
+  (shell-command (concat "touch " custom-file)))
+
 (load custom-file)
 (setq user-emacs-save-directory (concat user-emacs-directory "data/"))
 
