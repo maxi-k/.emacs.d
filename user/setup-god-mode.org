@@ -5,8 +5,7 @@
 
 * Require it
 #+begin_src emacs-lisp
-(require-package 'god-mode)
-(require 'god-mode)
+(do-require-package 'god-mode)
 #+end_src
 
 * The keys
