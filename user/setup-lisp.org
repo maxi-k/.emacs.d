@@ -33,12 +33,15 @@
 
 * Require Packages
 #+begin_src emacs-lisp
-    (require-packages '(paredit
-                        cider
-                        clj-refactor
-                        clojure-mode
-                        clojure-snippets
-                        racket-mode))
+  (require-packages '(paredit
+                      cider
+                      clj-refactor
+                      clojure-mode
+                      clojure-snippets
+                      racket-mode
+                      slime
+                      elisp-slime-nav
+                      ))
 #+end_src
 * Add hooks
 #+begin_src emacs-lisp

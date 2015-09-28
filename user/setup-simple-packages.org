@@ -29,7 +29,6 @@ These packages don't need any setup. Just load and require them.
      queue
      s
      scala-mode
-     slime
      smooth-scroll
      ssh
      string-utils
@@ -40,7 +39,6 @@ These packages don't need any setup. Just load and require them.
      yaml-mode
      ))
 #+end_src
-
 
 * Provide it
 #+begin_src emacs-lisp
