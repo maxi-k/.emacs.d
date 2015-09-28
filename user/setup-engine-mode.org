@@ -30,9 +30,8 @@ Engine mode allows you to use search-providing sites from within emacs. Awesome!
            (defengine github "https://github.com/search?ref=simplesearch&q=%s")
            (defengine wikipedia "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s" :keybinding "w")
            (defengine wikipedia-deutsch "http://www.wikipedia.org/search-redirect.php?language=de&go=Go&search=%s" :keybinding"d")
-           (defengine stack-overflow "https://stackoverflow.com/search?q=%s" :keybinding "s")
-           )
-       (error "Engine mode was not properly loaded or defengine macro was not defined"))))
+           (defengine stack-overflow "https://stackoverflow.com/search?q=%s" :keybinding "s"))
+       (message "Engine mode was not properly loaded or defengine macro was not defined"))))
 
 #+end_src
 
