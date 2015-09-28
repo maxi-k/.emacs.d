@@ -33,7 +33,6 @@ These packages don't need any setup. Just load and require them.
      smooth-scroll
      ssh
      string-utils
-     tex-math-preview
      tree-mode
      undo-tree
      visual-regexp
