@@ -97,8 +97,26 @@ Define a default light and dark theme and functions for loading them:
 Increase the font size and set it to the very nice source-code-pro font, if
 available.
 #+begin_src emacs-lisp
-(set-frame-font "Source Code Pro-16" nil t)
+  (defun font-exists-p (name)
+    "Returns non-nil if the font with given `name' exists"
+    (find-font (font-spec :name name)))
+
+  (defun font-set-by-preference (font-list size)
+    "Sets the first font in `font-list' that exists with given `size'."
+    (block breakout
+      (mapc (lambda (f)
+              (when (font-exists-p f)
+                (set-frame-font (concat f "-" (number-to-string size)) nil t)
+                (return-from breakout)))
+            font-list)))
+
+  (font-set-by-preference '("Source Code Pro" "inconsolata" "Lucida Console" "courier") 16)
 #+end_src
+
+And some test-characters to test it:
+
+0123456789abcdefghijklmnopqrstuvwxyz [] () :;,. !@#$^&*
+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ {} <> "'`  ~-_/|\?
 
 ** Line numbers & fringe
 #+begin_src emacs-lisp
