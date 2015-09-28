@@ -57,7 +57,7 @@ Also byte-compiles it"
           (lambda ()
             (add-hook 'after-save-hook
                       (lambda ()
-                        (emacs-config-tangle-file (buffer-file-name)))
+                        (emacs-config-tangle-file (buffer-file-name) t))
                       nil 'make-it-local)))
 
 (defun emacs-config-compile (&optional delete-old-p)
