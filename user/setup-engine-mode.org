@@ -6,8 +6,7 @@
 
 * Require it
 #+begin_src emacs-lisp
-(require-package 'engine-mode)
-(require 'engine-mode)
+(do-require-package 'engine-mode)
 #+end_src
 
 * Set it up
