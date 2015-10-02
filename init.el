@@ -5,12 +5,25 @@
 (setq gc-cons-threshold 100000000)
 
 (require 'package)
-;; Add the package archives
+;; ;; Add the package archives
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
+(defun list-network-connections ()
+  "List the working network connections.
+Returns nil if there is none, i.e no internet."
+  (remove-if (lambda (el)
+               (string-match-p "lo.*" (car el)))
+             (network-interface-list)))
+
+(defun has-network ()
+  "Returns t if there is a network connection, nil otherwhise."
+  (not (eq nil (list-network-connections))))
+
 ;; Initialize the package-management
 (package-initialize)
+(when (and (has-network) (not package-archive-contents))
+  (package-refresh-contents))
 
 ;; On-demand installation of packages
 (defun require-package (package &optional min-version no-refresh)
@@ -37,8 +50,14 @@ locate PACKAGE."
      (message "Couldn't install package `%s': %S" package err)
      nil)))
 
-(defun do-require-package (pkg)
-  (require-package pkg)
+(defun do-require-package (pkg &optional assume-network-p)
+  "Installes the package `pkg' if it is not already installed and
+there is a network connection, then requires it.
+If the second argument is nil, don't check for a network
+"
+  ;; "If I don't have to check the network OR there is one => download"
+  (when (or assume-network-p (has-network))
+    (require-package pkg))
   (require pkg))
 
 (defun require-all (files)
@@ -48,12 +67,9 @@ locate PACKAGE."
 (defun require-packages (pkgs)
   "Loads all the packages (if they need to be loaded)
 and then requires them."
-  (mapc #'require-package pkgs)
-  (require-all pkgs))
-
-;; Refresh it
-(when (not package-archive-contents)
-  (package-refresh-contents))
+  (if (has-network)
+      (mapc (lambda (pkg) (do-require-package pkg nil)) pkgs)
+    (require-all pkgs)))
 
 ;; Keep emacs Custom-settings in separate file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))

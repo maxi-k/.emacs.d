@@ -1,4 +1,4 @@
-(maybe-require-package 'ob-tangle)
+(maybe-require-package 'ob-tangle nil t)
 (require 'org)
 (require 'ob-tangle)
 
