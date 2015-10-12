@@ -5,15 +5,16 @@
 
 * Require Packages
 #+begin_src emacs-lisp
-    (require-packages '(org
-                        org-bullets
-                        org-mac-iCal
-                        ox-gfm
-                        ox-reveal))
+      (require-packages '(org
+                          org-alert
+                          org-bullets
+                          org-mac-iCal
+                          ox-gfm
+                          ox-reveal))
 
-  (require-package 'org-beautify-theme)
-  ;; This was pulled from github manually and is in plugins/ox-confluence
-  (ignore-errors (require 'ox-confluence))
+    (require-package 'org-beautify-theme)
+    ;; This was pulled from github manually and is in plugins/ox-confluence
+    (ignore-errors (require 'ox-confluence))
 #+end_src
 
 * Behaviors
@@ -168,6 +169,16 @@ Setup bigger fonts instead of lots of colors for headings and more:
 #+begin_src emacs-lisp
 ;; Change per-file with #+BIND: org-confluence-src-block-theme "Emacs"
 (setq org-confluence-src-block-theme "Default")
+#+end_src
+
+** Org-Alert
+Org alert can do scheduled notifications based on the org-agenda. Run it on a
+timer to check the agenda and remind me of stuff:
+#+begin_src emacs-lisp
+  ;; (add-hook 'after-init-hook
+  ;;           (lambda ()
+  ;;             (org-agenda-list)
+  ;;             (org-alert-enable)))
 #+end_src
 
 * Provide it
