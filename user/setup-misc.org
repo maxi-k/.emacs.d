@@ -1,0 +1,23 @@
+#+TITLE: Setup Misc
+#+DESCRIPTION: Set up miscellaneous stuff
+#+AUTHOR: Maximilian Kuschewski
+#+PROPERTY: my-file-type emacs-config
+
+* Require packages
+#+begin_src emacs-lisp
+  (require-packages '(alert))
+#+end_src
+
+* Alert
+Set up the emacs ('growl-style') notification system.
+If on a mac, use mac style notifications.
+#+begin_src emacs-lisp
+  (when (is-mac)
+    (setq alert-notifier-command (executable-find "terminal-notifier"))
+    (setq alert-default-style 'notifier))
+#+end_src
+
+* Provide it
+#+begin_src emacs-lisp
+(provide 'setup-misc)
+#+end_src

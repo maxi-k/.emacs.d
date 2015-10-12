@@ -102,6 +102,7 @@ the `emacs-config-elisp-dir` first."
                setup-buffers-windows
                setup-movement
                setup-editing
+               setup-misc
                ))
 
 ;; Mode-specific setups
@@ -112,8 +113,8 @@ the `emacs-config-elisp-dir` first."
                setup-projectile
                setup-text-mode
                setup-programming
-               setup-deft
                setup-org
+               setup-deft
                setup-engine-mode
                setup-look
                ))
