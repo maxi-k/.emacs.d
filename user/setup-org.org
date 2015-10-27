@@ -73,6 +73,10 @@
 (setq org-confirm-babel-evaluate nil)
 ;; Make tab in source blocks behave like it would in the language
 (setq org-src-tab-acts-natively t)
+;; Preserve the indentation level of code blocks
+;; Important for makefiles e.g
+(setq org-src-preserve-indentation t)
+
 
 ;; Set the org-reveal settings (ox-reveal)
 (setq org-reveal-root "file:///Users/Maxi/Applications/reveal-js")
@@ -130,7 +134,6 @@
   (mapc (lambda (arg)
           (define-key org-mode-map (car arg) (cdr arg)))
         bindings))
-
 #+end_src
 * Functions
 #+begin_src emacs-lisp
@@ -158,6 +161,8 @@ Setup bigger fonts instead of lots of colors for headings and more:
 #+begin_src emacs-lisp
   (defun do-beautify-org (&optional theme)
     (ignore-errors (require 'org-beautify-theme))
+    ;; Toggle bullets-mode twice so it recognizes the theme.
+    ;; This is quite weird, but it works
     (org-bullets-mode)
     (org-bullets-mode))
 
