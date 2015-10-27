@@ -4,7 +4,7 @@
 # binding: direct-keybinding
 # --
 #+TITLE: $1
-#+AUTHOR: Maximilian
+#+AUTHOR: Maximilian Kuschewski
 #+OPTIONS: toc:nil date:nil
 #+LaTeX_HEADER:\usepackage[margin=3cm]{geometry}
 #+LaTeX_HEADER:\usepackage{setspace}
