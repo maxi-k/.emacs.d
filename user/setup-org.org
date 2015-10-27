@@ -180,10 +180,13 @@ Setup bigger fonts instead of lots of colors for headings and more:
 Org alert can do scheduled notifications based on the org-agenda. Run it on a
 timer to check the agenda and remind me of stuff:
 #+begin_src emacs-lisp
-  ;; (add-hook 'after-init-hook
-  ;;           (lambda ()
-  ;;             (org-agenda-list)
-  ;;             (org-alert-enable)))
+;; Commented out because it requires the
+;; agenda buffer to be open, which I don't want
+;; to do after init by default
+;; (add-hook 'after-init-hook
+;;           (lambda ()
+;;             (org-agenda-list)
+;;             (org-alert-enable)))
 #+end_src
 
 * Provide it
