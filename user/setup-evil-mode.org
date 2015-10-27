@@ -84,7 +84,7 @@ I want to be able to create new lines in normal-mode:
 #+begin_src emacs-lisp
 ;; Insert new line (like o or O with prefix) without
 ;; going to insert mode
-(define-key evil-normal-state-map (kbd "C-<return>")
+(define-key evil-normal-state-map (kbd "S-<return>")
   (lambda (arg) (interactive "P")
     (when arg (forward-line -1))
     (move-end-of-line nil)
@@ -132,12 +132,12 @@ Go to emacs/normal/god-state *from insert-state*
 #+end_src
 
 
-
 ** Behaviors
 Make the evil visual selection behave like emacs (ends before the point, not on
 the point):
 #+begin_src emacs-lisp
-(setq evil-visual-char 'exclusive)
+;; Don't do it for now...
+;;(setq evil-visual-char 'exclusive)
 #+end_src
 
 * Looks
