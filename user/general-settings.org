@@ -3,17 +3,6 @@
 #+AUTHOR: Maximilian Kuschewski
 #+PROPERTY: my-file-type emacs-config
 
-* Initial buffers
-Create an org-mode scratch buffer and set the default buffer to
-the remember-notes buffer
-#+begin_src emacs-lisp
-;; Start a scratch-org buffer
-(org-scratch-buffer)
-
-;; remember-notes saves the notes after emacs quits
-(custom-set-variables '(initial-buffer-choice 'remember-notes))
-#+end_src
-
 * Locate/mdfind
 
 Use spotlight for the locate command
