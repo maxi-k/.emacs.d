@@ -1,0 +1,16 @@
+#+TITLE: Setup C
+#+DESCRIPTION: Setup C mode and C-specific settings
+#+AUTHOR: Maximilian Kuschewski
+#+PROPERTY: my-file-type emacs-config
+
+
+
+* Settings
+** Coding-Style
+Set the style to the linux kernel coding style.
+#+begin_src emacs-lisp
+#+end_src
+* Provide it
+#+begin_src emacs-lisp
+(provide 'setup-c)
+#+end_src
