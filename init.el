@@ -4,6 +4,7 @@
 ;; which would also slow down initialization
 (setq gc-cons-threshold 100000000)
 
+(require 'cl)
 (require 'package)
 ;; ;; Add the package archives
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
