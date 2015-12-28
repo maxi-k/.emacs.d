@@ -13,7 +13,6 @@
 #+end_src
 
 * Themes
-
 ** Utility functions
 *** Theme Path
 #+begin_src emacs-lisp
@@ -119,16 +118,22 @@ And some test-characters to test it:
 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ {} <> "'`  ~-_/|\?
 
 ** Line numbers & fringe
+Set up the styles for the fringe and linum-mode (line numbers)
 #+begin_src emacs-lisp
   (custom-set-variables
    '(linum-format " %2d ")
    '(fringe-mode 4 nil (fringe)))
-  ;; Make the fringe the same color as the background
-  (update-fringe-background)
+#+end_src
 
-  ;; Update the fringe everytime the theme changes
-  (advice-add 'load-theme :after #'update-fringe-background)
-  (advice-add 'disable-theme :after #'update-fringe-background)
+Change the fringe color to match the background color of the editor
+;; Don't for now
+#+begin_src emacs-lisp
+;; Make the fringe the same color as the background
+;;(update-fringe-background)
+
+;; Update the fringe everytime the theme changes
+;;(advice-add 'load-theme :after #'update-fringe-background)
+;;(advice-add 'disable-theme :after #'update-fringe-background)
 #+end_src
 
 ** Fill Column
@@ -152,6 +157,8 @@ Make emacs page breaks (^L character) look like lines:
 #+begin_src emacs-lisp
 (global-page-break-lines-mode)
 #+end_src
+I've inserted one on the following line:
+
 ** Initial Frame size and position:
 #+begin_src emacs-lisp
 (setq initial-frame-alist
