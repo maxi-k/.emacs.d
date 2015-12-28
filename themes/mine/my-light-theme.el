@@ -23,7 +23,7 @@
    `(default ((t (:foreground ,fg :background ,bg))))
    `(cursor  ((t (:foreground ,bg :background ,cursor))))
    `(hl-line ((t (:background ,line-hl))))
-   `(fringe ((t (:background ,bg))))
+   `(fringe ((t (:background ,light-gray))))
    `(region ((t (:background ,hl))))
    `(whitespace-line  ((t (:foreground nil :background ,light-gray))))
    `(whitespace-empty  ((t (:foreground nil :background ,light-gray))))
