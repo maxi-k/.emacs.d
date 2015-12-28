@@ -101,87 +101,92 @@
 
 * General Utility
 #+begin_src emacs-lisp
-  (defun org-create-link-in-org-dir ()
-    "Creates a symbolic link of the currently
+(defun org-create-link-in-org-dir ()
+  "Creates a symbolic link of the currently
     visited file in the org-directory "
-    (interactive)
-    (shell-command (concat "ln -s " buffer-file-name " "
-                           org-directory "/"
-                           (file-name-nondirectory buffer-file-name)
-                           " & disown")))
+  (interactive)
+  (shell-command (concat "ln -s " buffer-file-name " "
+                         org-directory "/"
+                         (file-name-nondirectory buffer-file-name)
+                         " & disown")))
 
-  (defun rename-file-and-buffer (new-name)
-    "Renames both current buffer and file it's visiting to NEW-NAME."
-    (interactive "sNew name: ")
-    (let ((name (buffer-name))
-          (filename (buffer-file-name)))
-      (if (not filename)
-          (message "Buffer '%s' is not visiting a file!" name)
-        (if (get-buffer new-name)
-            (message "A buffer named '%s' already exists!" new-name)
-          (progn
-            (rename-file name new-name 1)
-            (rename-buffer new-name)
-            (set-visited-file-name new-name)
-            (set-buffer-modified-p nil))))))
+(defun rename-file-and-buffer (new-name)
+  "Renames both current buffer and file it's visiting to NEW-NAME."
+  (interactive "sNew name: ")
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (if (not filename)
+        (message "Buffer '%s' is not visiting a file!" name)
+      (if (get-buffer new-name)
+          (message "A buffer named '%s' already exists!" new-name)
+        (progn
+          (rename-file name new-name 1)
+          (rename-buffer new-name)
+          (set-visited-file-name new-name)
+          (set-buffer-modified-p nil))))))
 
-  (defun time ()
-    "Messages the current time in the format hh:mm."
-    (interactive)
-    (message (substring (current-time-string) 11 16)))
+(defun time ()
+  "Messages the current time in the format hh:mm."
+  (interactive)
+  (message (substring (current-time-string) 11 16)))
 
-  (defun my/set-face-from-attributes (face attrs)
-    "Sets all the face attributes of given
+(defun my/set-face-from-attributes (face attrs)
+  "Sets all the face attributes of given
     face from given attribute-value list"
-    (mapc (lambda (attr)
-            (set-face-attribute face nil (car attr) (cdr attr)))
-          attrs))
+  (mapc (lambda (attr)
+          (set-face-attribute face nil (car attr) (cdr attr)))
+        attrs))
 
-  (defun my/call-times (fn times arg)
-    (let ((result arg))
-      (dotimes (n times result)
-        (setq result (funcall fn result)))))
+(defun my/call-times (fn times arg)
+  (let ((result arg))
+    (dotimes (n times result)
+      (setq result (funcall fn result)))))
 
-  (defun my/insert-alphabet (separator)
-    (interactive "sSeparator: ")
-    (message separator)
-    (let ((alphabet "abcdefghijklmnopqrstuvwxyz"))
-      (mapc (lambda (c) (insert c) (insert separator))
-            (mapcar 'char-to-string (append alphabet nil)))))
+(defun list-or-empty (item)
+  "If item is nil, returns the empty list,
+otherwise a list of the item."
+  (if item (list item) '()))
 
-  (defun toggle-window-split ()
-    (interactive)
-    (if (= (count-windows) 2)
-        (let* ((this-win-buffer (window-buffer))
-               (next-win-buffer (window-buffer (next-window)))
-               (this-win-edges (window-edges (selected-window)))
-               (next-win-edges (window-edges (next-window)))
-               (this-win-2nd (not (and (<= (car this-win-edges)
-                                           (car next-win-edges))
-                                       (<= (cadr this-win-edges)
-                                           (cadr next-win-edges)))))
-               (splitter
-                (if (= (car this-win-edges)
-                       (car (window-edges (next-window))))
-                    'split-window-horizontally
-                  'split-window-vertically)))
-          (delete-other-windows)
-          (let ((first-win (selected-window)))
-            (funcall splitter)
-            (if this-win-2nd (other-window 1))
-            (set-window-buffer (selected-window) this-win-buffer)
-            (set-window-buffer (next-window) next-win-buffer)
-            (select-window first-win)
-            (if this-win-2nd (other-window 1))))))
+(defun my/insert-alphabet (separator)
+  (interactive "sSeparator: ")
+  (message separator)
+  (let ((alphabet "abcdefghijklmnopqrstuvwxyz"))
+    (mapc (lambda (c) (insert c) (insert separator))
+          (mapcar 'char-to-string (append alphabet nil)))))
 
-  (defun my/curl (url)
-    (interactive "sURL: ")
-    (url-retrieve url
-                  (lambda (status) (switch-to-buffer (current-buffer)))))
+(defun toggle-window-split ()
+  (interactive)
+  (if (= (count-windows) 2)
+      (let* ((this-win-buffer (window-buffer))
+             (next-win-buffer (window-buffer (next-window)))
+             (this-win-edges (window-edges (selected-window)))
+             (next-win-edges (window-edges (next-window)))
+             (this-win-2nd (not (and (<= (car this-win-edges)
+                                         (car next-win-edges))
+                                     (<= (cadr this-win-edges)
+                                         (cadr next-win-edges)))))
+             (splitter
+              (if (= (car this-win-edges)
+                     (car (window-edges (next-window))))
+                  'split-window-horizontally
+                'split-window-vertically)))
+        (delete-other-windows)
+        (let ((first-win (selected-window)))
+          (funcall splitter)
+          (if this-win-2nd (other-window 1))
+          (set-window-buffer (selected-window) this-win-buffer)
+          (set-window-buffer (next-window) next-win-buffer)
+          (select-window first-win)
+          (if this-win-2nd (other-window 1))))))
 
-  (defun open-folder-in-finder ()
-    (interactive)
-    (shell-command "open ."))
+(defun my/curl (url)
+  (interactive "sURL: ")
+  (url-retrieve url
+                (lambda (status) (switch-to-buffer (current-buffer)))))
+
+(defun open-folder-in-finder ()
+  (interactive)
+  (shell-command "open ."))
 
 #+end_src
 * Provide...

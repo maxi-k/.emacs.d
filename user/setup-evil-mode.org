@@ -173,44 +173,44 @@ Define some face colors to be used in the powerline and cursor colors:
         faces))
 #+end_src
 ** Set up the look
-A small utility function for getting the right face for the current evil state:
-#+begin_src emacs-lisp
+   A small utility function for getting the right face for the current evil state:
+   #+begin_src emacs-lisp
 (defun my/cur-evil-face ()
   "Returns the right my/evil-<state>-face for the current
   evil state"
   (let* ((face (intern (format "my/evil-%s-face" (symbol-name evil-state)))))
     (if (facep face) face nil)))
-#+end_src
+   #+end_src
 
- When loading a theme, save it's cursor face to the variable
- ~my/emacs-cursor-face~. If in evil mode, set the cursor to the appropriate evil
- face depending on the state:
- #+begin_src emacs-lisp
+   When loading a theme, save it's cursor face to the variable
+   ~my/emacs-cursor-face~. If in evil mode, set the cursor to the appropriate evil
+   face depending on the state:
+   #+begin_src emacs-lisp
    (defun my/evil-look-loadtheme-after (&optional theme)
      (setq my/emacs-cursor-face (face-all-attributes 'cursor (car (frame-list))))
      (when evil-mode (evil-refresh-cursor)))
 
    (advice-add 'load-theme :after #'my/evil-look-loadtheme-after)
- #+end_src
+   #+end_src
 
- When exiting from evil mode when it's in insert state, the cursor stays a line
- This fixes that, as well as resetting the color:
-#+begin_src emacs-lisp
+   When exiting from evil mode when it's in insert state, the cursor stays a line
+   This fixes that, as well as resetting the color:
+   #+begin_src emacs-lisp
 (add-hook 'evil-mode-hook
           (lambda () (unless evil-mode
                   (my/set-face-from-attributes 'cursor my/emacs-cursor-face))))
-#+end_src
+   #+end_src
 
-Switch the cursor color when changing modes:
-#+begin_src emacs-lisp
-  (mapc (lambda (arg)
-          (set (intern (format "evil-%s-state-cursor" (symbol-name arg)))
-               (cons (face-background (intern
-                                       (format "my/evil-%s-face"
-                                               (symbol-name arg))))
-                     '(box))))
-        my/evil-states)
-#+end_src
+   Switch the cursor color when changing modes:
+   #+begin_src emacs-lisp
+(mapc (lambda (arg)
+        (let ((cursor (intern (format "evil-%s-state-cursor" (symbol-name arg))))
+              (face (intern (format "my/evil-%s-face" (symbol-name arg)))))
+          (set cursor (cons (face-background face)
+                            (list-or-empty (symbol-value cursor))))))
+      my/evil-states)
+
+   #+end_src
 * Activate it!
 Activate evil-mode by default:
 #+begin_src emacs-lisp
