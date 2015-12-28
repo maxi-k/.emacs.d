@@ -25,6 +25,14 @@ When evil mode is activated, it should start in this state:
 #+begin_src emacs-lisp
 (setq evil-default-state 'normal)
 #+end_src
+
+However, in some cases, other initial states are better:
+#+begin_src emacs-lisp
+(mapc (lambda (map)
+        (evil-set-initial-state (car map) (cdr map)))
+      '((eshell-mode . emacs)
+        (undo-tree-visualizer-mode . emacs)))
+#+end_src
 * Usage
 Activate evil-mode globally with cmd-escape
 #+begin_src emacs-lisp
