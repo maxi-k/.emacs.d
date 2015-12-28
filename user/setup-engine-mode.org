@@ -26,7 +26,7 @@ Engine mode allows you to use search-providing sites from within emacs. Awesome!
    (lambda ()
      (if (and (featurep 'engine-mode) (fboundp 'defengine))
          (progn
-           (defengine google "https://google.com/#q=google" :keybinding "g")
+           (defengine google "https://google.com/#q=%s" :keybinding "g")
            (defengine github "https://github.com/search?ref=simplesearch&q=%s")
            (defengine wikipedia "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s" :keybinding "w")
            (defengine wikipedia-deutsch "http://www.wikipedia.org/search-redirect.php?language=de&go=Go&search=%s" :keybinding"d")
