@@ -60,10 +60,6 @@ Use spotlight for the locate command
 #+end_src
 
 * Dired
-Don't open a new buffer every time in dired when drilling down
-#+begin_src emacs-lisp
-(put 'dired-find-alternate-file 'disabled nil)
-#+end_src
 * Aliases
 Set some aliases for simpler commands
 #+begin_src emacs-lisp
