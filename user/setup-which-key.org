@@ -1,0 +1,23 @@
+#+TITLE: Setup which-key
+#+DESCRIPTION: Describes all possible keys after a key-group key is pressed
+#+AUTHOR: Maximilian Kuschewski
+#+PROPERTY: my-file-type emacs-config
+* Require it
+#+begin_src emacs-lisp
+(do-require-package 'which-key)
+#+end_src
+
+* Setup
+The timer before =which-key= kicks in defaults to 1.0.
+#+begin_src emacs-lisp
+(setq which-key-idle-delay 0.5)
+#+end_src
+
+It also needs to be activated
+#+begin_src emacs-lisp
+(which-key-mode)
+#+end_src
+* Provide it
+#+begin_src emacs-lisp
+(provide 'setup-which-key)
+#+end_src

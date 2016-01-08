@@ -115,6 +115,7 @@ the `emacs-config-elisp-dir` first."
                setup-programming
                setup-org
                setup-deft
+               setup-which-key
                setup-engine-mode
                setup-look
                ))
