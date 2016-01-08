@@ -3,7 +3,6 @@
 #+DESCRIPTION: Set up some mac-specific stuff, making sure it's only called when on a mac.
 #+PROPERTY: my-file-type emacs-config
 
-
 * Utility-functions
 A few mac-specific utility functions...
 
@@ -47,7 +46,6 @@ There are some nasty pre-sets on some emacs-mac builds:
     (global-set-key (kbd "s-a") 'mark-whole-buffer)
     (global-set-key (kbd "s-q") 'save-buffers-kill-emacs))
 #+end_src
-
 
 * Provide it
 #+begin_src elisp
