@@ -53,6 +53,12 @@ Use spotlight/locate to find anything
 #+begin_src emacs-lisp
 (global-set-key (kbd "s-.") 'helm-locate)
 #+end_src
+
+Use helm-M-x instead of the default =execute-extended-command=. This has a
+couple of benefits, most notably it shows the keybindings next to the commands
+#+begin_src emacs-lisp
+(global-set-key (kbd "M-x") 'helm-M-x)
+#+end_src
 * Activate it
 Enable helm everywhere:
 #+begin_src emacs-lisp
