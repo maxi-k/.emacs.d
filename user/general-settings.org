@@ -4,7 +4,6 @@
 #+PROPERTY: my-file-type emacs-config
 
 * Locate/mdfind
-
 Use spotlight for the locate command
 #+begin_src emacs-lisp
 (setq locate-command "mdfind")
