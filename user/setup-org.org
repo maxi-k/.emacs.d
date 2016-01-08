@@ -13,8 +13,9 @@
                           ox-reveal))
 
     (require-package 'org-beautify-theme)
-    ;; This was pulled from github manually and is in plugins/ox-confluence
+    ;; Those were pulled from github manually and are in plugins/ox-confluence
     (ignore-errors (require 'ox-confluence))
+    (ignore-errors (require 'ox-mediawiki))
 #+end_src
 
 * Behaviors
@@ -188,6 +189,13 @@ timer to check the agenda and remind me of stuff:
 ;;             (org-agenda-list)
 ;;             (org-alert-enable)))
 #+end_src
+
+** Org-Mediawiki
+Export org files to Mediawiki syntax, see [[Require Packages]]
+#+begin_src
+(require 'ox-mediawiki)
+#+end_src
+
 
 * Provide it
   #+begin_src emacs-lisp

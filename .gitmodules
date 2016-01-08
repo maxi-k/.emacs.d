@@ -89,3 +89,7 @@
 [submodule "themes/zenburn"]
            path = themes/zenburn
            url = https://github.com/bbatsov/zenburn
+
+[submodule "user/plugins/ox-mediawiki"]
+           path = user/plugins/ox-mediawiki
+           url = https://github.com/tomalexander/orgmode-mediawiki
