@@ -11,9 +11,8 @@
 * Configure it
 #+begin_src emacs-lisp
 ;; Set up quick note taking with deft
-(setq deft-extension "org"
-      deft-directory (concat org-directory "local/deft/")
-      deft-text-mode 'org-mode)
+(setq deft-default-extension "org"
+      deft-directory (concat org-directory "local/deft/"))
 (global-set-key (kbd "<f9>") 'deft)
 #+end_src
 
