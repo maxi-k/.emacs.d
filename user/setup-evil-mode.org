@@ -62,6 +62,9 @@ Activate evil-mode globally with cmd-escape
   "jj" 'evil-ace-jump-char-mode
   "jw" 'evil-ace-jump-word-mode
   "jt" 'evil-ace-jump-char-to-mode
+  ;; Help
+  "h" 'help
+  "?" 'helm-descbinds
   )
 #+end_src
 
@@ -84,7 +87,7 @@ Activate it everywhere aswell
 ;; Activate evil visualstar everywhere (*)
 (global-evil-visualstar-mode t)
 #+end_src
-** Keys
+** Standard Keys
 The evil-leader keys are defined above.
 Here are some direct remappings:
 
@@ -138,7 +141,6 @@ Go to emacs/normal/god-state *from insert-state*
 (define-key evil-insert-state-map (kbd "C-,") #'evil-god-state)
 (define-key evil-insert-state-map (kbd "C-;") #'evil-execute-in-normal-state)
 #+end_src
-
 
 ** Behaviors
 Make the evil visual selection behave like emacs (ends before the point, not on
