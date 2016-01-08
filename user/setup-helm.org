@@ -7,6 +7,7 @@
 #+begin_src emacs-lisp
   (require-packages '(helm
                       helm-dash
+                      helm-descbinds
                       helm-itunes
                       helm-projectile))
 #+end_src
