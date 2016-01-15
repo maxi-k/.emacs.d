@@ -72,11 +72,12 @@ and then requires them."
       (mapc (lambda (pkg) (do-require-package pkg nil)) pkgs)
     (require-all pkgs)))
 
-;; Keep emacs Custom-settings in separate file
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-;; Create the custom file if it does not exist yet
-(unless (file-exists-p custom-file)
-  (shell-command (concat "touch " custom-file)))
+(let ((cfile (expand-file-name "custom.el" user-emacs-directory)))
+  ;; Create the custom file if it does not exist yet
+  (unless (file-exists-p cfile)
+    (shell-command (concat "touch " custom-file)))
+  ;; Keep emacs Custom-settings in separate file
+  (setq custom-file cfile))
 
 (load custom-file)
 (setq user-emacs-save-directory (concat user-emacs-directory "data/"))
