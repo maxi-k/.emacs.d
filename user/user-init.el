@@ -97,7 +97,7 @@ the `emacs-config-elisp-dir` first."
 
 ;; Specific Setups
 (require-all '(setup-PATH
-               setup-mac
+               setup-system
                setup-keys
                setup-buffers-windows
                setup-movement
@@ -119,7 +119,5 @@ the `emacs-config-elisp-dir` first."
                setup-engine-mode
                setup-look
                ))
-
-
 
 (provide 'user-init)
