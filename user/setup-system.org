@@ -1,0 +1,71 @@
+#+TITLE: Set up System-specifics
+#+AUTHOR: Maximilian Kuschewski
+#+DESCRIPTION: Set up some system-specific stuff.
+#+PROPERTY: my-file-type emacs-config
+
+* Utility-functions
+A few system-specific utility functions...
+** System-check
+#+begin_src elisp
+(defun is-mac ()
+  "Returns non-nil if the system emacs is
+  running on is a mac"
+  (or
+   (eq window-system 'ns)
+   (eq system-type 'darwin)))
+
+(defun is-windows ()
+  "Returns non-nil if the system emacs is
+  running on is a windows"
+  (or
+   (eq window-system 'w32)
+   (eq system-type 'windows-nt)))
+#+end_src
+
+* Keys
+** Modifier keys
+*** Mac
+On the mac, try to use all four available modifier-keys:
+#+begin_src elisp
+(when (is-mac)
+  (setq
+   mac-control-modifier 'control ;; Make sure control is actually control
+   mac-option-modifier 'meta ;; Make sure the alt key is meta
+   mac-command-modifier 'super ;; Bind the cmd key to be the super key
+   mac-function-modifier 'hyper ;; Bind the fn key to be the hyper key
+   ns-function-modifier 'hyper ;; Same
+   ))
+#+end_src
+*** Windows
+On windows, use the windows-key for super, alt for meta, and the fn-key for
+hyper.
+#+begin_src emacs-lisp
+(when (is-windows)
+  (setq
+   w32-pass-lwindow-to-system nil ;; The left windows-key is captured
+   w32-pass-rwindow-to-system nil ;; The right windows-key is captured
+   w32-pass-alt-to-system nil ;; The left alt-key is captured
+   w32-lwindow-modifier 'super ;; Set the left windows-key to super (cmd)
+   w32-rwindow-modifier 'super ;; Set the right windows-key to super (cmd)
+   w32-apps-modifier 'hyper ;; Set the fn-key (right) to hyper
+   ))
+#+end_src
+** Unset presets
+There are some pre-sets on some emacs-mac builds:
+#+begin_src elisp
+  ;; Cmd-t opening the typography options
+  (when (is-mac)
+    (global-unset-key (kbd "s-t")))
+#+end_src
+** Set mac favorites
+Set some mac-typical bindings for all systems.
+#+begin_src elisp
+(global-set-key (kbd "s-s") 'save-buffer)
+(global-set-key (kbd "s-a") 'mark-whole-buffer)
+(global-set-key (kbd "s-q") 'save-buffers-kill-emacs)
+#+end_src
+
+* Provide it
+#+begin_src elisp
+  (provide 'setup-system)
+#+end_src
