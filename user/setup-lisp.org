@@ -38,6 +38,7 @@
                       clj-refactor
                       clojure-mode
                       clojure-snippets
+                      pixie-mode
                       racket-mode
                       slime
                       elisp-slime-nav
