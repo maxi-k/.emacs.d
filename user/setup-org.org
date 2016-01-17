@@ -5,17 +5,17 @@
 
 * Require Packages
 #+begin_src emacs-lisp
-      (require-packages '(org
-                          org-alert
-                          org-bullets
-                          org-mac-iCal
-                          ox-gfm
-                          ox-reveal))
+(require-packages '(org
+                    org-alert
+                    org-bullets
+                    org-mac-iCal
+                    ox-gfm
+                    ox-reveal))
 
-    (require-package 'org-beautify-theme)
-    ;; Those were pulled from github manually and are in plugins/ox-confluence
-    (ignore-errors (require 'ox-confluence))
-    (ignore-errors (require 'ox-mediawiki))
+(require-package 'org-beautify-theme)
+;; Those were pulled from github manually and are in plugins/ox-confluence
+(ignore-errors (require 'ox-confluence))
+(ignore-errors (require 'ox-mediawiki))
 #+end_src
 
 * Behaviors
@@ -195,7 +195,6 @@ Export org files to Mediawiki syntax, see [[Require Packages]]
 #+begin_src
 (require 'ox-mediawiki)
 #+end_src
-
 
 * Provide it
   #+begin_src emacs-lisp
