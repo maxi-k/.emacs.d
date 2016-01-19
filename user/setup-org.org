@@ -10,7 +10,8 @@
                     org-bullets
                     org-mac-iCal
                     ox-gfm
-                    ox-reveal))
+                    ox-reveal
+                    ox-twbs))
 
 (require-package 'org-beautify-theme)
 ;; Those were pulled from github manually and are in plugins/ox-confluence
@@ -38,7 +39,10 @@
       org-src-fontify-natively t
       ;; Add a :CLOSED tag with timestamp
       ;; to todo items when they are done
-      org-log-done 'time)
+      org-log-done 'time
+      ;; Store the uid of an already exported ical event in the :UID: TAG
+      ;; org-icalendar-store-UID
+)
 
 ;; Add the MacTeX programs to the PATH
 (add-to-PATH "/Library/TeX/Distributions/Programs/texbin")
@@ -120,6 +124,7 @@
 (global-set-key (kbd "C-c b") 'org-iswitchb)
 #+end_src
 ** Org-local
+Standard emacsy org mode bindings:
 #+begin_src emacs-lisp
 ;; Define some local keybindings
 (let ((bindings `((,(kbd "M-h") . kill-region-or-backward-word)
@@ -131,10 +136,19 @@
                   (,(kbd "C-M-l") . org-table-sort-lines)
                   (,(kbd "M-I") . org-toggle-iimage-in-org)
                   (,(kbd "C-y") . yank)
-                  (,(kbd "s-t") . org-todo))))
+                  (,(kbd "s-t") . org-todo)
+                  (,(kbd "M-]") . org-toggle-timestamp-type))))
   (mapc (lambda (arg)
           (define-key org-mode-map (car arg) (cdr arg)))
         bindings))
+#+end_src
+
+Evil-leader bindings:
+#+begin_src emacs-lisp
+(when (evil-p)
+  (evil-leader/set-key-for-mode 'org-mode
+    "tt" 'org-todo
+    "td" 'org-toggle-timestamp-type))
 #+end_src
 * Functions
 #+begin_src emacs-lisp
