@@ -20,6 +20,13 @@ Set up some useful variables regarding evil-mode
 #+begin_src emacs-lisp
 (setq my/evil-states '(normal insert visual operator replace motion emacs god))
 #+end_src
+* Utility
+#+begin_src emacs-lisp
+(defun evil-p ()
+  "Returns non-nil if evil-mode is installed."
+  (interactive)
+  (boundp 'evil-mode))
+#+end_src
 * Setting defaults
 When evil mode is activated, it should start in this state:
 #+begin_src emacs-lisp
