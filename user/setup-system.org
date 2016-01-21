@@ -65,6 +65,18 @@ Set some mac-typical bindings for all systems.
 (global-set-key (kbd "s-q") 'save-buffers-kill-emacs)
 #+end_src
 
+* Search
+Use spotlight for the locate command on the mac
+#+begin_src emacs-lisp
+(when (is-mac)
+    (setq locate-command "mdfind"))
+#+end_src
+Use the 'everywhere.el' package on windows
+#+begin_src emacs-lisp
+(when (is-windows)
+  (do-require-package 'everything))
+#+end_src
+
 * Provide it
 #+begin_src emacs-lisp
   (provide 'setup-system)

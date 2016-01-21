@@ -3,12 +3,6 @@
 #+AUTHOR: Maximilian Kuschewski
 #+PROPERTY: my-file-type emacs-config
 
-* Locate/mdfind
-Use spotlight for the locate command
-#+begin_src emacs-lisp
-(setq locate-command "mdfind")
-#+end_src
-
 * General Defaults
 #+begin_src emacs-lisp
   (setq default-directory "~"
