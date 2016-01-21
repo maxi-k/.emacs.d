@@ -6,7 +6,7 @@
 * Utility-functions
 A few system-specific utility functions...
 ** System-check
-#+begin_src elisp
+#+begin_src emacs-lisp
 (defun is-mac ()
   "Returns non-nil if the system emacs is
   running on is a mac"
@@ -26,7 +26,7 @@ A few system-specific utility functions...
 ** Modifier keys
 *** Mac
 On the mac, try to use all four available modifier-keys:
-#+begin_src elisp
+#+begin_src emacs-lisp
 (when (is-mac)
   (setq
    mac-control-modifier 'control ;; Make sure control is actually control
@@ -52,20 +52,20 @@ hyper.
 #+end_src
 ** Unset presets
 There are some pre-sets on some emacs-mac builds:
-#+begin_src elisp
+#+begin_src emacs-lisp
   ;; Cmd-t opening the typography options
   (when (is-mac)
     (global-unset-key (kbd "s-t")))
 #+end_src
 ** Set mac favorites
 Set some mac-typical bindings for all systems.
-#+begin_src elisp
+#+begin_src emacs-lisp
 (global-set-key (kbd "s-s") 'save-buffer)
 (global-set-key (kbd "s-a") 'mark-whole-buffer)
 (global-set-key (kbd "s-q") 'save-buffers-kill-emacs)
 #+end_src
 
 * Provide it
-#+begin_src elisp
+#+begin_src emacs-lisp
   (provide 'setup-system)
 #+end_src
