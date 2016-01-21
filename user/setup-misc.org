@@ -8,6 +8,20 @@
   (require-packages '(alert))
 #+end_src
 
+* Garbage Collection
+Found these snippets [[http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/][here]], I found this to be a good idea.
+Find the variable =my/gc-cons-threshold= in the top [[../init.el][init file]].
+#+begin_src emacs-lisp
+(defun gc-minibuffer-setup-hook ()
+  (setq gc-cons-threshold most-positive-fixnum))
+
+(defun gc-minibuffer-exit-hook ()
+  (setq gc-cons-threshold my/gc-cons-threshold))
+
+(add-hook 'minibuffer-setup-hook #'gc-minibuffer-setup-hook)
+(add-hook 'minibuffer-exit-hook #'gc-minibuffer-exit-hook)
+#+end_src
+
 * Alert
 Set up the emacs ('growl-style') notification system.
 If on a mac, use mac style notifications.

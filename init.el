@@ -2,7 +2,8 @@
 ;; Now: 1MB
 ;; Emacs shouldn't garbage-collect so quickly
 ;; which would also slow down initialization
-(setq gc-cons-threshold 100000000)
+(setq my/gc-cons-threshold 100000000)
+(setq gc-cons-threshold my/gc-cons-threshold)
 
 (require 'cl)
 (require 'package)
