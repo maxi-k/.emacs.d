@@ -6,6 +6,12 @@
 ;; The base directory where all configuration takes place
 (defconst emacs-config-dir (file-name-directory (or (buffer-file-name)
                                                     load-file-name)))
+;; A non-version-controlled file in a subdirectory of the emacs config dir
+;; For local setup. Gets loaded after the 'general' setup files in
+;; emacs-config-dir
+(defconst emacs-config-local-dir (concat emacs-config-dir "local/"))
+(defconst emacs-config-local-file
+  (concat emacs-config-local-dir "setup-local.org"))
 ;; The directory where the actual elisp files are stored
 (defconst emacs-config-elisp-dir (concat emacs-config-dir "elisp/"))
 ;; What org-mode property marks a file as emacs config
@@ -14,6 +20,11 @@
 ;; into an org-file to be counted as emacs-config-file
 (defconst emacs-config-marker
   (concat "#+PROPERTY: " (car emacs-config-property) " " (cdr emacs-config-property)))
+
+(defun has-local-config ()
+  "Returns non-nil if the file
+`emacs-config-dir'/local/setup-local.org exists."
+  (file-exists-p emacs-config-local-file))
 
 ;; Add the folder with the tangled&compiled org-files
 ;; to the load-path
@@ -76,7 +87,11 @@ the `emacs-config-elisp-dir` first."
   (unless (file-exists-p emacs-config-elisp-dir)
     (make-directory emacs-config-elisp-dir t))
   ;; Tangle all the files in the emacs-config dir
-  (mapc #'emacs-config-tangle-file (directory-files emacs-config-dir t "\\.org$")))
+  (let* ((general-config (directory-files emacs-config-dir t "\\.org$"))
+         (local-config (if (has-local-config)
+                           (directory-files emacs-config-local-dir t "\\.org$")
+                         '())))
+    (mapc #'emacs-config-tangle-file (append general-config local-config))))
 
 ;; If the elsip directory does not exist
 ;; (e.g if it was just pulled from git)
@@ -119,5 +134,9 @@ the `emacs-config-elisp-dir` first."
                setup-engine-mode
                setup-look
                ))
+
+;; Load the machine-local setup if present
+(when (has-local-config)
+  (require 'setup-local))
 
 (provide 'user-init)
