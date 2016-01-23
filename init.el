@@ -52,7 +52,10 @@ locate PACKAGE."
      (message "Couldn't install package `%s': %S" package err)
      nil)))
 
-(defun do-require-package (pkg &optional assume-network-p)
+(defun autoload-package (p)
+  (autoload p (concat (symbol-name p) ".el") (symbol-name p) t))
+
+(defun do-require-package (pkg &optional do-require assume-network-p )
   "Installes the package `pkg' if it is not already installed and
 there is a network connection, then requires it.
 If the second argument is nil, don't check for a network
@@ -60,18 +63,25 @@ If the second argument is nil, don't check for a network
   ;; "If I don't have to check the network OR there is one => download"
   (when (or assume-network-p (has-network))
     (require-package pkg))
-  (require pkg))
+  (if do-require
+      (require pkg)
+    (autoload-package pkg)))
 
 (defun require-all (files)
   "Requires all the files in the provided list"
   (mapc 'require files))
 
-(defun require-packages (pkgs)
+(defun autoload-all (packages)
+  (mapc #'autoload-package packages))
+
+(defun require-packages (pkgs &optional do-require)
   "Loads all the packages (if they need to be loaded)
 and then requires them."
   (if (has-network)
-      (mapc (lambda (pkg) (do-require-package pkg nil)) pkgs)
-    (require-all pkgs)))
+      (mapc (lambda (pkg) (do-require-package pkg do-require nil)) pkgs)
+    (if do-require
+        (require-all pkgs)
+      (autoload-all pkgs))))
 
 (let ((cfile (expand-file-name "custom.el" user-emacs-directory)))
   ;; Create the custom file if it does not exist yet
@@ -88,6 +98,8 @@ and then requires them."
 (setq debug-on-error t)
 
 (add-to-list 'load-path (concat user-emacs-directory "user/"))
+
+(benchmark-init/activate)
 
 ;; Load the user init file
 (require 'user-init)
