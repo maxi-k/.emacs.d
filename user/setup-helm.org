@@ -59,6 +59,11 @@ couple of benefits, most notably it shows the keybindings next to the commands
 #+begin_src emacs-lisp
 (global-set-key (kbd "M-x") 'helm-M-x)
 #+end_src
+
+Set up s-i for helm-imenu. s-i is bound to the standard imenu in [[setup-movement.org]]
+#+begin_src emacs-lisp
+(global-set-key (kbd "s-i") 'helm-imenu)
+#+end_src
 * Activate it
 Enable helm everywhere:
 #+begin_src emacs-lisp
