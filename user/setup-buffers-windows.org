@@ -71,6 +71,23 @@ Enlarge/shrink windows
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
 #+end_src
+
+Make a vertical split and set the current window to 80 characters width:
+#+begin_src emacs-lisp
+(defun set-window-width (n)
+  "Set the selected window's width."
+  (adjust-window-trailing-edge (selected-window) (- n (window-width)) t))
+
+(global-set-key (kbd "s-3")
+                (lambda ()
+                  (interactive)
+                  (split-window-right)
+                  (set-window-width 80)))
+(global-set-key (kbd "s-8")
+                (lambda ()
+                  (interactive)
+                  (set-window-width 80)))
+#+end_src
 * Provide it
 #+begin_src emacs-lisp
 (provide 'setup-buffers-windows)
