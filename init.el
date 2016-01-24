@@ -1,9 +1,10 @@
 ;; Default: 800000 bytes
-;; Now: 1MB
+;; Now: 10MB
 ;; Emacs shouldn't garbage-collect so quickly
 ;; which would also slow down initialization
-(setq my/gc-cons-threshold 100000000)
+(setq my/gc-cons-threshold 10000000)
 (setq gc-cons-threshold my/gc-cons-threshold)
+;; (setq garbage-collection-messages t)
 
 (require 'cl)
 (require 'package)
@@ -26,6 +27,9 @@ Returns nil if there is none, i.e no internet."
 (package-initialize)
 (when (and (has-network) (not package-archive-contents))
   (package-refresh-contents))
+
+;; Benchmark the init giving information on what takes how long
+;; (benchmark-init/activate)
 
 ;; On-demand installation of packages
 (defun require-package (package &optional min-version no-refresh)
@@ -53,7 +57,7 @@ locate PACKAGE."
      nil)))
 
 (defun autoload-package (p)
-  (autoload p (concat (symbol-name p) ".el") (symbol-name p) t))
+  (autoload p (concat (symbol-name p) ".elc") (symbol-name p) t))
 
 (defun do-require-package (pkg &optional do-require assume-network-p )
   "Installes the package `pkg' if it is not already installed and
@@ -98,8 +102,6 @@ and then requires them."
 (setq debug-on-error t)
 
 (add-to-list 'load-path (concat user-emacs-directory "user/"))
-
-(benchmark-init/activate)
 
 ;; Load the user init file
 (require 'user-init)
