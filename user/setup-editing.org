@@ -57,7 +57,7 @@ Join lines more easily
 
 ** Yasnippet
 #+begin_src emacs-lisp
-(yas-global-mode)
+(add-hook 'after-init-hook #'yas-global-mode)
 #+end_src
 
 ** Expand Region
@@ -80,7 +80,6 @@ Look through the kill ring and insert exactly what you want.
 (global-set-key (kbd "C-x C-y") 'browse-kill-ring)
 #+end_src
 
-**
 * Provide it
 #+begin_src emacs-lisp
 (provide 'setup-editing)
