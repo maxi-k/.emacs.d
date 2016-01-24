@@ -16,6 +16,7 @@ These packages don't need any setup. Just load and require them.
      epl
      f
      flycheck
+     general-close
      goto-chg
      highlight-indentation
      idle-highlight-mode
