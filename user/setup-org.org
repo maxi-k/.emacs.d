@@ -5,18 +5,18 @@
 
 * Require Packages
 #+begin_src emacs-lisp
-(require-packages '(org
-                    org-alert
-                    org-bullets
-                    org-mac-iCal
-                    ox-gfm
-                    ox-reveal
-                    ox-twbs))
+  (require-packages '(org
+                      org-alert
+                      org-bullets
+                      org-mac-iCal
+                      ox-gfm
+                      ox-mediawiki
+                      ox-reveal
+                      ox-twbs))
 
-(require-package 'org-beautify-theme)
-;; Those were pulled from github manually and are in plugins/ox-confluence
-(ignore-errors (require 'ox-confluence))
-(ignore-errors (require 'ox-mediawiki))
+  (require-package 'org-beautify-theme)
+  (autoload 'org-confluence-export-as-confluence "ox-confluence.elc"
+    "Export an Org buffer as confluence markup" t)
 #+end_src
 
 * Behaviors
@@ -111,6 +111,8 @@
                                           (org-html-export-to-html t)))
             map))
 (setq org-agenda-include-diary t)
+;; Let the default appointment duration be 1hr if no end is set
+(setq org-agenda-default-appointment-duration 60)
 (setq diary-file (concat org-directory "diary/diary"))
 (setq org-default-notes-file (concat org-directory "capture/notes.org"))
 
@@ -162,6 +164,17 @@ Evil-leader bindings:
     (shell-command command)))
 
 #+end_src
+#+begin_src emacs-lisp
+(defun diary-limited-cyclic (recurrences interval d m y)
+  "For use in emacs diary. Cyclic item with limited number of recurrences.
+Occurs every INTERVAL days, starting on YYYY-MM-DD, for a total of
+RECURRENCES occasions."
+  (let ((startdate (calendar-absolute-from-gregorian (list m d y)))
+        (today (calendar-absolute-from-gregorian date)))
+    (and (not (minusp (- today startdate)))
+         (zerop (% (- today startdate) interval))
+         (< (floor (- today startdate) interval) recurrences))))
+#+end_src
 ** Global-Keys
 * Looks
 ** Org Indent
@@ -202,12 +215,6 @@ timer to check the agenda and remind me of stuff:
 ;;           (lambda ()
 ;;             (org-agenda-list)
 ;;             (org-alert-enable)))
-#+end_src
-
-** Org-Mediawiki
-Export org files to Mediawiki syntax, see [[Require Packages]]
-#+begin_src
-(require 'ox-mediawiki)
 #+end_src
 
 * Provide it
