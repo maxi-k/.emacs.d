@@ -179,7 +179,6 @@ appear in the middle of the screen:
 #+end_src
 
 ** Powerline
-
 *** Definitions
 #+begin_src emacs-lisp
 (defpowerline evil-mode-bar

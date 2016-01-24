@@ -3,8 +3,6 @@
 #+AUTHOR: Maximilian Kuschewski
 #+PROPERTY: my-file-type emacs-config
 
-
-
 * Settings
 ** Coding-Style
 Set the style to the linux kernel coding style.
