@@ -3,16 +3,14 @@
 #+AUTHOR: Maximilian Kuschewski
 #+PROPERTY: my-file-type emacs-config
 
-* Require it
+* Setup
 #+begin_src emacs-lisp
-(do-require-package 'god-mode t nil)
-#+end_src
-
-* The keys
-#+begin_src emacs-lisp
-(global-set-key (kbd "s-,") 'god-mode-all)
-(define-key god-local-mode-map (kbd "i") 'god-local-mode)
-(define-key god-local-mode-map (kbd ".") 'repeat)
+  (use-package god-mode
+    :init
+    (global-set-key (kbd "s-,") 'god-mode-all)
+    :config
+    (define-key god-local-mode-map (kbd "i") 'god-local-mode)
+    (define-key god-local-mode-map (kbd ".") 'repeat))
 #+end_src
 
 * Provide it

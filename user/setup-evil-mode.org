@@ -12,8 +12,7 @@ Require evil-mode and some useful addons
                       evil-nerd-commenter
                       evil-paredit
                       evil-surround
-                      evil-visualstar)
-                    t)
+                      evil-visualstar))
 #+end_src
 
 * Useful Variables
