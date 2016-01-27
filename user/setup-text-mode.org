@@ -3,23 +3,19 @@
 #+AUTHOR: Maximilian Kuschewski
 #+PROPERTY: my-file-type emacs-config
 
-* Require
-Writeroom mode is really zen:
-#+begin_src emacs-lisp
-(do-require-package 'writeroom-mode)
-#+end_src
-
-* Setup
-** Hooks
+* Hooks
 #+begin_src emacs-lisp
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'text-mode-hook 'turn-on-flyspell)
 #+end_src
 
-** Plugins
-*** Writeroom
+* Writeroom
+Writeroom mode is really cool:
 #+begin_src emacs-lisp
-(setq writeroom-width (+ fill-column 10))
+(use-package writeroom-mode
+  :defer t
+  :init
+  (setq writeroom-width (+ fill-column 10)))
 #+end_src
 * Provide it
 #+begin_src emacs-lisp

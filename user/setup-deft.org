@@ -5,15 +5,12 @@
 
 * Require it
 #+begin_src emacs-lisp
-(do-require-package 'deft)
-#+end_src
-
-* Configure it
-#+begin_src emacs-lisp
-;; Set up quick note taking with deft
-(setq deft-default-extension "org"
-      deft-directory (concat org-directory "local/deft/"))
-(global-set-key (kbd "<f9>") 'deft)
+(use-package deft
+  :init
+  (setq deft-default-extension "org"
+        deft-directory (concat org-directory "local/deft/"))
+  :bind
+  ("<f9>" . deft))
 #+end_src
 
 * Provide it

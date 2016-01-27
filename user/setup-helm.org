@@ -69,7 +69,6 @@ Enable helm everywhere:
 #+begin_src emacs-lisp
 (helm-mode 1)
 #+end_src
-
 * Provide it
 #+begin_src emacs-lisp
 (provide 'setup-helm)

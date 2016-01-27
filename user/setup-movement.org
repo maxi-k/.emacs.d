@@ -3,16 +3,7 @@
 #+AUTHOR: Maximilian Kuschewski
 #+PROPERTY: my-file-type emacs-config
 
-* Require it
-#+begin_src emacs-lisp
-  (require-packages
-   '(ace-jump-mode
-     iy-go-to-char
-     ))
-#+end_src
-
-* Configure it
-** Built in
+* Built in
 Jump through the mark-ring
 #+begin_src emacs-lisp
 (global-set-key (kbd "M-`") 'jump-to-mark)
@@ -36,18 +27,22 @@ Jump to a definition in the current file.
 (global-set-key (kbd "s-i") 'imenu)
 #+end_src
 
-** Ace-jump-mode
+* Ace-jump-mode
 Bind it to some nice keys:
 #+begin_src emacs-lisp
-(global-set-key (kbd "s-j") 'ace-jump-mode)
-(global-set-key (kbd "s-J") 'ace-jump-char-mode)
+(use-package ace-jump-mode
+  :bind
+  (("s-j" . ace-jump-mode)
+   ("s-J" . ace-jump-char-mode)))
 #+end_src
-** Iy-go-to-char
+* Iy-go-to-char
 Go to the next/previous occurrence of the a character more easily.
 Press the wanted character again to go to the occurrence after that etc.
 #+begin_src emacs-lisp
-(global-set-key (kbd "s-f") 'iy-go-to-char)
-(global-set-key (kbd "s-b") 'iy-go-to-char-backward)
+(use-package iy-go-to-char
+  :bind
+  (("s-f" . iy-go-to-char)
+   ("s-b" . iy-go-to-char-backward)))
 #+end_src
 * Provide it
 #+begin_src emacs-lisp

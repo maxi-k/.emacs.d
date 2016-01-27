@@ -5,18 +5,12 @@
 
 * Require it
 #+begin_src emacs-lisp
-(do-require-package 'magit)
-#+end_src
-
-* Configure
-This is the last version magit gave me setup instructions:
-#+begin_src emacs-lisp
-(setq magit-last-seen-setup-instructions "1.4.0")
-#+end_src
-
-A global key for magit:
-#+begin_src emacs-lisp
-(global-set-key (kbd "C-c g") 'magit-status)
+(use-package magit
+  :init
+  ;; This is the last version magit gave me setup instructions:
+  (setq magit-last-seen-setup-instructions "1.4.0")
+  :bind
+  ("C-c g" . magit-status))
 #+end_src
 
 * Provide it

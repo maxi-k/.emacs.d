@@ -82,7 +82,6 @@
 Evaluate the whole buffer:
 #+begin_src emacs-lisp
 (define-key emacs-lisp-mode-map (kbd "C-c v") 'eval-buffer)
-
 #+end_src
 
 Tab and Enter:

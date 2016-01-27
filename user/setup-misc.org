@@ -3,11 +3,6 @@
 #+AUTHOR: Maximilian Kuschewski
 #+PROPERTY: my-file-type emacs-config
 
-* Require packages
-#+begin_src emacs-lisp
-  (require-packages '(alert))
-#+end_src
-
 * Garbage Collection
 Found these snippets [[http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/][here]], I found this to be a good idea.
 Find the variable =my/gc-cons-threshold= in the top [[../init.el][init file]].
@@ -26,9 +21,11 @@ Find the variable =my/gc-cons-threshold= in the top [[../init.el][init file]].
 Set up the emacs ('growl-style') notification system.
 If on a mac, use mac style notifications.
 #+begin_src emacs-lisp
-  (when (is-mac)
-    (setq alert-notifier-command (executable-find "terminal-notifier"))
-    (setq alert-default-style 'notifier))
+  (use-package alert
+    :config
+    (when (is-mac)
+      (setq alert-notifier-command (executable-find "terminal-notifier"))
+      (setq alert-default-style 'notifier)))
 #+end_src
 
 * Provide it

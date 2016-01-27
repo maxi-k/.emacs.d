@@ -40,7 +40,7 @@ Returns nil if there is none, i.e no internet."
 (setq use-package-always-ensure t)
 
 ;; Benchmark the init giving information on what takes how long
-;; (benchmark-init/activate)
+(benchmark-init/activate)
 
 (defun require-all (files)
   "Requires all the files in the provided list"

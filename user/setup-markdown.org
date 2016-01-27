@@ -5,14 +5,11 @@
 
 * Require it
 #+begin_src emacs-lisp
-(require-package 'markdown-mode)
-(require-package 'markdown-mode+)
-#+end_src
-
-* Configure it
-Set the markdown command to the homebrew-pandoc install:
-#+begin_src emacs-lisp
-(setq markdown-command "/usr/local/bin/pandoc")
+(use-package markdown-mode
+  :init
+  ;; Set the markdown command to the homebrew-pandoc install:
+  (setq markdown-command (executable-find "pandoc"))
+  (use-package markdown-mode+))
 #+end_src
 
 * Provide it

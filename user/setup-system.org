@@ -74,7 +74,7 @@ Use spotlight for the locate command on the mac
 Use the 'everywhere.el' package on windows
 #+begin_src emacs-lisp
 (when (is-windows)
-  (do-require-package 'everything))
+  (use-package everything :defer t))
 #+end_src
 
 * Provide it

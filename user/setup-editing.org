@@ -3,20 +3,9 @@
 #+AUTHOR: Maximilian Kuschewski
 #+PROPERTY: my-file-type emacs-config
 
-* Require packages
-#+begin_src emacs-lisp
-  (require-packages
-   '(yasnippet
-     browse-kill-ring
-     expand-region
-     multiple-cursors
-     ))
-#+end_src
-
-* Configure
-** Built-in
+* Built-in
 Configure built-in functions.
-
+** Keybindings
 Repeat the last command.
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-.") 'repeat)
@@ -55,29 +44,44 @@ Join lines more easily
 (global-set-key (kbd "s-l") 'join-line)
 #+end_src
 
-** Yasnippet
+** Visuals
+Highlight matching parentheses when the point is on them.
 #+begin_src emacs-lisp
-(add-hook 'after-init-hook #'yas-global-mode)
+(show-paren-mode 1)
+#+end_src
+* Yasnippet
+#+begin_src emacs-lisp
+(use-package yasnippet
+ :init
+ (add-hook 'after-init-hook #'yas-global-mode))
 #+end_src
 
-** Expand Region
+* Expand Region
 Every time this key is pressed, expand the region out one step further
 #+begin_src emacs-lisp
-(global-set-key (kbd "s-e") 'er/expand-region)
+(use-package
+ expand-region
+ :bind ("s-e" . er/expand-region))
 #+end_src
 
-** Multiple cursors
+* Multiple cursors
 Most. Awesome. Thing. Ever.
 #+begin_src emacs-lisp
-(global-set-key (kbd "s-d") 'mc/mark-next-like-this)
-(global-set-key (kbd "s-g") 'mc/mark-all-like-this)
-;; (global-set-key (kbd "C-s-d") 'mc /mark-all-dwim)
+(use-package multiple-cursors
+             :bind
+             (("s-d" . mc/mark-next-like-this)
+              ("s-g" . mc/mark-all-like-this)
+;;              ("C-s-d" . mc/mark-all-dwim)
+              ))
+
 #+end_src
 
-** Browse kill ring
+* Browse kill ring
 Look through the kill ring and insert exactly what you want.
 #+begin_src emacs-lisp
-(global-set-key (kbd "C-x C-y") 'browse-kill-ring)
+(use-package browse-kill-ring
+             :bind
+             ("C-x C-y" . browse-kill-ring))
 #+end_src
 
 * Provide it

@@ -12,8 +12,8 @@
         initial-scratch-message nil
         mouse-wheel-scroll-amount '(1 ((shift) . 1))
         mouse-yank-at-point t
-        oddmuse-directory "~/.emacs.d/data/oddmuse"
-        save-place-file "~/.emacs.d/data/places"
+        oddmuse-directory (concat user-emacs-save-directory "oddmuse")
+        save-place-file (concat user-emacs-save-directory "places")
         scroll-step 1
         sentence-end-double-space nil
         ;; set-mark-command-repeat-pop t
@@ -45,7 +45,7 @@
 #+begin_src emacs-lisp
 (setq backup-by-copying t
       backup-directory-alist
-      `(("." . ,(concat user-emacs-directory "backups/")))
+      `((,(concat user-emacs-directory "backups/")))
       delete-old-versions t
       kept-new-versions 6
       kept-old-versions 2
@@ -58,12 +58,6 @@ Set some aliases for simpler commands
 #+begin_src emacs-lisp
 (defalias 'yes-or-no-p 'y-or-n-p)
 (defalias 'auto-tail-revert-mode 'tail-mode)
-#+end_src
-
-* Editing
-Highlight matching parentheses when the point is on them.
-#+begin_src emacs-lisp
-(show-paren-mode 1)
 #+end_src
 
 * Random stuff

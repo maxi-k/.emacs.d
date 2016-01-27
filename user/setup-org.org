@@ -5,18 +5,17 @@
 
 * Require Packages
 #+begin_src emacs-lisp
-  (require-packages '(org
-                      org-alert
-                      org-bullets
-                      org-mac-iCal
-                      ox-gfm
-                      ox-mediawiki
-                      ox-reveal
-                      ox-twbs))
+(require-packages '(org
+                    org-alert
+                    org-bullets
+                    org-mac-iCal
+                    ox-gfm
+                    ox-mediawiki
+                    ox-reveal
+                    ox-twbs))
 
-  (require-package 'org-beautify-theme)
-  (autoload 'org-confluence-export-as-confluence "ox-confluence.elc"
-    "Export an Org buffer as confluence markup" t)
+(autoload 'org-confluence-export-as-confluence "ox-confluence.el"
+  "Export an Org buffer as confluence markup" t)
 #+end_src
 
 * Behaviors

@@ -1,0 +1,9 @@
+#+TITLE: Bootstrap
+#+DESCRIPTION: Setup up some stuff that can be used in every setup-file
+#+AUTHOR: Maximilian Kuschewski
+#+PROPERTY: my-file-type emacs-config
+
+* Provide it
+#+begin_src emacs-lisp
+(provide 'bootstrap)
+#+end_src

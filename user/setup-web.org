@@ -19,8 +19,6 @@
    tagedit
 ))
 #+end_src
-
-
 * Setup
 ** Hooks
 *** Emmet
@@ -48,6 +46,8 @@ Skewer: Interactive js-repl using browser-connection
 #+begin_src emacs-lisp
 ;; Web mode for html files (embedded js/css is common)
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+;; Web mode for eruby files
+(add-to-list 'auto-mode-alist '("\\.erb?\\'" . web-mode))
 ;; js2-mode for Javascript files
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 #+end_src
