@@ -57,7 +57,7 @@ locate PACKAGE."
      nil)))
 
 (defun autoload-package (p)
-  (autoload p (concat (symbol-name p) ".elc") (symbol-name p) t))
+  (autoload p (concat (symbol-name p) ".el") (symbol-name p) t))
 
 (defun do-require-package (pkg &optional do-require assume-network-p )
   "Installes the package `pkg' if it is not already installed and
