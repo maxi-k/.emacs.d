@@ -122,8 +122,7 @@ the `emacs-config-elisp-dir` first."
                ))
 
 ;; Mode-specific setups
-(require-all '(setup-god-mode
-               setup-evil-mode
+(require-all '(setup-evil-mode
                setup-git
                setup-helm
                setup-projectile
