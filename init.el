@@ -28,64 +28,32 @@ Returns nil if there is none, i.e no internet."
 (when (and (has-network) (not package-archive-contents))
   (package-refresh-contents))
 
+;; Bootstrap `use-package' for loading packages easily
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(eval-when-compile
+  (require 'use-package))
+(require 'diminish)
+(require 'bind-key)
+;; Always try to install the package from one of the repos
+(setq use-package-always-ensure t)
+
 ;; Benchmark the init giving information on what takes how long
 ;; (benchmark-init/activate)
-
-;; On-demand installation of packages
-(defun require-package (package &optional min-version no-refresh)
-  "Install given PACKAGE, optionally requiring MIN-VERSION.
-If NO-REFRESH is non-nil, the available package lists will not be
-re-downloaded in order to locate PACKAGE."
-  (if (package-installed-p package min-version)
-      t
-    (if (or (assoc package package-archive-contents) no-refresh)
-        (package-install package)
-      (progn
-        (package-refresh-contents)
-        (require-package package min-version t)))))
-
-(defun maybe-require-package (package &optional min-version no-refresh)
-  "Try to install PACKAGE, and return non-nil if successful.
-In the event of failure, return nil and print a warning message.
-Optionally require MIN-VERSION.  If NO-REFRESH is non-nil, the
-available package lists will not be re-downloaded in order to
-locate PACKAGE."
-  (condition-case err
-      (require-package package min-version no-refresh)
-    (error
-     (message "Couldn't install package `%s': %S" package err)
-     nil)))
-
-(defun autoload-package (p)
-  (autoload p (concat (symbol-name p) ".elc") (symbol-name p) t))
-
-(defun do-require-package (pkg &optional do-require assume-network-p )
-  "Installes the package `pkg' if it is not already installed and
-there is a network connection, then requires it.
-If the second argument is nil, don't check for a network
-"
-  ;; "If I don't have to check the network OR there is one => download"
-  (when (or assume-network-p (has-network))
-    (require-package pkg))
-  (if do-require
-      (require pkg)
-    (autoload-package pkg)))
 
 (defun require-all (files)
   "Requires all the files in the provided list"
   (mapc 'require files))
 
-(defun autoload-all (packages)
-  (mapc #'autoload-package packages))
-
 (defun require-packages (pkgs &optional do-require)
   "Loads all the packages (if they need to be loaded)
 and then requires them."
   (if (has-network)
-      (mapc (lambda (pkg) (do-require-package pkg do-require nil)) pkgs)
+      (mapc (lambda (pkg) (use-package (symbol-name pkg))) pkgs)
     (if do-require
         (require-all pkgs)
-      (autoload-all pkgs))))
+      (mapc (lambda (pkg) (use-package (symbol-name pkg))) pkgs))))
 
 (let ((cfile (expand-file-name "custom.el" user-emacs-directory)))
   ;; Create the custom file if it does not exist yet

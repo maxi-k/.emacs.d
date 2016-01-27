@@ -1,4 +1,3 @@
-(maybe-require-package 'ob-tangle nil t)
 (require 'org)
 (require 'ob-tangle)
 
@@ -103,8 +102,10 @@ the `emacs-config-elisp-dir` first."
 (setq default-directory emacs-config-dir)
 (normal-top-level-add-subdirs-to-load-path)
 
-;; Very General Setup
-(require-all '(general-functions
+;; Very General Setup &
+;; Bootstrap some stuff that every config file can rely on
+(require-all '(bootstrap
+               general-functions
                general-settings))
 
 ;; Load packages that don't require any setup
