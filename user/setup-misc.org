@@ -1,7 +1,7 @@
 #+TITLE: Setup Misc
 #+DESCRIPTION: Set up miscellaneous stuff
 #+AUTHOR: Maximilian Kuschewski
-#+PROPERTY: my-file-type emacs-config
+#+PROPERTY: my-file-type emacs-config-package
 
 * Garbage Collection
 Found these snippets [[http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/][here]], I found this to be a good idea.
@@ -17,17 +17,15 @@ Find the variable =my/gc-cons-threshold= in the top [[../init.el][init file]].
 (add-hook 'minibuffer-exit-hook #'gc-minibuffer-exit-hook)
 #+end_src
 
-* Alert
+* :use-package alert
 Set up the emacs ('growl-style') notification system.
+** :config
 If on a mac, use mac style notifications.
 #+begin_src emacs-lisp
-  (use-package alert
-    :config
-    (when (is-mac)
-      (setq alert-notifier-command (executable-find "terminal-notifier"))
-      (setq alert-default-style 'notifier)))
+(when (is-mac)
+  (setq alert-notifier-command (executable-find "terminal-notifier"))
+  (setq alert-default-style 'notifier))
 #+end_src
-
 * Provide it
 #+begin_src emacs-lisp
 (provide 'setup-misc)

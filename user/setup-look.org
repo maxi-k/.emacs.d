@@ -1,16 +1,7 @@
 #+TITLE: Setup Look
 #+DESCRIPTION: The main place where the look of emacs is configured
 #+AUTHOR: Maximilian Kuschewski
-#+PROPERTY: my-file-type emacs-config
-
-* Require packages
-#+begin_src emacs-lisp
-  (require-packages
-   '(
-     powerline
-     page-break-lines
-     ))
-#+end_src
+#+PROPERTY: my-file-type emacs-config-package
 
 * Themes
 ** Utility functions
@@ -87,11 +78,10 @@ Define a default light and dark theme and functions for loading them:
         (scroll-bar-mode 0)
         (setq-default fill-column 80)
         (setq-default indicate-empty-lines t)
-        (add-hook 'after-init-hook (lambda () (load-theme-dark))))
+        (add-hook 'window-setup-hook #'load-theme-dark))
     (progn
       (menu-bar-mode -1)))
 #+end_src
-
 ** Font
 Increase the font size and set it to the very nice source-code-pro font, if
 available.
@@ -151,14 +141,6 @@ Highlight the line the cursor is currently on
 #+begin_src emacs-lisp
 (global-hl-line-mode)
 #+end_src
-
-** Page Break Lines
-Make emacs page breaks (^L character) look like lines:
-#+begin_src emacs-lisp
-(global-page-break-lines-mode)
-#+end_src
-I've inserted one on the following line:
-
 ** Initial Frame size and position:
 #+begin_src emacs-lisp
 (setq initial-frame-alist
@@ -178,8 +160,18 @@ appear in the middle of the screen:
       ring-bell-function 'bell-modeline-flash)
 #+end_src
 
-** Powerline
-*** Definitions
+* :use-package page-break-lines
+** :init
+Make emacs page breaks (^L character) look like lines:
+#+begin_src emacs-lisp
+(add-hook 'window-setup-hook #'global-page-break-lines-mode)
+#+end_src
+I've inserted one on the following line:
+
+
+* :use-package powerline
+*** :init
+**** Definitions
 #+begin_src emacs-lisp
 (defpowerline evil-mode-bar
   (if (and (boundp 'evil-mode) evil-mode)
@@ -196,78 +188,72 @@ appear in the middle of the screen:
     " "))
 #+end_src
 
-*** Set up the powerline theme
-Create a function for setting it up:
+*** :config
+Set it up
 #+begin_src emacs-lisp
-(defun setup-powerline-theme ()
-  "Setup the default mode-line."
-  (interactive)
-  (setq-default mode-line-format
-                '("%e"
-                  (:eval
-                   (let* ((active (powerline-selected-window-active))
-                          (mode-line (if active 'mode-line 'mode-line-inactive))
-                          (face1 (if active 'powerline-active1 'powerline-inactive1))
-                          (face2 (if active 'powerline-active2 'powerline-inactive2))
-                          (face-evil (my/cur-evil-face))
-                          (face-nil nil)
-                          (separator-left (intern (format "powerline-%s-%s"
-                                                          powerline-default-separator
-                                                          (car powerline-default-separator-dir))))
-                          (separator-right (intern (format "powerline-%s-%s"
-                                                           powerline-default-separator
-                                                           (cdr powerline-default-separator-dir))))
+(setq-default
+ mode-line-format
+ '("%e"
+   (:eval
+    (let* ((active (powerline-selected-window-active))
+           (mode-line (if active 'mode-line 'mode-line-inactive))
+           (face1 (if active 'powerline-active1 'powerline-inactive1))
+           (face2 (if active 'powerline-active2 'powerline-inactive2))
+           (face-evil (my/cur-evil-face))
+           (face-nil nil)
+           (separator-left (intern (format "powerline-%s-%s"
+                                           powerline-default-separator
+                                           (car powerline-default-separator-dir))))
+           (separator-right (intern (format "powerline-%s-%s"
+                                            powerline-default-separator
+                                            (cdr powerline-default-separator-dir))))
 
-                          (lhs (list (powerline-raw "%*" face-nil 'l)
-                                     (powerline-raw mode-line-mule-info face-nil 'l)
-                                     (powerline-buffer-id face-nil 'l)
-                                     (powerline-raw " " face-nil 'l)
-                                     (funcall separator-right face-nil face-evil)
-                                     (evil-mode-bar face-evil nil)
-                                     (funcall separator-left face-evil face-nil)
-                                     (god-mode-bar face-nil nil)
-                                     (when (and (boundp 'which-func-mode) which-func-mode)
-                                       (powerline-raw which-func-format face-nil 'l))
-                                     (powerline-raw " ")
-                                     ;; (funcall separator-left mode-line face1)
-                                     (when (boundp 'erc-modified-channels-object)
-                                       (powerline-raw erc-modified-channels-object face1 'l))
-                                     (powerline-major-mode face-nil 'l)
-                                     (powerline-raw " " face-nil)
-                                     ;; (funcall separator-left face1 face2)
-                                     ;; (powerline-minor-modes face-nil 'l)
-                                     (powerline-process face-nil)
-                                     (powerline-narrow face-nil 'l)
-                                     (powerline-raw " " face-nil)
-                                     ;; (funcall separator-left face1 face2)
-                                     (powerline-vc face-nil 'r)
-                                     ))
-                          (rhs (list ;;(funcall separator-right face2 face1)
-                                (powerline-raw "%3l:%2c " face-nil 'l)
-                                ;; (funcall separator-right face1 mode-line)
-                                (powerline-raw " ")
-                                (powerline-raw "%7p" face-nil 'r)
-                                (powerline-hud face2 face1)
-                                ))
-                          (center '()))
-                     (concat (powerline-render lhs)
-                             (powerline-fill mode-line (powerline-width rhs))
-                             (powerline-render rhs)))))))
-
-
+           (lhs (list (powerline-raw "%*" face-nil 'l)
+                      (powerline-raw mode-line-mule-info face-nil 'l)
+                      (powerline-buffer-id face-nil 'l)
+                      (powerline-raw " " face-nil 'l)
+                      (funcall separator-right face-nil face-evil)
+                      (evil-mode-bar face-evil nil)
+                      (funcall separator-left face-evil face-nil)
+                      (god-mode-bar face-nil nil)
+                      (when (and (boundp 'which-func-mode) which-func-mode)
+                        (powerline-raw which-func-format face-nil 'l))
+                      (powerline-raw " ")
+                      ;; (funcall separator-left mode-line face1)
+                      (when (boundp 'erc-modified-channels-object)
+                        (powerline-raw erc-modified-channels-object face1 'l))
+                      (powerline-major-mode face-nil 'l)
+                      (powerline-raw " " face-nil)
+                      ;; (funcall separator-left face1 face2)
+                      ;; (powerline-minor-modes face-nil 'l)
+                      (powerline-process face-nil)
+                      (powerline-narrow face-nil 'l)
+                      (powerline-raw " " face-nil)
+                      ;; (funcall separator-left face1 face2)
+                      (powerline-vc face-nil 'r)
+                      ))
+           (rhs (list ;;(funcall separator-right face2 face1)
+                 (powerline-raw "%3l:%2c " face-nil 'l)
+                 ;; (funcall separator-right face1 mode-line)
+                 (powerline-raw " ")
+                 (powerline-raw "%7p" face-nil 'r)
+                 (powerline-hud face2 face1)
+                 ))
+           (center '()))
+      (concat (powerline-render lhs)
+              (powerline-fill mode-line (powerline-width rhs))
+              (powerline-render rhs))))))
 #+end_src
-
-Actually do so:
-#+begin_src emacs-lisp
-(setup-powerline-theme)
-#+end_src
-** Misc
+* Misc
 There was a very annoying error where 'paren-face' was undefined...
 #+begin_src emacs-lisp
-(unless (facep 'paren-face)
-  (defface paren-face '()
-    "Stop that annoying paren-face error"
-    :group 'basic-faces))
+(add-hook
+ 'window-setup-hook
+ (lambda ()
+   (unless (facep 'paren-face)
+     (defface paren-face '()
+       "Stop that annoying paren-face error"
+       :group 'basic-faces))))
 #+end_src
 * Provide it
 #+begin_src emacs-lisp

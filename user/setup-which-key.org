@@ -1,16 +1,27 @@
 #+TITLE: Setup which-key
 #+DESCRIPTION: Describes all possible keys after a key-group key is pressed
 #+AUTHOR: Maximilian Kuschewski
-#+PROPERTY: my-file-type emacs-config
+#+PROPERTY: my-file-type emacs-config-package
 * Require it
+* :use-package which-key
+After entering a prefix key, which-key shows which keys can be pressed
+afterwards and gives descriptions for them (most of the time).
+** :defer t
+** :config
+The timer before =which-key= kicks in defaults to 1.0. Decrease that.
 #+begin_src emacs-lisp
-(use-package which-key
-  :init
-  ;; The timer before =which-key= kicks in defaults to 1.0.
-  (setq which-key-idle-delay 0.5)
-  ;; =C-h= does not work for paging because in this configuration it is set to delete backwards.
-  (setq which-key-paging-prefixes '("s-x"))
-  (which-key-mode))
+(setq which-key-idle-delay 0.5)
+#+end_src
+
+=C-h= does not work for paging because in this configuration it is set to
+delete backwards. I have yet to figure out how to scroll through the pages now.
+#+begin_src emacs-lisp
+(setq which-key-paging-prefixes '("s-x"))
+#+end_src
+** :init
+Activate it globally
+#+begin_src emacs-lisp
+(which-key-mode)
 #+end_src
 * Provide it
 #+begin_src emacs-lisp

@@ -1,21 +1,25 @@
 #+TITLE: Setup Projectile
 #+DESCRIPTION:
 #+AUTHOR: Maximilian Kuschewski
-#+PROPERTY: my-file-type emacs-config
+#+PROPERTY: my-file-type emacs-config-package
 
-* Require it
+* :use-package projectile
 Projectile should be accessible from everywhere, even if there's no apparent
 project root:
+** :defer t
+** :bind
 #+begin_src emacs-lisp
-(use-package projectile
-  :init
-  (setq projectile-completion-system 'helm)
-  (setq projectile-enable-caching t)
-  (setq projectile-require-project-root nil)
-  (projectile-global-mode)
-  :bind
-  (("s-p" . projectile-command-map)
-   ("s-o" . helm-projectile-find-file)))
+("s-p" . projectile-command-map)
+#+end_src
+** :config
+#+begin_src emacs-lisp
+(setq projectile-completion-system 'helm)
+(setq projectile-enable-caching t)
+(setq projectile-require-project-root nil)
+#+end_src
+
+#+begin_src emacs-lisp
+(projectile-global-mode)
 #+end_src
 * Provide it
 #+begin_src emacs-lisp

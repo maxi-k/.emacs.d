@@ -1,4 +1,30 @@
-(require 'emacs-config)
+(let ((default-directory (concat user-emacs-directory "user/")))
+  (normal-top-level-add-subdirs-to-load-path)
+  (setq emacs-config/dir default-directory))
+
+(defvar emacs-config/local-dir (concat emacs-config/dir "local/"))
+(defvar emacs-config/local-file
+  (concat emacs-config/local-dir "setup-local.org"))
+
+(defun has-local-config ()
+  "Returns non-nil if the file
+`emacs-config/dir'/local/setup-local.org exists."
+  (file-exists-p emacs-config/local-file))
+
+(use-package emacs-config-loaddefs
+  :ensure nil
+  :load-path "user/emacs-config/"
+  :config
+  (emacs-config/init)
+  :init
+  ;; When in org mode, try to tangle the file if it is an emacs-config/file -
+  ;; whether it is is checked by `emacs-config/tangle-file`
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (add-hook 'after-save-hook
+                        (lambda ()
+                          (emacs-config/tangle-file (buffer-file-name) t))
+                        nil 'make-it-local))))
 
 ;; Very General Setup &
 ;; Bootstrap some stuff that every config file can rely on
@@ -10,7 +36,8 @@
 (require-all '(setup-simple-packages))
 
 ;; Specific Setups
-(require-all '(setup-PATH ;; No Packages
+(require-all '(setup-look
+               setup-PATH ;; No Packages
                setup-system ;; No Packages
                setup-keys ;; No Packages
                setup-buffers-windows ;; No Packages
@@ -20,7 +47,7 @@
                ))
 
 ;; Mode-specific setups
-(require-all '(setup-evil-mode ;; TODO
+(require-all '(setup-evil-mode
                setup-git
                setup-helm
                setup-projectile
@@ -30,7 +57,6 @@
                setup-deft
                setup-which-key
                setup-engine-mode
-               setup-look
                ))
 
 ;; Load the machine-local setup if present

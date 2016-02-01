@@ -1,12 +1,12 @@
 #+TITLE: Configure evil mode
 #+DESCRIPTION:
 #+AUTHOR: Maximilian Kuschewski
-#+PROPERTY: my-file-type emacs-config
+#+PROPERTY: my-file-type emacs-config-package
 
 * Utility
 Set up some useful variables regarding evil-mode
 #+begin_src emacs-lisp
-(setq my/evil-states '(normal insert visual operator replace motion emacs))
+(defvar my/evil-states '(normal insert visual operator replace motion emacs))
 #+end_src
 
 #+begin_src emacs-lisp
@@ -15,27 +15,39 @@ Set up some useful variables regarding evil-mode
   (interactive)
   (boundp 'evil-mode))
 #+end_src
-* Setting defaults
+* :use-package evil
+** :demand t
+Make sure evil is loaded
+** :bind
+Activate Evil mode globally with s-escape
 #+begin_src emacs-lisp
-(defun emacs-config/setup-evil-mode ()
-  ;; When evil mode is activated, it should start in this state:
-  (setq evil-default-state 'normal)
-  ;; However, in some cases, other initial states are better:
+("s-<escape>" . evil-mode)
+#+end_src
+** :config
+*** Initial States
+When evil mode is activated, it should start in this state:
+#+begin_src emacs-lisp
+(setq evil-default-state 'normal)
+#+end_src
+
+However, in some cases, other initial states are better:
+#+begin_src emacs-lisp
   (mapc (lambda (map)
           (evil-set-initial-state (car map) (cdr map)))
         '((eshell-mode . emacs)
           (undo-tree-visualizer-mode . emacs)
-          (dired-mode . emacs))))
+          (dired-mode . emacs)))
+#+end_src
+*** Plugins
+**** :use-package evil-leader
+***** :config
+Set the global prefix key
+#+begin_src emacs-lisp
+(evil-leader/set-leader "SPC")
 #+end_src
 
-* Usage
-** Evil Leader
-**** Leader Keys
+Set the bindings following the prefix
 #+begin_src emacs-lisp
-(defun emacs-config/setup-evil-leader ()
-  ;; Set the evil leader key
-  (evil-leader/set-leader "SPC")
-  ;; Set the leader bindings
   (evil-leader/set-key
     ;; Meta x
     "x" 'execute-extended-command
@@ -56,52 +68,39 @@ Set up some useful variables regarding evil-mode
     "jt" 'evil-ace-jump-char-to-mode
     ;; Help
     "h" 'help
-    "?" 'helm-descbinds
-    )
-  (global-evil-leader-mode))
+    "?" 'helm-descbinds)
 #+end_src
 
-**** Activate it
-...everywhere!
+Activate it globally
 #+begin_src emacs-lisp
+(global-evil-leader-mode)
 #+end_src
-
-** Evil-surround-mode
-Activate it everywhere!
-Activate evil-surround everywhere (cs'" => 'text' -> "text")
-
-** Evil visualstar
-Activate it everywhere aswell
-Activate evil visualstar everywhere (*)
-
-* Require the packages
-... and call the setup functions
+**** :use-package evil-nerd-commenter
+**** :use-package evil-surround
+***** :config
+Use evil-surround globally
+Usage: (cs'" => 'text' -> "text")
 #+begin_src emacs-lisp
-(use-package evil
-  ;; Make sure evil is loaded
-  :demand t
-  :init
-  ;; Activate Evil mode globally with s-escape
-  (bind-key "s-<escape>" 'evil-mode)
-  :bind
-  (("s-<escape>" . evil-mode))
-  :config
-  (emacs-config/setup-evil-mode)
-  (use-package evil-leader
-    :config
-    (emacs-config/setup-evil-leader))
-  (use-package evil-nerd-commenter)
-  (use-package evil-paredit)
-  (use-package evil-surround
-    :config
-    (global-evil-surround-mode t))
-  (use-package evil-visualstar
-    :config
-    (global-evil-visualstar-mode t))
-  )
-
+(global-evil-surround-mode t)
 #+end_src
-* Standard Keys
+**** :use-package evil-visualstar
+***** :config
+Use '*' to make a visual search for the word (thing at point) you are currently
+on, then use n/N to go forward/backward like normal.
+#+begin_src emacs-lisp
+(global-evil-visualstar-mode t)
+#+end_src
+**** Evil paredit?
+I don't think I like this - not using it for now.
+It gives an error whenever an evil command would result in unmatched parens,
+instead of just keeping the tree validity like paredit.
+***** init
+#+begin_src emacs-lisp
+;; (autoload 'evil-paredit-mode "evil-paredit" nil t)
+ ;; (add-hook 'lisp-mode-hook 'evil-paredit-mode)
+#+end_src
+
+*** Standard Keys
 I want to be able to create new lines in normal-mode:
 #+begin_src emacs-lisp
 ;; Insert new line (like o or O with prefix) without
@@ -143,8 +142,8 @@ Go to emacs/normal/god-state *from insert-state*
 (define-key evil-insert-state-map (kbd "C-;") #'evil-execute-in-normal-state)
 #+end_src
 
-* Looks
-** Face Defaults
+*** Looks
+**** Face Defaults
 Define some face colors to be used in the powerline and cursor colors:
 #+begin_src emacs-lisp
   ;; faces :: evil-state -> (background, foreground)
@@ -167,7 +166,7 @@ Define some face colors to be used in the powerline and cursor colors:
                :group 'my/evil)))
           faces))
 #+end_src
-** Set up the look
+**** Set up the look
    A small utility function for getting the right face for the current evil state:
    #+begin_src emacs-lisp
 (defun my/cur-evil-face ()
@@ -206,7 +205,7 @@ Define some face colors to be used in the powerline and cursor colors:
       my/evil-states)
 
    #+end_src
-* Activate it!
+** :init
 Activate evil-mode by default:
 #+begin_src emacs-lisp
 (evil-mode 1)

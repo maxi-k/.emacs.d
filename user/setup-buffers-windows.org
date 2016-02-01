@@ -11,6 +11,11 @@ work globally, so it's better than lisp-interaction-mode
   (setq initial-buffer-choice 'remember-notes
         remember-notes-initial-major-mode 'org-mode)
 #+end_src
+
+Fix C-c C-c being bound to bury-buffer instead of org-mode stuff
+#+begin_src emacs-lisp
+(add-hook 'remember-notes-mode-hook (lambda () (org-mode)))
+#+end_src
 * Killing
 Kill the current buffer
 #+begin_src emacs-lisp

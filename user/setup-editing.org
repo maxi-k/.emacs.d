@@ -1,7 +1,7 @@
 #+TITLE: Setup editing
 #+DESCRIPTION: Require some editing-specific packages and set up some nice bindings
 #+AUTHOR: Maximilian Kuschewski
-#+PROPERTY: my-file-type emacs-config
+#+PROPERTY: my-file-type emacs-config-package
 
 * Built-in
 Configure built-in functions.
@@ -49,39 +49,35 @@ Highlight matching parentheses when the point is on them.
 #+begin_src emacs-lisp
 (show-paren-mode 1)
 #+end_src
-* Yasnippet
+* :use-package yasnippet
+** :defer t
+** :init
+Activate globally it after the init process
 #+begin_src emacs-lisp
-(use-package yasnippet
- :init
- (add-hook 'after-init-hook #'yas-global-mode))
+(add-hook 'after-init-hook #'yas-global-mode)
 #+end_src
 
-* Expand Region
+* :use-package expand-region
+** :bind
 Every time this key is pressed, expand the region out one step further
 #+begin_src emacs-lisp
-(use-package
- expand-region
- :bind ("s-e" . er/expand-region))
+("s-e" . er/expand-region)
 #+end_src
 
-* Multiple cursors
+* :use-package multiple-cursors
+** :bind
 Most. Awesome. Thing. Ever.
 #+begin_src emacs-lisp
-(use-package multiple-cursors
-             :bind
-             (("s-d" . mc/mark-next-like-this)
-              ("s-g" . mc/mark-all-like-this)
-;;              ("C-s-d" . mc/mark-all-dwim)
-              ))
-
+("s-d" . mc/mark-next-like-this)
+("s-g" . mc/mark-all-like-this)
+;; ("C-s-d" . mc/mark-all-dwim)
 #+end_src
 
-* Browse kill ring
+* :use-package browse-kill-ring
+** :bind
 Look through the kill ring and insert exactly what you want.
 #+begin_src emacs-lisp
-(use-package browse-kill-ring
-             :bind
-             ("C-x C-y" . browse-kill-ring))
+("C-x C-y" . browse-kill-ring)
 #+end_src
 
 * Provide it

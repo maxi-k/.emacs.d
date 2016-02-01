@@ -1,18 +1,20 @@
 #+TITLE:Setup Deft
 #+DESCRIPTION:
 #+AUTHOR: Maximilian Kuschewski
-#+PROPERTY: my-file-type emacs-config
+#+PROPERTY: my-file-type emacs-config-package
 
-* Require it
+* :use-package deft
+Deft allows for quick and persistent note taking. It's awesome!
+** :defer t
+** :config
 #+begin_src emacs-lisp
-(use-package deft
-  :init
   (setq deft-default-extension "org"
         deft-directory (concat org-directory "local/deft/"))
-  :bind
-  ("<f9>" . deft))
 #+end_src
-
+** :bind
+#+begin_src emacs-lisp
+("<f9>" . deft)
+#+end_src
 * Provide it
 #+begin_src emacs-lisp
 (provide 'setup-deft)

@@ -22,6 +22,25 @@ A few system-specific utility functions...
    (eq system-type 'windows-nt)))
 #+end_src
 
+* Org-mode
+Set the latex path of the system
+#+begin_src emacs-lisp
+;; Add the MacTeX programs to the PATH
+(add-to-PATH "/Library/TeX/Distributions/Programs/texbin")
+#+end_src
+
+Use the MathToWeb jar for converting LaTeX to MathML/odf
+#+begin_src emacs-lisp
+(setq org-latex-to-mathml-convert-command
+      "java -jar %j -unicode -force -df %o %I"
+      org-latex-to-mathml-jar-file
+      "~/Applications/MathToWeb/mathtoweb.jar")
+#+end_src
+
+Org reveal for exporting html/css/js presentations
+#+begin_src emacs-lisp
+(setq org-reveal-root "file:///Users/Maxi/Applications/reveal-js")
+#+end_src
 * Keys
 ** Modifier keys
 *** Mac

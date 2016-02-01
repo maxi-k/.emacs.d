@@ -1,25 +1,40 @@
 #+TITLE: Setup Helm
 #+DESCRIPTION:
 #+AUTHOR: Maximilian Kuschewski
-#+PROPERTY: my-file-type emacs-config
+#+PROPERTY: my-file-type emacs-config-package
 
-* Require it
+* :use-package helm
+** :bind
+Helm mini can be quite useful
 #+begin_src emacs-lisp
-  (require-packages '(helm
-                      helm-dash
-                      helm-descbinds
-                      helm-itunes
-                      helm-projectile))
+("s-m" . helm-mini)
 #+end_src
 
-* Configure it
-** Helm locate
+Use spotlight/locate to find anything
+#+begin_src emacs-lisp
+("s-." . helm-locate)
+#+end_src
+
+Use helm-M-x instead of the default =execute-extended-command=. This has a
+couple of benefits, most notably it shows the keybindings next to the commands
+#+begin_src emacs-lisp
+("M-x" . helm-M-x)
+#+end_src
+
+Set up s-i for helm-imenu. s-i is bound to the standard imenu in [[setup-movement.org]]
+#+begin_src emacs-lisp
+("s-i" . helm-imenu)
+#+end_src
+
+** :config
+*** Helm Locate
 Use spotlight to locate any file if on a mac
 #+begin_src emacs-lisp
   (when (is-mac)
     (setq helm-locate-command "mdfind -name %s %s"))
 #+end_src
-** Fuzzy matching
+
+*** Fuzzy matching
 Don't enable it everywhere for now, it's too slow:
 #+begin_src emacs-lisp
 ;; (setq helm-mode-fuzzy-match t)
@@ -31,43 +46,32 @@ Instead, enable it selectively:
 (setq helm-recentf-fuzzy-match t)
 #+end_src
 
-** Plugins
-*** Helm Projectile
+*** Plugins
+**** :use-package helm-projectile
+***** :init
 Enable helm in for projectile
 #+begin_src emacs-lisp
 (helm-projectile-on)
 #+end_src
-*** Helm Dash
+***** :bind
+Use cmd-o to find any file in the current project
+#+begin_src emacs-lisp
+("s-o" . helm-projectile-find-file)
+#+end_src
+**** :use-package helm-dash
+***** :init
 Browse dash-documentation inside emacs,
 not outside.
 #+begin_src emacs-lisp
 (setq helm-dash-browser-func 'eww)
 #+end_src
-** Keys
-Helm mini can be quite useful
-#+begin_src emacs-lisp
-(global-set-key (kbd "s-m") 'helm-mini)
-#+end_src
-
-Use spotlight/locate to find anything
-#+begin_src emacs-lisp
-(global-set-key (kbd "s-.") 'helm-locate)
-#+end_src
-
-Use helm-M-x instead of the default =execute-extended-command=. This has a
-couple of benefits, most notably it shows the keybindings next to the commands
-#+begin_src emacs-lisp
-(global-set-key (kbd "M-x") 'helm-M-x)
-#+end_src
-
-Set up s-i for helm-imenu. s-i is bound to the standard imenu in [[setup-movement.org]]
-#+begin_src emacs-lisp
-(global-set-key (kbd "s-i") 'helm-imenu)
-#+end_src
-* Activate it
+**** :use-package helm-descbinds
+**** :use-package helm-itunes
+** :init
+*** Activate it
 Enable helm everywhere:
 #+begin_src emacs-lisp
-(helm-mode 1)
+(add-hook 'after-init-hook #'helm-mode)
 #+end_src
 * Provide it
 #+begin_src emacs-lisp

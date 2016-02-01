@@ -1,29 +1,21 @@
+
 #+TITLE: Setup Org Mode
 #+DESCRIPTION: Setup Org in Org - Homoiconicity for the win!
 #+AUTHOR: Maximilian Kuschewski
-#+PROPERTY: my-file-type emacs-config
+#+PROPERTY: my-file-type emacs-config-package
 
-* Require Packages
+* :use-package org
+** :bind
 #+begin_src emacs-lisp
-(require-packages '(org
-                    org-alert
-                    org-bullets
-                    org-mac-iCal
-                    ox-gfm
-                    ox-mediawiki
-                    ox-reveal
-                    ox-twbs))
-
-(autoload 'org-confluence-export-as-confluence "ox-confluence.el"
-  "Export an Org buffer as confluence markup" t)
+("C-c l" . org-store-link)
+("C-c t" . org-capture)
+("C-c a" . org-agenda)
+("C-c b" . org-iswitchb)
 #+end_src
-
-* Behaviors
+** :config
+*** General Settings
 #+begin_src emacs-lisp
 (setq org-directory "~/Documents/Org/"
-      org-mobile-directory "~/Dropbox/Apps/MobileOrg"
-      org-mobile-inbox-for-pull (concat org-directory "mobile/pulled.org")
-      org-mobile-files (list org-directory)
       org-export-default-language "de"
       ;; Remove the annoying link in org mode exported html
       ;; org 8.0 (setq org-html-validation-link nil)
@@ -31,34 +23,34 @@
       ;; Allow for local bindings in org documents
       ;; e.g #+BIND: org-html-validation-link t
       org-export-allow-bind-keywords t
-      org-export-async-debug nil
       org-startup-indented t
       org-footnote-auto-adjust t
       ;; fontify code in code blocks
       org-src-fontify-natively t
       ;; Add a :CLOSED tag with timestamp
       ;; to todo items when they are done
-      org-log-done 'time
-      ;; Store the uid of an already exported ical event in the :UID: TAG
-      ;; org-icalendar-store-UID
-)
+      org-log-done 'time)
 
-;; Add the MacTeX programs to the PATH
-(add-to-PATH "/Library/TeX/Distributions/Programs/texbin")
-;; Use the MathToWeb jar for converting LaTeX to MathML/odf
-(setq org-latex-to-mathml-convert-command
-      "java -jar %j -unicode -force -df %o %I"
-      org-latex-to-mathml-jar-file
-      "~/Applications/MathToWeb/mathtoweb.jar")
-
+(setq org-agenda-include-diary t)
+;; Let the default appointment duration be 1hr if no end is set
+(setq org-agenda-default-appointment-duration 60)
+(setq diary-file (concat org-directory "diary/diary"))
+(setq org-default-notes-file (concat org-directory "capture/notes.org"))
+#+end_src
+*** Latex
+#+begin_src emacs-lisp
 (require 'ox-latex)
 (setenv "PDFLATEX" "pdflatex -shell-escape")
 (setq org-latex-pdf-process '("texi2dvi --pdf %f"))
 ;; Enable LaTeX (pdf) syntax highlighting
 (add-to-list 'org-latex-packages-alist '("" "minted"))
 (setq org-latex-listings 'minted)
+#+end_src
+The texbin and mathml paths are set up in [[./local/setup-local.org]]
 
-;; Load more languages for org-babel
+*** Source Blocks
+Load more languages for org-babel
+#+begin_src emacs-lisp
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((sh         . t)
@@ -72,23 +64,49 @@
    (dot        . t)
    (css        . t)
    (plantuml   . t)))
+#+end_src
 
-;; Don't ask before evaluating code snippets
+Don't ask before evaluating code snippets
+#+begin_src emacs-lisp
 (setq org-confirm-babel-evaluate nil)
-;; Make tab in source blocks behave like it would in the language
+#+end_src
+
+Make tab in source blocks behave like it would in the language
+#+begin_src emacs-lisp
 (setq org-src-tab-acts-natively t)
-;; Preserve the indentation level of code blocks
-;; Important for makefiles e.g
+#+end_src
+
+Preserve the indentation level of code blocks.
+Important for makefiles, where tab indentation is required
+#+begin_src emacs-lisp
 (setq org-src-preserve-indentation t)
+#+end_src
 
-
-;; Set the org-reveal settings (ox-reveal)
-(setq org-reveal-root "file:///Users/Maxi/Applications/reveal-js")
-;; Make a function to load the ox-reveal library
+*** Html
+Define an auto-export-mode, that automatically exports the buffer to html on
+save.
+#+begin_src emacs-lisp
+(define-minor-mode org-html-auto-export-mode
+  "A minor mode for automatically exporting the org file
+  you are working on to html whenever you save the file."
+  :lighter "org-html-auto-export"
+  :keymap (let ((map (make-sparse-keymap)))
+            (define-key map (kbd "s-s") (lambda () (interactive)
+                                          (save-buffer)
+                                          (org-html-export-to-html t)))
+            map))
+#+end_src
+*** Org-Reveal
+Make a interactive function for activating org-reveal
+#+begin_src emacs-lisp
 (defun activate-org-reveal ()
   (interactive)
   (load-library "ox-reveal"))
+#+end_src
 
+Define an auto-export-mode for org-reveal, so saving the file also exports it
+again
+#+begin_src emacs-lisp
 (define-minor-mode org-reveal-auto-export-mode
   "A minor mode for automatically exporting the org file
   you are working on to html whenever you save the file.
@@ -99,32 +117,9 @@
                                           (save-buffer)
                                           (org-reveal-export-to-html)))
             map))
-
-(define-minor-mode org-html-auto-export-mode
-  "A minor mode for automatically exporting the org file
-  you are working on to html whenever you save the file."
-  :lighter "org-html-auto-export"
-  :keymap (let ((map (make-sparse-keymap)))
-            (define-key map (kbd "s-s") (lambda () (interactive)
-                                          (save-buffer)
-                                          (org-html-export-to-html t)))
-            map))
-(setq org-agenda-include-diary t)
-;; Let the default appointment duration be 1hr if no end is set
-(setq org-agenda-default-appointment-duration 60)
-(setq diary-file (concat org-directory "diary/diary"))
-(setq org-default-notes-file (concat org-directory "capture/notes.org"))
-
 #+end_src
-* Keys
-** Global
-#+begin_src emacs-lisp
-(global-set-key (kbd "C-c l") 'org-store-link)
-(global-set-key (kbd "C-c t") 'org-capture)
-(global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c b") 'org-iswitchb)
-#+end_src
-** Org-local
+
+*** Local Keys
 Standard emacsy org mode bindings:
 #+begin_src emacs-lisp
 ;; Define some local keybindings
@@ -151,59 +146,9 @@ Evil-leader bindings:
     "tt" 'org-todo
     "td" 'org-toggle-timestamp-type))
 #+end_src
-* Functions
-#+begin_src emacs-lisp
-(defun markdown-file-to-org ()
-  (interactive)
-  (let* ((md-file-name (file-truename buffer-file-name))
-         (file-base-name (file-name-sans-extension (file-truename buffer-file-name)))
-         (command (concat "pandoc -f markdown -t org -o "
-                          file-base-name ".org "
-                          md-file-name)))
-    (shell-command command)))
 
-#+end_src
-#+begin_src emacs-lisp
-(defun diary-limited-cyclic (recurrences interval d m y)
-  "For use in emacs diary. Cyclic item with limited number of recurrences.
-Occurs every INTERVAL days, starting on YYYY-MM-DD, for a total of
-RECURRENCES occasions."
-  (let ((startdate (calendar-absolute-from-gregorian (list m d y)))
-        (today (calendar-absolute-from-gregorian date)))
-    (and (not (minusp (- today startdate)))
-         (zerop (% (- today startdate) interval))
-         (< (floor (- today startdate) interval) recurrences))))
-#+end_src
-** Global-Keys
-* Looks
-** Org Indent
-** Org Bullets
-   #+begin_src emacs-lisp
-;; Make the bullets look nicer
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-   #+end_src
-
-** Org Beautify Theme
-Setup bigger fonts instead of lots of colors for headings and more:
-#+begin_src emacs-lisp
-  (defun do-beautify-org (&optional theme)
-    (ignore-errors (require 'org-beautify-theme))
-    ;; Toggle bullets-mode twice so it recognizes the theme.
-    ;; This is quite weird, but it works
-    (org-bullets-mode)
-    (org-bullets-mode))
-
-  (advice-add 'load-theme :after #'do-beautify-org)
-#+end_src
-
-* Plugins
-** Org-Confluence
-#+begin_src emacs-lisp
-;; Change per-file with #+BIND: org-confluence-src-block-theme "Emacs"
-(setq org-confluence-src-block-theme "Default")
-#+end_src
-
-** Org-Alert
+*** Plugins
+**** :use-package org-alert
 Org alert can do scheduled notifications based on the org-agenda. Run it on a
 timer to check the agenda and remind me of stuff:
 #+begin_src emacs-lisp
@@ -216,6 +161,54 @@ timer to check the agenda and remind me of stuff:
 ;;             (org-alert-enable)))
 #+end_src
 
+**** :use-package org-bullets
+**** :use-package ox-gfm
+**** :use-package ox-mediawiki
+**** :use-package ox-reveal
+**** :use-package ox-twbs
+**** Org-Confluence
+Org-Confluence allows you to export a file to confluence markup. It was not
+available on elpa last time I checked.
+#+begin_src emacs-lisp
+(autoload 'org-confluence-export-as-confluence "ox-confluence.el"
+  "Export an Org buffer as confluence markup" t)
+#+end_src
+
+#+begin_src emacs-lisp
+;; Change per-file with #+BIND: org-confluence-src-block-theme "Emacs"
+(setq org-confluence-src-block-theme "Default")
+#+end_src
+*** Looks
+**** Org Bullets
+   #+begin_src emacs-lisp
+;; Make the bullets look nicer
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+   #+end_src
+
+**** Org Beautify Theme
+Setup bigger fonts instead of lots of colors for headings and more:
+#+begin_src emacs-lisp
+  (defun do-beautify-org (&optional theme)
+    (ignore-errors (require 'org-beautify-theme))
+    ;; Toggle bullets-mode twice so it recognizes the theme.
+    ;; This is quite weird, but it works
+    (org-bullets-mode)
+    (org-bullets-mode))
+
+  (advice-add 'load-theme :after #'do-beautify-org)
+#+end_src
+* Functions
+#+begin_src emacs-lisp
+(defun markdown-file-to-org ()
+  (interactive)
+  (let* ((md-file-name (file-truename buffer-file-name))
+         (file-base-name (file-name-sans-extension (file-truename buffer-file-name)))
+         (command (concat "pandoc -f markdown -t org -o "
+                          file-base-name ".org "
+                          md-file-name)))
+    (shell-command command)))
+
+#+end_src
 * Provide it
   #+begin_src emacs-lisp
 (provide 'setup-org)

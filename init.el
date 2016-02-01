@@ -47,7 +47,7 @@ Returns nil if there is none, i.e no internet."
   (mapc 'require files))
 
 (defmacro my|require-package-list (pkgs)
-  `(mapc (lambda (pkg) `(use-package ,pkg)) ,pkgs))
+  `(mapc (lambda (pkg) `(use-package ,pkg :defer t)) ,pkgs))
 
 (defmacro require-packages (packages &optional do-require)
   "Loads all the packages (if they need to be loaded)
@@ -58,8 +58,6 @@ and then requires them."
       (if do-require
           (require-all pkgs)
         `(my|require-package-list ,pkgs)))))
-
-(require-packages '(evil))
 
 (let ((cfile (expand-file-name "custom.el" user-emacs-directory)))
   ;; Create the custom file if it does not exist yet

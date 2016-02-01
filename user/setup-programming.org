@@ -1,33 +1,36 @@
 #+TITLE: Setup programming
 #+DESCRIPTION: Setup prog-mode, which is the major mode all programming major modes extend from, and other stuff that has to do with programming
 #+AUTHOR: Maximilian Kuschewski
-#+PROPERTY: my-file-type emacs-config
+#+PROPERTY: my-file-type emacs-config-package
 
-* Rainbow Delimiters
-Rainbow delimiters everywhere!
+* :use-package rainbow-delimiters
+** :defer t
+** :init
 #+begin_src emacs-lisp
-(use-package rainbow-delimiters
-  :init
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-  (use-package rainbow-identifiers))
-
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 #+end_src
-
+*** :use-package rainbow-identifiers
+* Autocomplete
 Don't to autocomplete for now - it slows down writing quite a bit
 #+begin_src emacs-lisp
 ;; (add-hook 'prog-mode-hook 'auto-complete-mode)
 #+end_src
 
-* Quickrun
+* :use-package quickrun
+Quickrun can 'run' any (most) buffers - useful for developing bigger chunks of
+code in a buffer, which quickrun turns into a kinda-repl
+** :defer t
+** :config
+Don't timeout after 10 seconds if the program has not finished executing yet
 #+begin_src emacs-lisp
-(use-package quickrun
-  :config
-  ;; Don't timeout after 10 seconds already:
-  (setq quickrun-timeout-seconds 120)
-  :bind
-  ("s-r" . quickrun))
+(setq quickrun-timeout-seconds 120)
 #+end_src
-* Specific mode-setups
+** :bind
+Use cmd-r to run it
+#+begin_src emacs-lisp
+("s-r" . quickrun)
+#+end_src
+* Setups for single modes
 Require the mode-specific setup files that configure programming-modes:
 #+begin_src emacs-lisp
   (require-all

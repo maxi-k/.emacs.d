@@ -1,22 +1,17 @@
 #+TITLE: Setup text-mode
 #+DESCRIPTION:
 #+AUTHOR: Maximilian Kuschewski
-#+PROPERTY: my-file-type emacs-config
+#+PROPERTY: my-file-type emacs-config-package
 
 * Hooks
 #+begin_src emacs-lisp
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'text-mode-hook 'turn-on-flyspell)
 #+end_src
-
-* Writeroom
-Writeroom mode is really cool:
-#+begin_src emacs-lisp
-(use-package writeroom-mode
-  :defer t
-  :init
-  (setq writeroom-width (+ fill-column 10)))
-#+end_src
+* :use-package writeroom-mode
+Writeroom mode is really cool
+** :defer t
+** :config
 * Provide it
 #+begin_src emacs-lisp
 (provide 'setup-text-mode)

@@ -1,7 +1,7 @@
 #+TITLE: Setup movement
 #+DESCRIPTION: Setup some packages/keybindings that are awesome for moving around
 #+AUTHOR: Maximilian Kuschewski
-#+PROPERTY: my-file-type emacs-config
+#+PROPERTY: my-file-type emacs-config-package
 
 * Built in
 Jump through the mark-ring
@@ -27,22 +27,21 @@ Jump to a definition in the current file.
 (global-set-key (kbd "s-i") 'imenu)
 #+end_src
 
-* Ace-jump-mode
+* :use-package ace-jump-mode
+Ace jump mode allows you to jump to any visible char with just a few keystrokes.
+** :bind
 Bind it to some nice keys:
 #+begin_src emacs-lisp
-(use-package ace-jump-mode
-  :bind
-  (("s-j" . ace-jump-mode)
-   ("s-J" . ace-jump-char-mode)))
+("s-j" . ace-jump-mode)
+("s-J" . ace-jump-char-mode)
 #+end_src
-* Iy-go-to-char
+* :use-package iy-go-to-char
 Go to the next/previous occurrence of the a character more easily.
 Press the wanted character again to go to the occurrence after that etc.
+** :bind
 #+begin_src emacs-lisp
-(use-package iy-go-to-char
-  :bind
-  (("s-f" . iy-go-to-char)
-   ("s-b" . iy-go-to-char-backward)))
+("s-f" . iy-go-to-char)
+("s-b" . iy-go-to-char-backward)
 #+end_src
 * Provide it
 #+begin_src emacs-lisp

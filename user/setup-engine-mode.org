@@ -1,19 +1,21 @@
 #+TITLE: Setup engine mode
 #+DESCRIPTION:
 #+AUTHOR: Maximilian Kuschewski
-#+PROPERTY: my-file-type emacs-config
+#+PROPERTY: my-file-type emacs-config-package
 
-* Require it
-Engine mode allows you to use search-providing sites from within emacs. Awesome!
+* :use-package engine-mode
+** :defer t
+** :defines engine-mode-map
+** :commands engine-mode
+** :functions engine/set-keymap-prefix
+** :config
+Set the keymap prefix to cmd-/
 #+begin_src emacs-lisp
-(use-package engine-mode
-  :defines engine-mode-map
-  :commands engine-mode
-  :functions engine/set-keymap-prefix
-  :init
-  (engine-mode t)
-  :config
-  (engine/set-keymap-prefix (kbd "s-/"))
+(engine/set-keymap-prefix (kbd "s-/"))
+#+end_src
+
+Set up the engines after-init using the built in defengine macro
+#+begin_src emacs-lisp
   (add-hook
    'after-init-hook
    (lambda ()
@@ -24,9 +26,13 @@ Engine mode allows you to use search-providing sites from within emacs. Awesome!
            (defengine wikipedia "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s" :keybinding "w")
            (defengine wikipedia-deutsch "http://www.wikipedia.org/search-redirect.php?language=de&go=Go&search=%s" :keybinding"d")
            (defengine stack-overflow "https://stackoverflow.com/search?q=%s" :keybinding "s"))
-       (message "Engine mode was not properly loaded or defengine macro was not defined")))))
+       (message "Engine mode was not properly loaded or defengine macro was not defined"))))
 #+end_src
 
+** :init
+#+begin_src emacs-lisp
+(engine-mode t)
+#+end_src
 * Provide it
 #+begin_src emacs-lisp
 (provide 'setup-engine-mode)

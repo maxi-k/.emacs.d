@@ -89,3 +89,7 @@
 [submodule "themes/zenburn"]
            path = themes/zenburn
            url = https://github.com/bbatsov/zenburn
+
+[submodule "user/emacs-config"]
+	path = user/emacs-config
+	url = http://github.com/maxi-k/emacs-config
