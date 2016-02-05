@@ -15,7 +15,6 @@ The timer before =which-key= kicks in defaults to 1.0. Decrease that.
 
 Note: =C-h= does not work for paging because in this configuration it is set to
 delete backwards (See: [[setup-editing.org]]). I have to use backspace instead.
-#+begin_src emacs-lisp
 ** :init
 Activate it globally
 #+begin_src emacs-lisp
