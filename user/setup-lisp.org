@@ -1,9 +1,9 @@
 #+TITLE: Setup lisp
 #+AUTHOR: Maximilian Kuschewski
 #+DESCRIPTION:
-#+PROPERTY: my-file-type emacs-config
+#+PROPERTY: my-file-type emacs-config-package
 
-* Functions
+* General Functions
 ** Pretty Lambdas
 #+begin_src emacs-lisp
 (defun pretty-lambdas ()
@@ -14,13 +14,6 @@
                     nil))))))
 #+end_src
 
-** Paredit
-#+begin_src emacs-lisp
-    (defun turn-on-paredit ()
-      ;; (paredit-mode t)
-      (message "Turning on paredit")
-  )
-#+end_src
 ** Delete `.elc` on save
 #+begin_src emacs-lisp
   (defun remove-elc-on-save ()
@@ -33,42 +26,109 @@
 
 #+end_src
 
-* Require Packages
+* :use-package paredit
+** :config
+** :init
+Add a forward slurping keybinding
 #+begin_src emacs-lisp
-  (require-packages '(paredit
-                      cider
-                      clj-refactor
-                      clojure-mode
-                      clojure-snippets
-                      pixie-mode
-                      racket-mode
-                      slime
-                      elisp-slime-nav
-                      ))
+(bind-key "M-)" 'paredit-forward-slurp-sexp paredit-mode-map)
 #+end_src
-* Add hooks
+Load it on all the lisps:
 #+begin_src emacs-lisp
-(progn
-  (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-  (add-hook 'emacs-lisp-mode-hook 'remove-elc-on-save)
-  (add-hook 'emacs-lisp-mode-hook (lambda () (run-hooks 'prog-mode-hook)))
-  ;; (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
-  (add-hook 'emacs-lisp-mode-hook 'pretty-lambdas)
+(add-hook 'lisp-mode-hook #'enable-paredit-mode)
+#+end_src
+And when evaluating expressions (minibuffer)
+#+begin_src emacs-lisp
+(add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+#+end_src
+And for some other lisps
+#+begin_src emacs-lisp
+(add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+(add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+(add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+#+end_src
 
-  ;; Enable paredit mode for all the lisps
-  (add-hook 'emacs-lisp-mode-hook       #'turn-on-paredit)
-  (add-hook 'eval-expression-minibuffer-setup-hook #'turn-on-paredit)
-  (add-hook 'ielm-mode-hook             #'turn-on-paredit)
-  (add-hook 'lisp-mode-hook             #'turn-on-paredit)
-  (add-hook 'lisp-interaction-mode-hook #'turn-on-paredit)
-  (add-hook 'scheme-mode-hook           #'turn-on-paredit)
-  (add-hook 'clojure-mode-hook          #'turn-on-paredit)
-  ;; Init helm-dash
-  (add-hook 'clojure-mode-hook
-            (lambda () (setq-local helm-dash-docsets '("clojure")))))
+* :use-package clojure-mode
+** :init
+Enable paredit and helm-dash-docsets for clojure
+#+begin_src emacs-lisp
+(add-hook 'clojure-mode-hook #'enable-paredit-mode)
+(add-hook 'clojure-mode-hook
+          (lambda () (setq-local helm-dash-docsets '("clojure")))))
 #+end_src
+
+Enable clojure in edn files as well
+#+begin_src emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
+#+end_src
+
+*** Looks
+Set up a font-lock to make 'fn' into 'ƒ'
+#+begin_src emacs-lisp
+(defun pretty-fn ()
+  (font-lock-add-keywords
+   nil
+   `(("(\\(fn\\>\\)"
+      (0 (progn (compose-region (match-beginning 1)
+                                (match-end 1)
+                                "\u0192") nil))))))
+
+(add-hook 'clojure-mode-hook 'pretty-fn)
+
+#+end_src
+*** Plugins
+**** :use-package cider
+***** :init
+Improve cider
+#+begin_src emacs-lisp
+(setq cider-lein-command "/usr/local/bin/lein")
+(setq cider-repl-pop-to-buffer-on-connect t)
+(setq cider-popup-stacktraces t)
+(setq cider-repl-popup-stacktraces t)
+(setq cider-auto-select-error-buffer t)
+(setq cider-repl-history-file "~/.emacs.d/cider-history")
+(setq cider-repl-wrap-history t)
+
+(add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+(add-hook 'cider-repl-mode-hook 'subword-mode)
+(add-hook 'cider-repl-mode-hook 'enable-paredit-mode)
+(add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
+#+end_src
+**** :use-package clj-refactor
+***** :init
+#+begin_src emacs-lisp
+(add-hook 'clojure-mode-hook (lambda ()
+                               (clj-refactor-mode 1)
+                               (cljr-add-keybindings-with-prefix "s-r")))
+
+#+end_src
+**** :use-package clojure-snippets
+
+* :use-package slime
+** :defer t
+** :init
+*** :use-package elisp-slime-nav
+* :use-package pixie-mode
+** :defer t
+* :use-package racket-mode
+* Emacs Lisp
+** Keys
+Add a key to evaluate the buffer
+#+begin_src emacs-lisp
+(define-key emacs-lisp-mode-map (kbd "C-c v") 'eval-buffer)
+#+end_src
+** Hooks
+Add some hooks for a nicer experience
+#+begin_src emacs-lisp
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'emacs-lisp-mode-hook 'remove-elc-on-save)
+(add-hook 'emacs-lisp-mode-hook (lambda () (run-hooks 'prog-mode-hook)))
+(add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
+(add-hook 'emacs-lisp-mode-hook 'pretty-lambdas)
+#+end_src
+
 * Keys
-** Global
+** Global Keys
 #+begin_src emacs-lisp
 ;; Should be able to eval-and-replace anywhere.
 (global-set-key (kbd "C-c e") 'eval-and-replace)
@@ -77,64 +137,23 @@
 ;; Eval and insert after s-exp as comment
 (global-set-key (kbd "C-x c") 'eval-and-insert-as-comment)
 #+end_src
-** Lisp-local
-Evaluate the whole buffer:
+** Lisp-local Keys
+Improve Tab and Enter:
 #+begin_src emacs-lisp
-(define-key emacs-lisp-mode-map (kbd "C-c v") 'eval-buffer)
+(define-key read-expression-map (kbd "TAB") 'lisp-complete-symbol)
+(define-key lisp-mode-shared-map (kbd "RET") 'reindent-then-newline-and-indent)
 #+end_src
-
-Tab and Enter:
-#+begin_src emacs-lisp
-  (define-key read-expression-map (kbd "TAB") 'lisp-complete-symbol)
-  (define-key lisp-mode-shared-map (kbd "RET") 'reindent-then-newline-and-indent)
-#+end_src
-* Extensions
+* Extensions :noexport:
 ** Paredit
 #+begin_src emacs-lisp
-  (eval-after-load 'paredit
-    ;; need a binding that works in the terminal
-    '(define-key paredit-mode-map (kbd "M-)") 'paredit-forward-slurp-sexp))
-
-  (dolist (mode '(scheme emacs-lisp lisp clojure))
-    (when (> (display-color-cells) 8)
-      (font-lock-add-keywords (intern (concat (symbol-name mode) "-mode"))
-                              '(("(\\|)" . 'paren-face))))
-    (add-hook (intern (concat (symbol-name mode) "-mode-hook"))
-              'turn-on-paredit)
-    (add-hook (intern (concat (symbol-name mode) "-mode-hook"))
-              'turn-on-paredit))
-#+end_src
-* Clojure
-#+begin_src emacs-lisp
-  ;; clojure
-  (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
-
-  ;; cider
-  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
-  (setq cider-lein-command "/usr/local/bin/lein")
-  (setq cider-repl-pop-to-buffer-on-connect t)
-  (setq cider-popup-stacktraces t)
-  (setq cider-repl-popup-stacktraces t)
-  (setq cider-auto-select-error-buffer t)
-  (setq cider-repl-history-file "~/.emacs.d/cider-history")
-  (setq cider-repl-wrap-history t)
-
-  (add-hook 'cider-repl-mode-hook 'subword-mode)
-  (add-hook 'cider-repl-mode-hook 'turn-on-paredit)
-  (add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
-
-
-  (defun pretty-fn ()
-    (font-lock-add-keywords nil `(("(\\(fn\\>\\)"
-                                   (0 (progn (compose-region (match-beginning 1)
-                                                             (match-end 1)
-                                                             "\u0192") nil))))))
-
-  (add-hook 'clojure-mode-hook (lambda ()
-                                 (clj-refactor-mode 1)
-                                 (cljr-add-keybindings-with-prefix "s-r")
-                                 'pretty-fn))
-
+  ;; (dolist (mode '(scheme emacs-lisp lisp clojure))
+  ;;   (when (> (display-color-cells) 8)
+  ;;     (font-lock-add-keywords (intern (concat (symbol-name mode) "-mode"))
+  ;;                             '(("(\\|)" . 'paren-face))))
+  ;;   (add-hook (intern (concat (symbol-name mode) "-mode-hook"))
+  ;;             'enable-paredit-mode)
+  ;;   (add-hook (intern (concat (symbol-name mode) "-mode-hook"))
+  ;;             'enable-paredit-mode))
 #+end_src
 * Provide it
 #+begin_src emacs-lisp
