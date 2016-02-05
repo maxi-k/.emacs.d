@@ -1,6 +1,6 @@
 #+TITLE: Configure evil mode
-#+DESCRIPTION:
 #+AUTHOR: Maximilian Kuschewski
+#+DESCRIPTION: Set up evil-mode, the extensible vi layer
 #+PROPERTY: my-file-type emacs-config-package
 
 * Utility

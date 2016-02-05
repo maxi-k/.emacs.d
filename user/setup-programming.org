@@ -35,6 +35,7 @@ Require the mode-specific setup files that configure programming-modes:
 #+begin_src emacs-lisp
   (require-all
    '(setup-c
+     setup-go
      setup-lisp
      setup-markdown
      setup-haskell

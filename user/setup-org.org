@@ -4,7 +4,10 @@
 #+AUTHOR: Maximilian Kuschewski
 #+PROPERTY: my-file-type emacs-config-package
 
+
 * :use-package org
+** :pin gnu
+** :ensure nil
 ** :bind
 #+begin_src emacs-lisp
 ("C-c l" . org-store-link)
@@ -189,7 +192,7 @@ available on elpa last time I checked.
 Setup bigger fonts instead of lots of colors for headings and more:
 #+begin_src emacs-lisp
   (defun do-beautify-org (&optional theme)
-    (ignore-errors (require 'org-beautify-theme))
+    (ignore-errors (use-package org-beautify-theme))
     ;; Toggle bullets-mode twice so it recognizes the theme.
     ;; This is quite weird, but it works
     (org-bullets-mode)

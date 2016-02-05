@@ -13,11 +13,9 @@ The timer before =which-key= kicks in defaults to 1.0. Decrease that.
 (setq which-key-idle-delay 0.5)
 #+end_src
 
-=C-h= does not work for paging because in this configuration it is set to
-delete backwards. I have yet to figure out how to scroll through the pages now.
+Note: =C-h= does not work for paging because in this configuration it is set to
+delete backwards (See: [[setup-editing.org]]). I have to use backspace instead.
 #+begin_src emacs-lisp
-(setq which-key-paging-prefixes '("s-x"))
-#+end_src
 ** :init
 Activate it globally
 #+begin_src emacs-lisp

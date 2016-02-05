@@ -1,6 +1,6 @@
 #+TITLE: Setup Look
-#+DESCRIPTION: The main place where the look of emacs is configured
 #+AUTHOR: Maximilian Kuschewski
+#+DESCRIPTION: The main place where the look of emacs is configured
 #+PROPERTY: my-file-type emacs-config-package
 
 * Themes

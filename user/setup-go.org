@@ -1,0 +1,19 @@
+#+TITLE: Setup Golang
+#+DESCRIPTION:
+#+AUTHOR: Maximilian Kuschewski
+#+PROPERTY: my-file-type emacs-config-package
+
+* :use-package go-mode
+** :config
+#+begin_src emacs-lisp
+(add-hook 'go-mode-hook
+          (lambda ()
+            (setq tab-width 4
+                  indent-tabs-mode t
+                  standard-indent 4)))
+#+end_src
+
+* Provide it
+#+begin_src emacs-lisp
+(provide 'setup-go)
+#+end_src

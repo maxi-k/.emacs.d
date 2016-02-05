@@ -4,15 +4,14 @@
 #+PROPERTY: my-file-type emacs-config-package
 
 * Hooks
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'text-mode-hook 'turn-on-flyspell)
-#+end_src
+#+END_SRC
 * :use-package writeroom-mode
 Writeroom mode is really cool
 ** :defer t
-** :config
 * Provide it
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (provide 'setup-text-mode)
-#+end_src
+#+END_SRC
