@@ -7,15 +7,15 @@
 Deft allows for quick and persistent note taking. It's awesome!
 ** :defer t
 ** :config
-#+begin_src emacs-lisp
-  (setq deft-default-extension "org"
-        deft-directory (concat org-directory "local/deft/"))
-#+end_src
+#+BEGIN_SRC emacs-lisp
+(setq deft-default-extension "org"
+      deft-directory (concat org-directory "local/deft/"))
+#+END_SRC
 ** :bind
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 ("<f9>" . deft)
-#+end_src
+#+END_SRC
 * Provide it
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (provide 'setup-deft)
-#+end_src
+#+END_SRC
