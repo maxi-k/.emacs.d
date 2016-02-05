@@ -10,42 +10,6 @@
            path = themes/ample-zen
            url = https://github.com/mjwall/ample-zen
 
-[submodule "themes/badger"]
-           path = themes/badger
-           url = https://github.com/ccan/badger-theme
-
-[submodule "themes/base16-emacs"]
-           path = themes/base16-emacs
-           url = https://github.com/neil447/base16-emacs
-
-[submodule "themes/bubbleberry"]
-           path = themes/bubbleberry
-           url = https://github.com/jasonm23/emacs-bubbleberry-theme
-
-[submodule "themes/clues"]
-           path = themes/clues
-           url = https://github.com/emacsfodder/emacs-clues-theme
-
-[submodule "themes/color-theme-ujelly"]
-           path = themes/color-theme-ujelly
-           url = https://github.com/marktran/color-theme-ujelly
-
-[submodule "themes/darkmine"]
-           path = themes/darkmine
-           url = https://github.com/pierre-lecocq/color-theme-darkmine
-
-[submodule "themes/deviant"]
-           path = themes/deviant
-           url = https://github.com/Corsair/deviant
-
-[submodule "themes/eink.el"]
-           path = themes/eink.el
-           url = https://github.com/dmand/eink.el
-
-[submodule "themes/gruber-darker-theme"]
-           path = themes/gruber-darker-theme
-           url = https://github.com/rexim/gruber-darker-theme
-
 [submodule "themes/ir-black-theme"]
            path = themes/ir-black-theme
            url = https://github.com/jmdeldin/ir-black-theme.el
@@ -73,18 +37,6 @@
 [submodule "themes/solarized"]
            path = themes/solarized
            url = https://github.com/sellout/emacs-color-theme-solarized
-
-[submodule "themes/tangotango"]
-           path = themes/tangotango
-           url = https://github.com/juba/color-theme-tangotango
-
-[submodule "themes/waher"]
-           path = themes/waher
-           url = https://github.com/emacsfodder/emacs-waher-theme
-
-[submodule "themes/wombat"]
-           path = themes/wombat
-           url = https://github.com/jasonblewis/color-theme-wombat
 
 [submodule "themes/zenburn"]
            path = themes/zenburn
