@@ -3,6 +3,127 @@
 #+AUTHOR: Maximilian Kuschewski
 #+PROPERTY: my-file-type emacs-config
 
+* Setup evil
+Evil-mode is essential. Set it up right away.
+#+begin_src emacs-lisp
+(require 'setup-evil-mode)
+#+end_src
+
+* Keys
+A good idea copied from spacemacs: There is a global leader key and a
+mode-local leader key.
+
+[[https://github.com/justbur/emacs-bind-map][emacs-bind-map]] is a package that generalizes the concept of leaders. It is what
+makes this possible/easy:
+#+begin_src emacs-lisp
+(use-package bind-map)
+#+end_src
+
+Set up bindings for the global and local leaders:
+#+begin_src emacs-lisp
+(defvar config/global-leader-key "SPC")
+(defvar config/local-leader-key ",")
+#+end_src
+Note that comma is normally used by evil-mode, but rarely used.
+
+** Util
+First, set up a parsing function that allows for nesting bindings:
+#+begin_src emacs-lisp
+(defun config|parse-bindings (bindings &optional description prefix)
+  "Parses a list of keybindings as used by the leader functions
+'(\"a\" a-binding
+  \"b\" (\"description\"
+             \"c\" c-binding
+             \"d\" d-binding))
+and flattens it to something immediately useable:
+'(\"a\"  a-binding
+  \"bc\" c-binding
+  \"bd\" d-binding)"
+  (let ((res '()))
+    (while (not (eq '() bindings))
+      (let ((binding (concat prefix (pop bindings)))
+            (fn/list (pop bindings)))
+        (if (listp fn/list)
+            (let ((desc (pop fn/list)))
+              (setq res (append res (config|parse-bindings fn/list
+                                                           desc binding))))
+          (progn
+            (push fn/list res)
+            (push binding res)))))
+    res))
+#+end_src
+
+Then, set up a helper function for binding all keys to a given map
+#+begin_src emacs-lisp
+(defun config|bind-all-keys (map bindings)
+  "Takes a keymap and a (possibly nested) list of bindings
+and binds them all to the keymap."
+  (let* ((binds (config|parse-bindings bindings))
+         (key (pop binds))
+         (fn (pop binds)))
+         (while key
+           (define-key map (kbd key) fn)
+           (setq key (pop binds)
+                 fn (pop binds)))))
+#+end_src
+
+** Global Leader
+#+begin_src emacs-lisp
+(defun config/global-keys (key fn &rest bindings)
+  (unless (boundp 'config/global-leader-map)
+    (eval
+     `(bind-map config/global-leader-map
+        ;; :keys ("M-m")
+        :evil-keys (,config/global-leader-key)
+        :evil-states (normal motion visual))))
+  (config|bind-all-keys config/global-leader-map
+                        (cons key (cons fn bindings))))
+#+end_src
+
+*** Define some keys
+Set a few bindings following the prefix
+#+begin_src emacs-lisp
+(config/global-keys
+ ;; Meta x
+ "x" 'execute-extended-command
+ "b" 'switch-to-buffer
+ "p" 'projectile-command-map
+ "g" 'keyboard-quit
+ "lc" 'byte-compile-file
+ ;; evil-nerd-commenter
+ "c" '("Evil Nerd Commenter"
+       "i" evilnc-comment-or-uncomment-lines
+       "l" evilnc-quick-comment-or-uncomment-to-the-line
+       "c" evilnc-copy-and-comment-lines
+       "p" evilnc-comment-or-uncomment-paragraphs
+       "r" comment-or-uncomment-region
+       "v" evilnc-toggle-invert-comment-line-by-line
+       "o" evilnc-comment-operator)
+ "j" '("Ace Jump Mode"
+       "j" evil-ace-jump-char-mode
+       "w" evil-ace-jump-word-mode
+       "t" evil-ace-jump-char-to-mode)
+ ;; Help
+ "h" 'help
+ "?" 'helm-descbinds)
+#+end_src
+
+** Local leaders
+Now For the mode-local leader-keys.
+
+#+begin_src emacs-lisp
+(defun config/local-keys (mode key fn &rest bindings)
+  (let ((map (intern (format "config|local-leader-map|%s" (symbol-name mode)))))
+    (unless (boundp map)
+      (eval
+       `(bind-map ,map
+          :evil-keys (,config/local-leader-key)
+          :evil-states (normal motion visual)
+          :major-modes (,mode))))
+    (config|bind-all-keys (symbol-value map)
+                          (cons key (cons fn bindings)))))
+#+end_src
+
 * Provide it
 #+begin_src emacs-lisp
 (provide 'bootstrap)

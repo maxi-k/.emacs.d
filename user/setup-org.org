@@ -144,10 +144,9 @@ Standard emacsy org mode bindings:
 
 Evil-leader bindings:
 #+begin_src emacs-lisp
-(when (evil-p)
-  (evil-leader/set-key-for-mode 'org-mode
-    "tt" 'org-todo
-    "td" 'org-toggle-timestamp-type))
+(config/local-keys 'org-mode
+  "t" 'org-todo
+  "d" 'org-toggle-timestamp-type)
 #+end_src
 
 *** Plugins

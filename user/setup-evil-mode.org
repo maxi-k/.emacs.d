@@ -39,42 +39,6 @@ However, in some cases, other initial states are better:
           (dired-mode . emacs)))
 #+end_src
 *** Plugins
-**** :use-package evil-leader
-***** :config
-Set the global prefix key
-#+begin_src emacs-lisp
-(evil-leader/set-leader "SPC")
-#+end_src
-
-Set the bindings following the prefix
-#+begin_src emacs-lisp
-  (evil-leader/set-key
-    ;; Meta x
-    "x" 'execute-extended-command
-    "b" 'switch-to-buffer
-    "p" 'projectile-command-map
-    "g" 'keyboard-quit
-    "lc" 'byte-compile-file
-    ;; evil-nerd-commenter
-    "ci" 'evilnc-comment-or-uncomment-lines
-    "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
-    "cc" 'evilnc-copy-and-comment-lines
-    "cp" 'evilnc-comment-or-uncomment-paragraphs
-    "cr" 'comment-or-uncomment-region
-    "cv" 'evilnc-toggle-invert-comment-line-by-line
-    "\\" 'evilnc-comment-operator
-    "jj" 'evil-ace-jump-char-mode
-    "jw" 'evil-ace-jump-word-mode
-    "jt" 'evil-ace-jump-char-to-mode
-    ;; Help
-    "h" 'help
-    "?" 'helm-descbinds)
-#+end_src
-
-Activate it globally
-#+begin_src emacs-lisp
-(global-evil-leader-mode)
-#+end_src
 **** :use-package evil-nerd-commenter
 **** :use-package evil-surround
 ***** :config

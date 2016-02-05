@@ -26,17 +26,17 @@
                           (emacs-config/tangle-file (buffer-file-name) t))
                         nil 'make-it-local))))
 
-;; Very General Setup &
-;; Bootstrap some stuff that every config file can rely on
-(require-all '(bootstrap
-               general-functions
+;; Very General Setup
+(require-all '(general-functions
                general-settings))
 
 ;; Load packages that don't require any setup
 (require-all '(setup-simple-packages))
 
 ;; Specific Setups
-(require-all '(setup-look
+;; Bootstrap some stuff that every config file can rely on
+(require-all '(bootstrap
+               setup-look
                setup-PATH ;; No Packages
                setup-system ;; No Packages
                setup-keys ;; No Packages
@@ -47,8 +47,7 @@
                ))
 
 ;; Mode-specific setups
-(require-all '(setup-evil-mode
-               setup-git
+(require-all '(setup-git
                setup-helm
                setup-projectile
                setup-text-mode
