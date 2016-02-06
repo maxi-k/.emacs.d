@@ -58,7 +58,6 @@ after helm is loaded.
 (config/global-keys
     "x" 'helm-M-x)
 #+end_src
-
 *** Plugins
 **** :use-package helm-projectile
 ***** :defer 5
@@ -89,6 +88,11 @@ not outside.
 #+end_src
 **** :use-package helm-itunes
 ***** :defer t
+***** :init
+#+begin_src emacs-lisp
+(config/global-keys
+  "ai" 'helm-itunes)
+#+end_src
 * Provide it
 #+begin_src emacs-lisp
 (provide 'setup-helm)
