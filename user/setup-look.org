@@ -82,16 +82,16 @@ Define a default light and dark theme and functions for loading them:
        (progn
          (setq frame-resize-pixelwise t)
          (setq frame-title-format '(buffer-file-name "%f" ("%b")))
-         (tooltip-mode -1)
+         ;; (tooltip-mode -1)
          (tool-bar-mode -1)
          (mouse-wheel-mode t)
          (blink-cursor-mode -1)
          (scroll-bar-mode 0)
          (setq-default fill-column 80)
          (setq-default indicate-empty-lines t)
-         (load-theme-dark)
-         (progn
-           (menu-bar-mode -1))))))
+         (load-theme-dark))
+     (progn
+       (menu-bar-mode -1)))))
 #+end_src
 ** Font
 Increase the font size and set it to the very nice source-code-pro font, if
