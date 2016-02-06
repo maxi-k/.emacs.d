@@ -16,8 +16,6 @@ Set up some useful variables regarding evil-mode
   (boundp 'evil-mode))
 #+end_src
 * :use-package evil
-** :demand t
-Make sure evil is loaded
 ** :bind
 Activate Evil mode globally with s-escape
 #+begin_src emacs-lisp
@@ -172,7 +170,12 @@ Define some face colors to be used in the powerline and cursor colors:
 ** :init
 Activate evil-mode by default:
 #+begin_src emacs-lisp
-(evil-mode 1)
+;; (add-hook 'after-init-hook (lambda () ))
+#+end_src
+
+*** Activate it
+#+begin_src emacs-lisp
+(add-hook 'after-init-hook (evil-mode 1))
 #+end_src
 * Provide it
 #+begin_src emacs-lisp

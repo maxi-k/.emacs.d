@@ -11,20 +11,22 @@
 `emacs-config/dir'/local/setup-local.org exists."
   (file-exists-p emacs-config/local-file))
 
-(use-package emacs-config-loaddefs
-  :ensure nil
-  :load-path "user/emacs-config/"
-  :config
-  (emacs-config/init)
-  :init
-  ;; When in org mode, try to tangle the file if it is an emacs-config/file -
-  ;; whether it is is checked by `emacs-config/tangle-file`
-  (add-hook 'org-mode-hook
-            (lambda ()
-              (add-hook 'after-save-hook
-                        (lambda ()
-                          (emacs-config/tangle-file (buffer-file-name) t))
-                        nil 'make-it-local))))
+(use-package emacs-config
+    :load-path "user/emacs-config/"
+    :defer t
+    :ensure nil
+    :config
+    (emacs-config/init)
+    :init
+    (require 'emacs-config-autoloads)
+    ;; When in org mode, try to tangle the file if it is an emacs-config/file -
+    ;; whether it is is checked by `emacs-config/tangle-file`
+    (add-hook 'org-mode-hook
+              (lambda ()
+                (add-hook 'after-save-hook
+                          (lambda ()
+                            (emacs-config/tangle-file (buffer-file-name) t))
+                          nil 'make-it-local))))
 
 ;; Very General Setup
 (require-all '(general-functions

@@ -4,6 +4,7 @@
 #+PROPERTY: my-file-type emacs-config-package
 
 * :use-package go-mode
+** :defer t
 ** :config
 #+begin_src emacs-lisp
 (add-hook 'go-mode-hook

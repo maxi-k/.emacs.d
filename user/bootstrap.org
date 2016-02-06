@@ -9,14 +9,24 @@ Evil-mode is essential. Set it up right away.
 (require 'setup-evil-mode)
 #+end_src
 
-* Keys
+* Hydra
+[[https://github.com/abo-abo/hydra][Hydra]] is awesome!
+#+begin_src emacs-lisp
+(use-package hydra
+    :defer t
+    :init
+  (defalias 'config/hydra 'defhydra)
+  (put 'config/hydra 'lisp-indent-function 'defun))
+#+end_src
+
+* Leader Keys
 A good idea copied from spacemacs: There is a global leader key and a
 mode-local leader key.
 
 [[https://github.com/justbur/emacs-bind-map][emacs-bind-map]] is a package that generalizes the concept of leaders. It is what
 makes this possible/easy:
 #+begin_src emacs-lisp
-(use-package bind-map)
+(use-package bind-map :defer t)
 #+end_src
 
 Set up bindings for the global and local leaders:
@@ -29,7 +39,7 @@ Note that comma is normally used by evil-mode, but rarely used.
 ** Util
 First, set up a parsing function that allows for nesting bindings:
 #+begin_src emacs-lisp
-(defun config|parse-bindings (bindings &optional description prefix)
+(defun config|parse-bindings (bindings &optional prefix)
   "Parses a list of keybindings as used by the leader functions
 '(\"a\" a-binding
   \"b\" (\"description\"
@@ -39,45 +49,59 @@ and flattens it to something immediately useable:
 '(\"a\"  a-binding
   \"bc\" c-binding
   \"bd\" d-binding)"
-  (let ((res '()))
+  (let ((keys '())
+        (descriptions '()))
     (while (not (eq '() bindings))
       (let ((binding (concat prefix (pop bindings)))
             (fn/list (pop bindings)))
         (if (listp fn/list)
-            (let ((desc (pop fn/list)))
-              (setq res (append res (config|parse-bindings fn/list
-                                                           desc binding))))
+            (let* ((desc (pop fn/list))
+                   (subbinds (config|parse-bindings fn/list binding))
+                   (subkeys (car subbinds))
+                   (subdescs (cdr subbinds)))
+              (setq keys (append keys subkeys))
+              (push (cons binding desc) descriptions)
+              (setq descriptions (append descriptions subdescs)))
           (progn
-            (push fn/list res)
-            (push binding res)))))
-    res))
+            (push fn/list keys)
+            (push binding keys)))))
+    (cons keys descriptions)))
 #+end_src
 
 Then, set up a helper function for binding all keys to a given map
 #+begin_src emacs-lisp
-(defun config|bind-all-keys (map bindings)
+(defun config|bind-all-keys (leader map bindings)
   "Takes a keymap and a (possibly nested) list of bindings
 and binds them all to the keymap."
   (let* ((binds (config|parse-bindings bindings))
-         (key (pop binds))
-         (fn (pop binds)))
+         (keys (car binds))
+         (descriptions (cdr binds))
+         (key (pop keys))
+         (fn (pop keys)))
          (while key
            (define-key map (kbd key) fn)
-           (setq key (pop binds)
-                 fn (pop binds)))))
+           (setq key (pop keys)
+                 fn (pop keys)))
+         (mapc (lambda (x) (which-key-declare-prefixes
+                          (concat leader " " (car x))
+                          (cdr x)))
+               descriptions)))
 #+end_src
 
-** Global Leader
+** The Global Leader
+Set up a function to bind keys to the global leader key
 #+begin_src emacs-lisp
 (defun config/global-keys (key fn &rest bindings)
   (unless (boundp 'config/global-leader-map)
     (eval
      `(bind-map config/global-leader-map
-        ;; :keys ("M-m")
-        :evil-keys (,config/global-leader-key)
-        :evil-states (normal motion visual))))
-  (config|bind-all-keys config/global-leader-map
+          ;; :keys ("M-m")
+          :evil-keys (,config/global-leader-key)
+          :evil-states (normal motion visual))))
+  (config|bind-all-keys config/global-leader-key
+                        config/global-leader-map
                         (cons key (cons fn bindings))))
+(put 'config/global-keys 'lisp-indent-function 'defun)
 #+end_src
 
 *** Define some keys
@@ -89,7 +113,6 @@ Set a few bindings following the prefix
  "b" 'switch-to-buffer
  "p" 'projectile-command-map
  "g" 'keyboard-quit
- "lc" 'byte-compile-file
  ;; evil-nerd-commenter
  "c" '("Evil Nerd Commenter"
        "i" evilnc-comment-or-uncomment-lines
@@ -103,27 +126,41 @@ Set a few bindings following the prefix
        "j" evil-ace-jump-char-mode
        "w" evil-ace-jump-word-mode
        "t" evil-ace-jump-char-to-mode)
+ "z" (config/hydra hydra/zoom (:color red)
+       "zoom"
+       ("i" text-scale-increase "in")
+       ("o" text-scale-decrease "out")
+       ("q" nil "quit"))
  ;; Help
  "h" 'help
  "?" 'helm-descbinds)
 #+end_src
 
 ** Local leaders
-Now For the mode-local leader-keys.
+Now For the mode-local leader-keys:
+Set up a function to bind keys to one or more local modes
 
 #+begin_src emacs-lisp
 (defun config/local-keys (mode key fn &rest bindings)
-  (let ((map (intern (format "config|local-leader-map|%s" (symbol-name mode)))))
+  (let* ((modesp (listp mode))
+         (modes (if modesp mode (cons mode nil)))
+         (map (intern (format "config|local-leader-map|%s"
+                              (if modesp
+                                  (apply 'concat (mapcar 'symbol-name mode))
+                                  (symbol-name mode))))))
     (unless (boundp map)
       (eval
        `(bind-map ,map
-          :evil-keys (,config/local-leader-key)
-          :evil-states (normal motion visual)
-          :major-modes (,mode))))
-    (config|bind-all-keys (symbol-value map)
-                          (cons key (cons fn bindings)))))
-#+end_src
+            :evil-keys (,config/local-leader-key)
+            :evil-states (normal motion visual)
+            :major-modes ,modes))
+      (config|bind-all-keys config/local-leader-key
+                            (symbol-value map)
+                            (cons key (cons fn bindings))))))
 
+(put 'config/local-keys 'lisp-indent-function 'defun)
+
+#+end_src
 * Provide it
 #+begin_src emacs-lisp
 (provide 'bootstrap)

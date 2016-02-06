@@ -44,9 +44,12 @@
 ** Setup theme-path
 Add the themes folder and its subfolders to the load path
 #+begin_src emacs-lisp
-(let ((theme-path "~/.emacs.d/themes/"))
-  (add-to-list 'custom-theme-load-path theme-path)
-  (add-subfolders-to-theme-load-path theme-path))
+(add-hook
+ 'window-setup-hook
+ (lambda ()
+   (let ((theme-path "~/.emacs.d/themes/"))
+     (add-to-list 'custom-theme-load-path theme-path)
+     (add-subfolders-to-theme-load-path theme-path))))
 #+end_src
 
 ** Install themes
@@ -57,35 +60,38 @@ Add the themes folder and its subfolders to the load path
 ** Easy theme loading
 Define a default light and dark theme and functions for loading them:
 #+begin_src emacs-lisp
-  (defconst my/default-dark-theme 'sanityinc-tomorrow-eighties)
-  (defconst my/default-light-theme 'my-light)
+(defconst my/default-dark-theme 'sanityinc-tomorrow-eighties)
+(defconst my/default-light-theme 'my-light)
 
-  (defun load-theme-dark ()
-    (interactive)
-    (load-theme-exclusively my/default-dark-theme))
+(defun load-theme-dark ()
+  (interactive)
+  (load-theme-exclusively my/default-dark-theme))
 
-  (defun load-theme-light ()
-    (interactive)
-    (load-theme-exclusively my/default-light-theme))
+(defun load-theme-light ()
+  (interactive)
+  (load-theme-exclusively my/default-light-theme))
 #+end_src
 
 * General settings
 ** Gui-dependent
 #+begin_src emacs-lisp
-  (if window-system
-      (progn
-        (setq frame-resize-pixelwise t)
-        (setq frame-title-format '(buffer-file-name "%f" ("%b")))
-        (tooltip-mode -1)
-        (tool-bar-mode -1)
-        (mouse-wheel-mode t)
-        (blink-cursor-mode -1)
-        (scroll-bar-mode 0)
-        (setq-default fill-column 80)
-        (setq-default indicate-empty-lines t)
-        (add-hook 'window-setup-hook #'load-theme-dark))
-    (progn
-      (menu-bar-mode -1)))
+(add-hook
+ 'window-setup-hook
+ (lambda ()
+   (if window-system
+       (progn
+         (setq frame-resize-pixelwise t)
+         (setq frame-title-format '(buffer-file-name "%f" ("%b")))
+         (tooltip-mode -1)
+         (tool-bar-mode -1)
+         (mouse-wheel-mode t)
+         (blink-cursor-mode -1)
+         (scroll-bar-mode 0)
+         (setq-default fill-column 80)
+         (setq-default indicate-empty-lines t)
+         (load-theme-dark)
+         (progn
+           (menu-bar-mode -1))))))
 #+end_src
 ** Font
 Increase the font size and set it to the very nice source-code-pro font, if
@@ -166,6 +172,7 @@ appear in the middle of the screen:
 #+end_src
 
 * :use-package page-break-lines
+** :defer t
 ** :init
 Make emacs page breaks (^L character) look like lines:
 #+begin_src emacs-lisp
@@ -175,8 +182,8 @@ I've inserted one on the following line:
 
 
 * :use-package powerline
-*** :init
-**** Definitions
+** :init
+*** Definitions
 #+begin_src emacs-lisp
 (defpowerline evil-mode-bar
   (if (and (boundp 'evil-mode) evil-mode)
@@ -193,7 +200,7 @@ I've inserted one on the following line:
     " "))
 #+end_src
 
-*** :config
+** :config
 Set it up
 #+begin_src emacs-lisp
 (setq-default

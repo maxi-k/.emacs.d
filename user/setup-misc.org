@@ -19,6 +19,7 @@ Find the variable =my/gc-cons-threshold= in the top [[../init.el][init file]].
 
 * :use-package alert
 Set up the emacs ('growl-style') notification system.
+** :defer t
 ** :config
 If on a mac, use mac style notifications.
 #+begin_src emacs-lisp

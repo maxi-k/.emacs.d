@@ -3,6 +3,7 @@
 #+DESCRIPTION:
 #+PROPERTY: my-file-type emacs-config-package
 
+
 * General Functions
 ** Pretty Lambdas
 #+begin_src emacs-lisp
@@ -27,12 +28,13 @@
 #+end_src
 
 * :use-package paredit
+** :defer t
 ** :config
-** :init
 Add a forward slurping keybinding
 #+begin_src emacs-lisp
 (bind-key "M-)" 'paredit-forward-slurp-sexp paredit-mode-map)
 #+end_src
+** :init
 Load it on all the lisps:
 #+begin_src emacs-lisp
 (add-hook 'lisp-mode-hook #'enable-paredit-mode)
@@ -49,19 +51,20 @@ And for some other lisps
 #+end_src
 
 * :use-package clojure-mode
+** :defer t
 ** :init
 Enable paredit and helm-dash-docsets for clojure
 #+begin_src emacs-lisp
 (add-hook 'clojure-mode-hook #'enable-paredit-mode)
 (add-hook 'clojure-mode-hook
-          (lambda () (setq-local helm-dash-docsets '("clojure")))))
+          (lambda () (setq-local helm-dash-docsets '("clojure"))))
 #+end_src
 
 Enable clojure in edn files as well
 #+begin_src emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
 #+end_src
-
+** :config
 *** Looks
 Set up a font-lock to make 'fn' into 'ƒ'
 #+begin_src emacs-lisp
@@ -78,7 +81,8 @@ Set up a font-lock to make 'fn' into 'ƒ'
 #+end_src
 *** Plugins
 **** :use-package cider
-***** :init
+***** :defer t
+***** :config
 Improve cider
 #+begin_src emacs-lisp
 (setq cider-lein-command "/usr/local/bin/lein")
@@ -95,6 +99,7 @@ Improve cider
 (add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
 #+end_src
 **** :use-package clj-refactor
+***** :defer t
 ***** :init
 #+begin_src emacs-lisp
 (add-hook 'clojure-mode-hook (lambda ()
@@ -103,27 +108,41 @@ Improve cider
 
 #+end_src
 **** :use-package clojure-snippets
+***** :defer t
 
 * :use-package slime
 ** :defer t
-** :init
+** :config
 *** :use-package elisp-slime-nav
-* :use-package pixie-mode
-** :defer t
 * :use-package racket-mode
+** :defer t
+* use-package pixie-mode
+Not for now, it gives an error that the docstring is missing...
+** defer t
 * Emacs Lisp
 ** Keys
 Add a key to evaluate the buffer
 #+begin_src emacs-lisp
 (define-key emacs-lisp-mode-map (kbd "C-c v") 'eval-buffer)
 #+end_src
+
+Add mode-local leader-keys
+#+begin_src emacs-lisp
+(config/local-keys '(emacs-lisp-mode lisp-interaction-mode)
+  "c" 'byte-compile-file
+  "v" 'eval-buffer)
+#+end_src
+
 ** Hooks
 Add some hooks for a nicer experience
 #+begin_src emacs-lisp
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'emacs-lisp-mode-hook 'remove-elc-on-save)
-(add-hook 'emacs-lisp-mode-hook (lambda () (run-hooks 'prog-mode-hook)))
-(add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
+(add-hook 'emacs-lisp-mode-hook (lambda ()
+                                  (run-hooks 'prog-mode-hook)
+                                  ;; (run-hooks 'lisp-mode-hook)
+                                  ))
+;; (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
 (add-hook 'emacs-lisp-mode-hook 'pretty-lambdas)
 #+end_src
 
@@ -136,6 +155,8 @@ Add some hooks for a nicer experience
 (global-set-key (kbd "C-c i") 'eval-and-insert)
 ;; Eval and insert after s-exp as comment
 (global-set-key (kbd "C-x c") 'eval-and-insert-as-comment)
+;; Normal evaluation
+(global-set-key (kbd "C-x C-e") 'eval-last-sexp)
 #+end_src
 ** Lisp-local Keys
 Improve Tab and Enter:

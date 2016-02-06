@@ -4,6 +4,7 @@
 #+PROPERTY: my-file-type emacs-config-package
 
 * :use-package helm
+** :defer 4
 ** :bind
 Helm mini can be quite useful
 #+begin_src emacs-lisp
@@ -30,8 +31,8 @@ Set up s-i for helm-imenu. s-i is bound to the standard imenu in [[setup-movemen
 *** Helm Locate
 Use spotlight to locate any file if on a mac
 #+begin_src emacs-lisp
-  (when (is-mac)
-    (setq helm-locate-command "mdfind -name %s %s"))
+(when (is-mac)
+  (setq helm-locate-command "mdfind -name %s %s"))
 #+end_src
 
 *** Fuzzy matching
@@ -45,34 +46,44 @@ Instead, enable it selectively:
 (setq helm-buffers-fuzzy-matching t)
 (setq helm-recentf-fuzzy-match t)
 #+end_src
+*** Activate it
+Enable helm everywhere:
+#+begin_src emacs-lisp
+(helm-mode)
+#+end_src
+** :init
+Use =helm-M-x= instead of =execute-extended-command= on the global leader key
+after helm is loaded.
+#+begin_src emacs-lisp
+(config/global-keys
+    "x" 'helm-M-x)
+#+end_src
 
 *** Plugins
 **** :use-package helm-projectile
-***** :init
-Enable helm in for projectile
-#+begin_src emacs-lisp
-(helm-projectile-on)
-#+end_src
+***** :defer 5
 ***** :bind
 Use cmd-o to find any file in the current project
 #+begin_src emacs-lisp
 ("s-o" . helm-projectile-find-file)
 #+end_src
+***** :config
+Enable helm in for projectile
+#+begin_src emacs-lisp
+(helm-projectile-on)
+#+end_src
 **** :use-package helm-dash
-***** :init
+***** :defer t
+***** :config
 Browse dash-documentation inside emacs,
 not outside.
 #+begin_src emacs-lisp
 (setq helm-dash-browser-func 'eww)
 #+end_src
 **** :use-package helm-descbinds
+***** :defer 7
 **** :use-package helm-itunes
-** :init
-*** Activate it
-Enable helm everywhere:
-#+begin_src emacs-lisp
-(add-hook 'after-init-hook #'helm-mode)
-#+end_src
+***** :defer t
 * Provide it
 #+begin_src emacs-lisp
 (provide 'setup-helm)
