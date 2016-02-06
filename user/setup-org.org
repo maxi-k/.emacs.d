@@ -148,6 +148,7 @@ Evil-leader bindings:
           ("t" org-todo "Toggle Todo"))
     "d" 'org-toggle-timestamp-type
     "c" 'org-ctrl-c-ctrl-c
+    "e" 'org-export-dispatch
     "x" (lambda () (interactive) (org-call-with-arg 'org-ctrl-c-ctrl-c '(4))))
 #+end_src
 
