@@ -13,8 +13,8 @@ Evil-mode is essential. Set it up right away.
 [[https://github.com/abo-abo/hydra][Hydra]] is awesome!
 #+begin_src emacs-lisp
 (use-package hydra
-    :defer t
-    :init
+  ;; :defer t
+  :init
   (defalias 'config/hydra 'defhydra)
   (put 'config/hydra 'lisp-indent-function 'defun))
 #+end_src
