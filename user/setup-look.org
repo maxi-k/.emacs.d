@@ -154,8 +154,10 @@ Highlight the line the cursor is currently on
 #+end_src
 ** Initial Frame size and position:
 #+begin_src emacs-lisp
-(setq initial-frame-alist
-      '((top . 0) (left . 0) (width . 92) (height . 40)))
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (setq initial-frame-alist
+                  '((top . 0) (left . 0) (width . 92) (height . 40)))))
 #+end_src
 
 ** Error Bell
