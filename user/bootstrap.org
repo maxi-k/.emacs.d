@@ -3,12 +3,6 @@
 #+AUTHOR: Maximilian Kuschewski
 #+PROPERTY: my-file-type emacs-config
 
-* Setup evil
-Evil-mode is essential. Set it up right away.
-#+begin_src emacs-lisp
-(require 'setup-evil-mode)
-#+end_src
-
 * Hydra
 [[https://github.com/abo-abo/hydra][Hydra]] is awesome!
 #+begin_src emacs-lisp
@@ -54,7 +48,7 @@ and flattens it to something immediately useable:
     (while (not (eq '() bindings))
       (let ((binding (concat prefix (pop bindings)))
             (fn/list (pop bindings)))
-        (if (listp fn/list)
+        (if (and (listp fn/list) (not (functionp fn/list)))
             (let* ((desc (pop fn/list))
                    (subbinds (config|parse-bindings fn/list binding))
                    (subkeys (car subbinds))
@@ -66,6 +60,16 @@ and flattens it to something immediately useable:
             (push fn/list keys)
             (push binding keys)))))
     (cons keys descriptions)))
+#+end_src
+
+When using [[./setup-which-key.org][which-key]], it's nice to have descriptions of what the 'submaps' do.
+Add a few helper functions for making that easier:
+#+begin_src emacs-lisp
+(defalias 'config/key-description 'which-key-declare-prefixes)
+
+(defun config/global-key-desc (key desc)
+  (config/key-description (concat config/global-leader-key " " key)
+                          desc))
 #+end_src
 
 Then, set up a helper function for binding all keys to a given map
@@ -82,7 +86,7 @@ and binds them all to the keymap."
            (define-key map (kbd key) fn)
            (setq key (pop keys)
                  fn (pop keys)))
-         (mapc (lambda (x) (which-key-declare-prefixes
+         (mapc (lambda (x) (config/key-description
                           (concat leader " " (car x))
                           (cdr x)))
                descriptions)))
@@ -108,32 +112,24 @@ Set up a function to bind keys to the global leader key
 Set a few bindings following the prefix
 #+begin_src emacs-lisp
 (config/global-keys
- ;; Meta x
- "x" 'execute-extended-command
- "b" 'switch-to-buffer
- "p" 'projectile-command-map
- "g" 'keyboard-quit
- ;; evil-nerd-commenter
- "c" '("Evil Nerd Commenter"
-       "i" evilnc-comment-or-uncomment-lines
-       "l" evilnc-quick-comment-or-uncomment-to-the-line
-       "c" evilnc-copy-and-comment-lines
-       "p" evilnc-comment-or-uncomment-paragraphs
-       "r" comment-or-uncomment-region
-       "v" evilnc-toggle-invert-comment-line-by-line
-       "o" evilnc-comment-operator)
- "j" '("Ace Jump Mode"
-       "j" evil-ace-jump-char-mode
-       "w" evil-ace-jump-word-mode
-       "t" evil-ace-jump-char-to-mode)
- "z" (config/hydra hydra/zoom (:color red)
-       "zoom"
-       ("i" text-scale-increase "in")
-       ("o" text-scale-decrease "out")
-       ("q" nil "quit"))
- ;; Help
- "h" 'help
- "?" 'helm-descbinds)
+  ;; Meta x
+  "x" 'execute-extended-command
+  "b" 'switch-to-buffer
+  "g" 'keyboard-quit
+  "z" (config/hydra hydra/zoom (:color red)
+        "zoom"
+        ("i" text-scale-increase "in")
+        ("o" text-scale-decrease "out")
+        ("q" nil "quit"))
+  ;; Help
+  "h" 'help)
+#+end_src
+*** Descriptions
+When making nested keymaps like the ones =config|parse-keymap= uses, a
+description can be added for submaps. Here, I define some for submaps that
+should be globally used:
+#+begin_src emacs-lisp
+(config/global-key-desc "a" "Apps")
 #+end_src
 
 ** Local leaders
@@ -153,10 +149,10 @@ Set up a function to bind keys to one or more local modes
        `(bind-map ,map
             :evil-keys (,config/local-leader-key)
             :evil-states (normal motion visual)
-            :major-modes ,modes))
-      (config|bind-all-keys config/local-leader-key
-                            (symbol-value map)
-                            (cons key (cons fn bindings))))))
+            :major-modes ,modes)))
+    (config|bind-all-keys config/local-leader-key
+                          (symbol-value map)
+                          (cons key (cons fn bindings)))))
 
 (put 'config/local-keys 'lisp-indent-function 'defun)
 

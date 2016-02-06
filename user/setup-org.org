@@ -1,9 +1,7 @@
-
 #+TITLE: Setup Org Mode
 #+DESCRIPTION: Setup Org in Org - Homoiconicity for the win!
 #+AUTHOR: Maximilian Kuschewski
 #+PROPERTY: my-file-type emacs-config-package
-
 
 * :use-package org
 ** :defer t
@@ -148,7 +146,9 @@ Evil-leader bindings:
 (config/local-keys 'org-mode
     "t" (config/hydra hydra/org/todo (:pre (org-todo) :color red)
           ("t" org-todo "Toggle Todo"))
-    "d" 'org-toggle-timestamp-type)
+    "d" 'org-toggle-timestamp-type
+    "c" 'org-ctrl-c-ctrl-c
+    "x" (lambda () (interactive) (org-call-with-arg 'org-ctrl-c-ctrl-c '(4))))
 #+end_src
 
 *** Plugins

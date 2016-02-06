@@ -38,6 +38,18 @@ However, in some cases, other initial states are better:
 #+end_src
 *** Plugins
 **** :use-package evil-nerd-commenter
+***** :init
+#+begin_src emacs-lisp
+(config/global-keys
+  "c" '("Evil Nerd Commenter"
+        "i" evilnc-comment-or-uncomment-lines
+        "l" evilnc-quick-comment-or-uncomment-to-the-line
+        "c" evilnc-copy-and-comment-lines
+        "p" evilnc-comment-or-uncomment-paragraphs
+        "r" comment-or-uncomment-region
+        "v" evilnc-toggle-invert-comment-line-by-line
+        "o" evilnc-comment-operator))
+#+end_src
 **** :use-package evil-surround
 ***** :config
 Use evil-surround globally

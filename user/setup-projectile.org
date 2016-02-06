@@ -6,7 +6,13 @@
 * :use-package projectile
 Projectile should be accessible from everywhere, even if there's no apparent
 project root:
-** :defer t
+** :defer 5
+** :init
+Bind global-leader-p to the projectile command map:
+#+begin_src emacs-lisp
+(config/global-keys
+  "p" #'projectile-command-map)
+#+end_src
 ** :bind
 #+begin_src emacs-lisp
 ("s-p" . projectile-command-map)

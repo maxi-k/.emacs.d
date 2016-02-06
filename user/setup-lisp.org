@@ -138,6 +138,7 @@ Add some hooks for a nicer experience
 #+begin_src emacs-lisp
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'emacs-lisp-mode-hook 'remove-elc-on-save)
+(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
 (add-hook 'emacs-lisp-mode-hook (lambda ()
                                   (run-hooks 'prog-mode-hook)
                                   ;; (run-hooks 'lisp-mode-hook)

@@ -35,6 +35,15 @@ Bind it to some nice keys:
 ("s-j" . ace-jump-mode)
 ("s-J" . ace-jump-char-mode)
 #+end_src
+** :init
+Bind 'j' plus some some subkeys on the global-leader map
+#+begin_src emacs-lisp
+(config/global-keys
+"j" '("Ace Jump Mode"
+       "j" evil-ace-jump-char-mode
+       "w" evil-ace-jump-word-mode
+       "t" evil-ace-jump-char-to-mode))
+#+end_src
 * :use-package iy-go-to-char
 Go to the next/previous occurrence of the a character more easily.
 Press the wanted character again to go to the occurrence after that etc.

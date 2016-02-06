@@ -38,6 +38,7 @@
 ;; Specific Setups
 ;; Bootstrap some stuff that every config file can rely on
 (require-all '(bootstrap
+               setup-evil-mode
                setup-look
                setup-PATH ;; No Packages
                setup-system ;; No Packages

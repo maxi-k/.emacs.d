@@ -82,6 +82,11 @@ not outside.
 #+end_src
 **** :use-package helm-descbinds
 ***** :defer 7
+***** :init
+#+begin_src emacs-lisp
+(config/global-keys
+  "?" 'helm-descbinds)
+#+end_src
 **** :use-package helm-itunes
 ***** :defer t
 * Provide it

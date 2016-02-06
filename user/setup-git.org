@@ -6,9 +6,15 @@
 * :use-package magit
 ** :defer t
 ** :init
+This is the last version magit gave me setup instructions:
 #+begin_src emacs-lisp
-;; This is the last version magit gave me setup instructions:
 (setq magit-last-seen-setup-instructions "1.4.0")
+#+end_src
+
+Bind magit in the global leader map:
+#+begin_src emacs-lisp
+(config/global-keys
+  "ag" 'magit-status)
 #+end_src
 ** :bind
 Magit deserves a global binding, of course
