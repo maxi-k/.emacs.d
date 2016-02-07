@@ -51,8 +51,8 @@
 
 ;; Mode-specific setups
 (require-all '(setup-git
-               setup-helm
                setup-projectile
+               setup-helm
                setup-text-mode
                setup-programming
                setup-org

@@ -121,7 +121,7 @@ again
             map))
 #+end_src
 
-*** Local Keys
+*** TODO Local Keys
 Standard emacsy org mode bindings:
 #+begin_src emacs-lisp
 ;; Define some local keybindings
@@ -149,7 +149,8 @@ Evil-leader bindings:
     "d" 'org-toggle-timestamp-type
     "c" 'org-ctrl-c-ctrl-c
     "e" 'org-export-dispatch
-    "x" (lambda () (interactive) (org-call-with-arg 'org-ctrl-c-ctrl-c '(4))))
+    "x" (lambda () "c-u-ctrl-c-c" (interactive)
+          (org-call-with-arg 'org-ctrl-c-ctrl-c '(4))))
 #+end_src
 
 *** Plugins

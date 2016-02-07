@@ -12,6 +12,8 @@ Bind global-leader-p to the projectile command map:
 #+begin_src emacs-lisp
 (config/global-keys
   "p" #'projectile-command-map)
+
+(config/declare-feature-space "p" "Search Project" :search-project :search)
 #+end_src
 ** :bind
 #+begin_src emacs-lisp

@@ -35,6 +35,11 @@ Use spotlight to locate any file if on a mac
   (setq helm-locate-command "mdfind -name %s %s"))
 #+end_src
 
+Provide a feature for searching /everything/
+#+begin_src emacs-lisp
+(config/provide-feature :search "e" 'helm-locate)
+#+end_src
+
 *** Fuzzy matching
 Don't enable it everywhere for now, it's too slow:
 #+begin_src emacs-lisp
@@ -58,6 +63,7 @@ after helm is loaded.
 (config/global-keys
     "x" 'helm-M-x)
 #+end_src
+
 *** Plugins
 **** :use-package helm-projectile
 ***** :defer 5
@@ -66,11 +72,22 @@ Use cmd-o to find any file in the current project
 #+begin_src emacs-lisp
 ("s-o" . helm-projectile-find-file)
 #+end_src
+
 ***** :config
+
 Enable helm in for projectile
 #+begin_src emacs-lisp
 (helm-projectile-on)
 #+end_src
+
+Also provide a search-project-feature
+#+begin_src emacs-lisp
+(config/provide-feature :search-project
+  "f" 'helm-projectile-find-file
+  "g" 'helm-projectile-grep
+  "a" 'helm-projectile-ack)
+#+end_src
+
 **** :use-package helm-dash
 ***** :defer t
 ***** :config
@@ -90,8 +107,7 @@ not outside.
 ***** :defer t
 ***** :init
 #+begin_src emacs-lisp
-(config/global-keys
-  "ai" 'helm-itunes)
+(config/provide-feature :app "i" 'helm-itunes)
 #+end_src
 * Provide it
 #+begin_src emacs-lisp

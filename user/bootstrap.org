@@ -33,33 +33,38 @@ Note that comma is normally used by evil-mode, but rarely used.
 ** Util
 First, set up a parsing function that allows for nesting bindings:
 #+begin_src emacs-lisp
-(defun config|parse-bindings (bindings &optional prefix)
-  "Parses a list of keybindings as used by the leader functions
-'(\"a\" a-binding
-  \"b\" (\"description\"
-             \"c\" c-binding
-             \"d\" d-binding))
-and flattens it to something immediately useable:
-'(\"a\"  a-binding
-  \"bc\" c-binding
-  \"bd\" d-binding)"
-  (let ((keys '())
-        (descriptions '()))
-    (while (not (eq '() bindings))
-      (let ((binding (concat prefix (pop bindings)))
-            (fn/list (pop bindings)))
-        (if (and (listp fn/list) (not (functionp fn/list)))
-            (let* ((desc (pop fn/list))
-                   (subbinds (config|parse-bindings fn/list binding))
-                   (subkeys (car subbinds))
-                   (subdescs (cdr subbinds)))
-              (setq keys (append keys subkeys))
-              (push (cons binding desc) descriptions)
-              (setq descriptions (append descriptions subdescs)))
-          (progn
-            (push fn/list keys)
-            (push binding keys)))))
-    (cons keys descriptions)))
+  (defun config|parse-bindings (bindings &optional prefix)
+    "Parses a list of keybindings as used by the leader functions
+  '(\"a\" a-binding
+    \"b\" (\"description\"
+               \"c\" c-binding
+               \"d\" d-binding))
+  and flattens it to something immediately useable:
+  '(\"a\"  a-binding
+    \"bc\" c-binding
+    \"bd\" d-binding)"
+    (let ((keys '())
+          (descriptions '()))
+      (while bindings
+        (let ((binding (concat prefix (pop bindings)))
+              (fn/list (pop bindings)))
+          (if (and (listp fn/list) (not (functionp fn/list)))
+              (let* ((desc (pop fn/list))
+                     (subbinds (config|parse-bindings fn/list binding))
+                     (subkeys (car subbinds))
+                     (subdescs (cdr subbinds)))
+                (setq keys (append keys subkeys))
+                (push (cons binding desc) descriptions)
+                (setq descriptions (append descriptions subdescs)))
+            (progn
+              (when (and (functionp fn/list)
+                         (not (symbolp fn/list)))
+                ;; fn/list is a lambda. Use its Docstring as description
+                (push (cons binding (or (documentation fn/list) "lambda"))
+                      descriptions))
+              (push fn/list keys)
+              (push binding keys)))))
+      (cons keys descriptions)))
 #+end_src
 
 When using [[./setup-which-key.org][which-key]], it's nice to have descriptions of what the 'submaps' do.
@@ -126,11 +131,46 @@ Set a few bindings following the prefix
 #+end_src
 *** Descriptions
 When making nested keymaps like the ones =config|parse-keymap= uses, a
-description can be added for submaps. Here, I define some for submaps that
-should be globally used:
+description can be added for submaps. This could be done simply with
+=config/global-key-desc=, but [[Features]] provides a more concise way.
+*** Features
+Because different packages may provide similar types of features, it would be
+nice to have a 'config api' that allows them to easily register features with
+keybindings to the appropriate catagory, to be used from the global leader key.
+
 #+begin_src emacs-lisp
-(config/global-key-desc "a" "Apps")
+(defvar config/global-feature-map '())
 #+end_src
+
+#+begin_src emacs-lisp
+  (defun config/declare-feature-space (bind description keyword &rest prefixes)
+    (let ((binding bind))
+      (while prefixes
+        (let* ((prfx (pop prefixes))
+               (key (if (keywordp prfx)
+                        (cdr (assoc prfx config/global-feature-map))
+                      prfx)))
+          (setq binding (concat key binding))))
+      (add-to-list 'config/global-feature-map (cons keyword binding))
+      (config/global-key-desc binding description)))
+
+  (defun config/provide-feature (keyword key fn &rest binds)
+    (let ((prefix (cdr (assoc keyword config/global-feature-map))))
+      (while key
+        (config/global-keys (concat prefix key) fn)
+        (setq key (pop binds)
+              fn (pop binds)))))
+(put 'config/provide-feature 'lisp-indent-function 'defun)
+
+#+end_src
+
+Now, lets declare some features:
+#+begin_src emacs-lisp
+(config/declare-feature-space "a" "Apps" :app)
+(config/declare-feature-space "s" "Search" :search)
+#+end_src
+
+An example for the providing of features can be found in the [[./setup-helm.org][Helm Setup]].
 
 ** Local leaders
 Now For the mode-local leader-keys:

@@ -13,8 +13,7 @@ This is the last version magit gave me setup instructions:
 
 Bind magit in the global leader map:
 #+begin_src emacs-lisp
-(config/global-keys
-  "ag" 'magit-status)
+(config/provide-feature :app "g" 'magit-status)
 #+end_src
 ** :bind
 Magit deserves a global binding, of course

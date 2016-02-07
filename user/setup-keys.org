@@ -18,10 +18,12 @@ there:
 #+end_src
 
 * General keybinds
-Increase/decrease the text size more easily
+(Increase/decrease the text size more easily)
+
+This has since been solved differently as a global-leader hydra key, see [[./bootstrap.org][bootstrap]].
 #+begin_src emacs-lisp
-(global-set-key (kbd "C-+") 'text-scale-increase)
-(global-set-key (kbd "C--") 'text-scale-decrease)
+;; (global-set-key (kbd "C-+") 'text-scale-increase)
+;; (global-set-key (kbd "C--") 'text-scale-decrease)
 #+end_src
 
 Start an eshell:
@@ -31,6 +33,18 @@ Start an eshell:
 
 ;; Start a new eshell even if one is active.
 (global-set-key (kbd "C-x M") (lambda () (interactive) (eshell t)))
+#+end_src
+
+Also provide it as an app on the global leader
+#+begin_src emacs-lisp
+(config/provide-feature :app
+  "e" 'eshell
+  "E" (lambda () "Eshell" (interactive) (eshell t)))
+#+end_src
+
+Provide dired as an app aswell
+#+begin_src emacs-lisp
+(config/provide-feature :app "d" 'dired)
 #+end_src
 * Provide it
 #+begin_src emacs-lisp
