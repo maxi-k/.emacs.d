@@ -147,13 +147,15 @@ Standard emacsy org mode bindings:
 Evil-leader bindings:
 #+begin_src emacs-lisp
 (config/local-keys 'org-mode
-    "t" (config/hydra hydra/org/todo (:pre (org-todo) :color red)
-          ("t" org-todo "Toggle Todo"))
-    "d" 'org-toggle-timestamp-type
-    "c" 'org-ctrl-c-ctrl-c
-    "e" 'org-export-dispatch
-    "x" (lambda () "c-u-ctrl-c-c" (interactive)
-          (org-call-with-arg 'org-ctrl-c-ctrl-c '(4))))
+  "a" 'org-agenda-file-to-front
+  "A" 'org-remove-file
+  "t" (config/hydra hydra/org/todo (:pre (org-todo) :color red)
+        ("t" org-todo "Toggle Todo"))
+  "d" 'org-toggle-timestamp-type
+  "c" 'org-ctrl-c-ctrl-c
+  "e" 'org-export-dispatch
+  "x" (lambda () "c-u-ctrl-c-c" (interactive)
+        (org-call-with-arg 'org-ctrl-c-ctrl-c '(4))))
 #+end_src
 
 *** Plugins
