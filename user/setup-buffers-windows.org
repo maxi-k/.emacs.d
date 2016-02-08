@@ -90,6 +90,37 @@ Make a vertical split and set the current window to 80 characters width:
                   (interactive)
                   (set-window-width 80)))
 #+end_src
+
+#+begin_src emacs-lisp
+(config/global-keys
+  "w" (config/hydra hydra/window (:hint nil)
+"
+^Movement^      ^Split^       ^Resize^                       ^Buffer
+-------------------------------------------------------------------------
+_h_: left       _d_: right    _<left>_ : shrink horizontal   _b_: buffer
+_j_: bottom     _s_: below    _<right>_: enlarge horizontal
+_k_: top        _O_: toggle   _<down>_ : shrink vertical
+_l_: right      _8_: 80-cols  _<up>_   : enlarge vertical
+_o_: other
+"
+        ("b" switch-to-buffer)
+        ("o" other-window)
+        ("O" toggle-window-split)
+        ("d" split-window-right)
+        ("s" split-window-below)
+        ("h" evil-window-left)
+        ("j" evil-window-down)
+        ("k" evil-window-up)
+        ("l" evil-window-right)
+        ("8" (lambda () (interactive)
+               (unless (window-right) (split-window-right))
+               (set-window-width 80)))
+        ("<left>" 'shrink-window-horizontally)
+        ("<right>" 'enlarge-window-horizontally)
+        ("<down>" 'shrink-window)
+        ("<up>" 'enlarge-window)
+        ("q" nil "quit" :color blue)))
+#+end_src
 * Provide it
 #+begin_src emacs-lisp
 (provide 'setup-buffers-windows)

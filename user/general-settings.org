@@ -5,40 +5,43 @@
 
 * General Defaults
 #+begin_src emacs-lisp
-  (setq default-directory "~"
-        diff-switches "-u"
-        ediff-window-setup-function 'ediff-setup-windows-plain
-        inhibit-startup-message t
-        initial-scratch-message nil
-        mouse-wheel-scroll-amount '(1 ((shift) . 1))
-        mouse-yank-at-point t
-        oddmuse-directory (concat user-emacs-save-directory "oddmuse")
-        save-place-file (concat user-emacs-save-directory "places")
-        scroll-step 1
-        sentence-end-double-space nil
-        ;; set-mark-command-repeat-pop t
-        shift-select-mode nil
-        transient-mark-mode t
-        uniquify-buffer-name-style 'forward
-        whitespace-line-column 80
-        whitespace-style '(face trailing lines-tail tabs))
+(setq default-directory "~"
+      diff-switches "-u"
+      ediff-window-setup-function 'ediff-setup-windows-plain
+      inhibit-startup-message t
+      initial-scratch-message nil
+      mouse-wheel-scroll-amount '(1 ((shift) . 1))
+      mouse-yank-at-point t
+      oddmuse-directory (concat user-emacs-save-directory "oddmuse")
+      save-place-file (concat user-emacs-save-directory "places")
+      scroll-step 1
+      sentence-end-double-space nil
+      ;; set-mark-command-repeat-pop t
+      shift-select-mode nil
+      transient-mark-mode t
+      uniquify-buffer-name-style 'forward
+      whitespace-line-column 80
+      whitespace-style '(face trailing lines-tail tabs))
 
-  (set-default 'indent-tabs-mode nil)
-  (set-default 'imenu-auto-rescan t)
-  ;; Set the uniquify buffer name style to
-  ;; filename|folder
-  (setq uniquify-buffer-name-style 'post-forward)
-  (setq remember-data-directory (concat user-emacs-save-directory "remember"))
-  ;; Delete trainling whitespace
-  (add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
+(set-default 'indent-tabs-mode nil)
+(set-default 'imenu-auto-rescan t)
+;; Set the uniquify buffer name style to
+;; filename|folder
+(setq uniquify-buffer-name-style 'post-forward)
+(setq remember-data-directory (concat user-emacs-save-directory "remember"))
+;; Delete trainling whitespace
+(add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
 
-  ;; Use the right ispell version, if it exists
-  (let ((path (executable-find "ispell")))
-    (when (and path (file-exists-p path))
-      (setq ispell-program-name path)))
+(add-hook
+ 'after-init-hook
+ (lambda ()
+   ;; Use the right ispell version, if it exists
+   (let ((path (executable-find "ispell")))
+     (when (and path (file-exists-p path))
+       (setq ispell-program-name path)))
 
-  ;; Set flyspell to german
-  (setq ispell-dictionary "english")
+   ;; Set flyspell to german
+   (setq ispell-dictionary "english")))
 #+end_src
 
 * Backups

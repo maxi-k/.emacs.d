@@ -1,17 +1,15 @@
 #+TITLE: Setup markdown mode
 #+DESCRIPTION:
 #+AUTHOR: Maximilian Kuschewski
-#+PROPERTY: my-file-type emacs-config
+#+PROPERTY: my-file-type emacs-config-package
 
-* Require it
+* :use-package markdown-mode
+** :defer t
+** :config
 #+begin_src emacs-lisp
-(use-package markdown-mode
-  :init
-  ;; Set the markdown command to the homebrew-pandoc install:
-  (setq markdown-command (executable-find "pandoc"))
-  (use-package markdown-mode+))
+(setq markdown-command (executable-find "pandoc"))
+(use-package markdown-mode+)
 #+end_src
-
 * Provide it
 #+begin_src emacs-lisp
 (provide 'setup-markdown)

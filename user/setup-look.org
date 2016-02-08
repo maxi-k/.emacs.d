@@ -47,7 +47,7 @@ Add the themes folder and its subfolders to the load path
 (add-hook
  'window-setup-hook
  (lambda ()
-   (let ((theme-path "~/.emacs.d/themes/"))
+   (let ((theme-path (concat (expand-file-name user-emacs-directory) "themes/")))
      (add-to-list 'custom-theme-load-path theme-path)
      (add-subfolders-to-theme-load-path theme-path))))
 #+end_src
@@ -97,20 +97,25 @@ Define a default light and dark theme and functions for loading them:
 Increase the font size and set it to the very nice source-code-pro font, if
 available.
 #+begin_src emacs-lisp
-  (defun font-exists-p (name)
-    "Returns non-nil if the font with given `name' exists"
-    (find-font (font-spec :name name)))
+(defun font-exists-p (name)
+  "Returns non-nil if the font with given `name' exists"
+  (find-font (font-spec :name name)))
 
-  (defun font-set-by-preference (font-list size)
-    "Sets the first font in `font-list' that exists with given `size'."
-    (catch 'breakout
-      (mapc (lambda (f)
-              (when (font-exists-p f)
-                (set-frame-font (concat f "-" (number-to-string size)) nil t)
-                (throw 'breakout f)))
-            font-list)))
+(defun font-set-by-preference (font-list size)
+  "Sets the first font in `font-list' that exists with given `size'."
+  (catch 'breakout
+    (mapc (lambda (f)
+            (when (font-exists-p f)
+              (set-frame-font (concat f "-" (number-to-string size)) nil t)
+              (throw 'breakout f)))
+          font-list)))
 
-  (font-set-by-preference '("Source Code Pro" "inconsolata" "Lucida Console" "courier") 16)
+(add-hook
+ 'window-setup-hook
+ (lambda ()
+   (font-set-by-preference
+    '("Source Code Pro" "inconsolata" "Lucida Console" "courier")
+    16)))
 #+end_src
 
 And some test-characters to test it:
@@ -121,9 +126,11 @@ And some test-characters to test it:
 ** Line numbers & fringe
 Set up the styles for the fringe and linum-mode (line numbers)
 #+begin_src emacs-lisp
-  (custom-set-variables
-   '(linum-format " %2d ")
-   '(fringe-mode 4 nil (fringe)))
+(add-hook 'after-init-hook
+          (lambda ()
+            (setq linum-format " %2d ")
+            (set-fringe-style 4)))
+
 #+end_src
 
 Change the fringe color to match the background color of the editor
@@ -150,7 +157,7 @@ Change the fringe color to match the background color of the editor
 ** Highlight cursor line
 Highlight the line the cursor is currently on
 #+begin_src emacs-lisp
-(global-hl-line-mode)
+(add-hook 'window-setup-hook #'global-hl-line-mode)
 #+end_src
 ** Initial Frame size and position:
 #+begin_src emacs-lisp
@@ -194,12 +201,6 @@ I've inserted one on the following line:
     ;; evil-mode is not active
     " "))
 
-(defpowerline god-mode-bar
-  (if (and (boundp 'god-local-mode)
-           (not evil-mode)
-           god-local-mode)
-      (format " GOD ")
-    " "))
 #+end_src
 
 ** :config
@@ -229,7 +230,7 @@ Set it up
                       (funcall separator-right face-nil face-evil)
                       (evil-mode-bar face-evil nil)
                       (funcall separator-left face-evil face-nil)
-                      (god-mode-bar face-nil nil)
+                      ;; (god-mode-bar face-nil nil)
                       (when (and (boundp 'which-func-mode) which-func-mode)
                         (powerline-raw which-func-format face-nil 'l))
                       (powerline-raw " ")

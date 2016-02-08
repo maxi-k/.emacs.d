@@ -5,6 +5,8 @@
 
 These packages don't need any setup. Just load and require them.
 * Require them
+=require-packages= uses =use-package= internally and sets =defer t= on all
+packages by default.
 #+begin_src emacs-lisp
   (require-packages
    '(async

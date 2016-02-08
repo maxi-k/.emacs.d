@@ -58,6 +58,7 @@ Activate globally it after the init process
 #+end_src
 
 * :use-package expand-region
+** :defer t
 ** :bind
 Every time this key is pressed, expand the region out one step further
 #+begin_src emacs-lisp
@@ -65,6 +66,7 @@ Every time this key is pressed, expand the region out one step further
 #+end_src
 
 * :use-package multiple-cursors
+** :defer t
 ** :bind
 Most. Awesome. Thing. Ever.
 #+begin_src emacs-lisp
@@ -74,6 +76,7 @@ Most. Awesome. Thing. Ever.
 #+end_src
 
 * :use-package browse-kill-ring
+** :defer t
 ** :bind
 Look through the kill ring and insert exactly what you want.
 #+begin_src emacs-lisp

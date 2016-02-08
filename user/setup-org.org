@@ -4,7 +4,7 @@
 #+PROPERTY: my-file-type emacs-config-package
 
 * :use-package org
-** :defer t
+** :defer 3
 ** :pin manual
 ** :ensure nil
 ** :bind
@@ -41,7 +41,7 @@
 #+end_src
 *** Latex
 #+begin_src emacs-lisp
-(require 'ox-latex)
+;; (require 'ox-latex)
 (setenv "PDFLATEX" "pdflatex -shell-escape")
 (setq org-latex-pdf-process '("texi2dvi --pdf %f"))
 ;; Enable LaTeX (pdf) syntax highlighting
@@ -53,19 +53,22 @@ The texbin and mathml paths are set up in [[./local/setup-local.org]]
 *** Source Blocks
 Load more languages for org-babel
 #+begin_src emacs-lisp
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((sh         . t)
-   (js         . t)
-   (emacs-lisp . t)
-   (perl       . t)
-   (scala      . t)
-   (clojure    . t)
-   (python     . t)
-   (ruby       . t)
-   (dot        . t)
-   (css        . t)
-   (plantuml   . t)))
+(add-hook
+ 'org-mode-hook
+ (lambda ()
+   (org-babel-do-load-languages
+    'org-babel-load-languages
+    '((sh         . t)
+      (js         . t)
+      (emacs-lisp . t)
+      (perl       . t)
+      (scala      . t)
+      (clojure    . t)
+      (python     . t)
+      (ruby       . t)
+      (dot        . t)
+      (css        . t)
+      (plantuml   . t)))))
 #+end_src
 
 Don't ask before evaluating code snippets
@@ -121,7 +124,7 @@ again
             map))
 #+end_src
 
-*** TODO Local Keys
+*** Local Keys
 Standard emacsy org mode bindings:
 #+begin_src emacs-lisp
 ;; Define some local keybindings

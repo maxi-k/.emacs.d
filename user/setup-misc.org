@@ -27,6 +27,25 @@ If on a mac, use mac style notifications.
   (setq alert-notifier-command (executable-find "terminal-notifier"))
   (setq alert-default-style 'notifier))
 #+end_src
+
+* :use-package xkcd
+Just for fun :)
+** :defer t
+** :config
+Move the caching out of the emacs dir
+#+begin_src emacs-lisp
+(setq xkcd-cache-dir (expand-file-name "~/Pictures/xkcd/")
+      xkcd-cache-latest (expand-file-name "~/Pictures/xkcd/latest"))
+#+end_src
+
+Bind some keys
+#+begin_src emacs-lisp
+(when (evil-p) (evil-set-initial-state 'xkcd-mode 'emacs))
+(bind-key "h" 'xkcd-prev xkcd-mode-map)
+(bind-key "p" 'xkcd-prev xkcd-mode-map)
+(bind-key "l" 'xkcd-next xkcd-mode-map)
+(bind-key "n" 'xkcd-next xkcd-mode-map)
+#+end_src
 * Provide it
 #+begin_src emacs-lisp
 (provide 'setup-misc)
