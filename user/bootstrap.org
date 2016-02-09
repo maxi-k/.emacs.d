@@ -7,7 +7,6 @@
 [[https://github.com/abo-abo/hydra][Hydra]] is awesome!
 #+begin_src emacs-lisp
 (use-package hydra
-  ;; :defer t
   :init
   (defalias 'config/hydra 'defhydra)
   (put 'config/hydra 'lisp-indent-function 'defun))
@@ -97,19 +96,43 @@ and binds them all to the keymap."
                descriptions)))
 #+end_src
 
+Create a cache variable for stuff to be bound after init. This is done because
+bind-map requires =evil= when it discovers the =:evil-keys= parameter, and I
+don't want it to until after init.
+#+begin_src emacs-lisp
+(defvar config|after-init-key-cache '())
+(add-hook
+ 'emacs-startup-hook
+ (lambda ()
+   (mapc
+    (lambda (entry)
+      (if (assoc :local entry)
+          (config|local-keys (cdr (assoc :mode entry)) (cdr (assoc :bindings entry)))
+        (config|global-keys (cdr (assoc :bindings entry)))))
+    ;; Reverse the cache so the keys get loaded in the right order (first in first out)
+    (reverse config|after-init-key-cache))
+   (setq config|after-init-key-cache nil)
+   ))
+#+end_src
+
 ** The Global Leader
 Set up a function to bind keys to the global leader key
 #+begin_src emacs-lisp
+(defun config|global-keys (bindings)
+     (unless (boundp 'config/global-leader-map)
+       (eval
+        `(bind-map config/global-leader-map
+           ;; :keys ("M-m")
+           :evil-keys (,config/global-leader-key)
+           :evil-states (normal motion visual))))
+     (config|bind-all-keys config/global-leader-key
+                           config/global-leader-map
+                           bindings))
 (defun config/global-keys (key fn &rest bindings)
-  (unless (boundp 'config/global-leader-map)
-    (eval
-     `(bind-map config/global-leader-map
-          ;; :keys ("M-m")
-          :evil-keys (,config/global-leader-key)
-          :evil-states (normal motion visual))))
-  (config|bind-all-keys config/global-leader-key
-                        config/global-leader-map
-                        (cons key (cons fn bindings))))
+  (if after-init-time
+      (config|global-keys (cons key (cons fn bindings)))
+    (push (list (cons :bindings (cons key (cons fn bindings))))
+          config|after-init-key-cache)))
 (put 'config/global-keys 'lisp-indent-function 'defun)
 #+end_src
 
@@ -177,22 +200,28 @@ Now For the mode-local leader-keys:
 Set up a function to bind keys to one or more local modes
 
 #+begin_src emacs-lisp
+(defun config|local-keys (mode bindings)
+      (let* ((modesp (listp mode))
+             (modes (if modesp mode (cons mode nil)))
+             (map (intern (format "config|local-leader-map|%s"
+                                  (if modesp
+                                      (apply 'concat (mapcar 'symbol-name mode))
+                                    (symbol-name mode))))))
+        (unless (boundp map)
+          (eval
+           `(bind-map ,map
+              :evil-keys (,config/local-leader-key)
+              :evil-states (normal motion visual)
+              :major-modes ,modes)))
+        (config|bind-all-keys config/local-leader-key
+                              (symbol-value map)
+                              bindings))
+  )
 (defun config/local-keys (mode key fn &rest bindings)
-  (let* ((modesp (listp mode))
-         (modes (if modesp mode (cons mode nil)))
-         (map (intern (format "config|local-leader-map|%s"
-                              (if modesp
-                                  (apply 'concat (mapcar 'symbol-name mode))
-                                  (symbol-name mode))))))
-    (unless (boundp map)
-      (eval
-       `(bind-map ,map
-            :evil-keys (,config/local-leader-key)
-            :evil-states (normal motion visual)
-            :major-modes ,modes)))
-    (config|bind-all-keys config/local-leader-key
-                          (symbol-value map)
-                          (cons key (cons fn bindings)))))
+  (if after-init-time
+      (config|local-keys mode (cons key (cons fn bindings)))
+    (push (list (cons :local t) (cons :mode mode) (cons :bindings (cons key (cons fn bindings))))
+          config|after-init-key-cache)))
 
 (put 'config/local-keys 'lisp-indent-function 'defun)
 

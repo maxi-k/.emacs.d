@@ -63,7 +63,7 @@ and then requires them."
 (let ((cfile (expand-file-name "custom.el" user-emacs-directory)))
   ;; Create the custom file if it does not exist yet
   (unless (file-exists-p cfile)
-    (shell-command (concat "touch " custom-file)))
+    (write-region "" nil cfile))
   ;; Keep emacs Custom-settings in separate file
   (setq custom-file cfile))
 

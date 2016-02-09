@@ -2,6 +2,8 @@
   (normal-top-level-add-subdirs-to-load-path)
   (setq emacs-config/dir default-directory))
 
+(add-hook 'after-init-hook (lambda () (message "AFTER INIT HOOK!!!!!")))
+
 (defvar emacs-config/local-dir (concat emacs-config/dir "local/"))
 (defvar emacs-config/local-file
   (concat emacs-config/local-dir "setup-local.org"))
@@ -13,13 +15,11 @@
 
 (use-package emacs-config
   :load-path "user/emacs-config/"
-  :defer t
   :ensure nil
   :config
-  (emacs-config/init)
   :init
   (require 'emacs-config-autoloads)
-
+  (emacs-config/init)
   ;; When in org mode, try to tangle the file if it is an emacs-config/file -
   ;; whether it is is checked by `emacs-config/tangle-file`
   (add-hook 'org-mode-hook
