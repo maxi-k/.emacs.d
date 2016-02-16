@@ -51,6 +51,17 @@ Press the wanted character again to go to the occurrence after that etc.
 ("s-f" . iy-go-to-char)
 ("s-b" . iy-go-to-char-backward)
 #+end_src
+* :use-package linum-relative
+Display line-numbers relatively, which is cool for movement commands.
+** :defer 3
+** :init
+#+begin_src emacs-lisp
+(add-hook 'prog-mode-hook (lambda () (linum-mode)))
+#+end_src
+** :config
+#+begin_src emacs-lisp
+(linum-relative-on)
+#+end_src
 * Provide it
 #+begin_src emacs-lisp
 (provide 'setup-movement)
