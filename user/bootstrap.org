@@ -6,10 +6,11 @@
 * Hydra
 [[https://github.com/abo-abo/hydra][Hydra]] is awesome!
 #+begin_src emacs-lisp
-(use-package hydra
-  :init
-  (defalias 'config/hydra 'defhydra)
-  (put 'config/hydra 'lisp-indent-function 'defun))
+  (use-package hydra
+    :init
+    (put 'config/hydra 'lisp-indent-function 'defun))
+  (defmacro config/hydra (&rest args)
+    `(defhydra ,@args))
 #+end_src
 
 * Leader Keys
