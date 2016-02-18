@@ -23,6 +23,12 @@ Activate Evil mode globally with s-escape
 ("s-<escape>" . evil-mode)
 #+end_src
 ** :config
+*** Behavior
+Normally, you can't move beyond the last character in normal mode.
+This changes that.
+#+begin_src emacs-lisp
+(setq evil-move-beyond-eol t)
+#+end_src
 *** Initial States
 When evil mode is activated, it should start in this state:
 #+begin_src emacs-lisp
