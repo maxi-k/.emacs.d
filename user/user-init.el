@@ -2,17 +2,6 @@
   (normal-top-level-add-subdirs-to-load-path)
   (setq emacs-config/dir default-directory))
 
-(add-hook 'after-init-hook (lambda () (message "AFTER INIT HOOK!!!!!")))
-
-(defvar emacs-config/local-dir (concat emacs-config/dir "local/"))
-(defvar emacs-config/local-file
-  (concat emacs-config/local-dir "setup-local.org"))
-
-(defun has-local-config ()
-  "Returns non-nil if the file
-`emacs-config/dir'/local/setup-local.org exists."
-  (file-exists-p emacs-config/local-file))
-
 (use-package emacs-config
   :load-path "user/emacs-config/"
   :ensure nil
