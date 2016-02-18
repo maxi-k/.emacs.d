@@ -110,6 +110,9 @@ Improve cider
 **** :use-package clojure-snippets
 ***** :defer t
 
+**** :use-package cljsbuild-mode
+***** :defer t
+
 * :use-package slime
 ** :defer t
 ** :config
