@@ -145,6 +145,7 @@ Set a few bindings following the prefix
   "x" 'execute-extended-command
   "b" 'switch-to-buffer
   "g" 'keyboard-quit
+  "u" 'universal-argument
   "z" (config/hydra hydra/zoom (:color red)
         "zoom"
         ("i" text-scale-increase "in")
