@@ -15,6 +15,9 @@
       oddmuse-directory (concat user-emacs-save-directory "oddmuse")
       save-place-file (concat user-emacs-save-directory "places")
       scroll-step 1
+      scroll-margin 7
+      ;; don't accelerate scrolling
+      mouse-wheel-progressive-speed nil
       sentence-end-double-space nil
       ;; set-mark-command-repeat-pop t
       shift-select-mode nil
