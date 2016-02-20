@@ -61,7 +61,8 @@ Use =helm-M-x= instead of =execute-extended-command= on the global leader key
 after helm is loaded.
 #+begin_src emacs-lisp
 (config/global-keys
-    "x" 'helm-M-x)
+  "x" 'helm-M-x
+  "X" 'execute-extended-command)
 #+end_src
 
 *** Plugins
