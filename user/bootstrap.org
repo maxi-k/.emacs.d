@@ -33,8 +33,8 @@ Note that comma is normally used by evil-mode, but rarely used.
 ** Util
 First, set up a parsing function that allows for nesting bindings:
 #+begin_src emacs-lisp
-  (defun config|parse-bindings (bindings &optional prefix)
-    "Parses a list of keybindings as used by the leader functions
+(defun config|parse-bindings (bindings &optional prefix)
+  "Parses a list of keybindings as used by the leader functions
   '(\"a\" a-binding
     \"b\" (\"description\"
                \"c\" c-binding
@@ -43,43 +43,50 @@ First, set up a parsing function that allows for nesting bindings:
   '(\"a\"  a-binding
     \"bc\" c-binding
     \"bd\" d-binding)"
-    (let ((keys '())
-          (descriptions '()))
-      (while bindings
-        (let ((binding (concat prefix (pop bindings)))
-              (fn/list (pop bindings)))
-          (if (and (listp fn/list) (not (functionp fn/list)))
-              (let* ((desc (pop fn/list))
-                     (subbinds (config|parse-bindings fn/list binding))
-                     (subkeys (car subbinds))
-                     (subdescs (cdr subbinds)))
-                (setq keys (append keys subkeys))
-                (push (cons binding desc) descriptions)
-                (setq descriptions (append descriptions subdescs)))
-            (progn
-              (when (and (functionp fn/list)
-                         (not (symbolp fn/list)))
-                ;; fn/list is a lambda. Use its Docstring as description
-                (push (cons binding (or (documentation fn/list) "lambda"))
-                      descriptions))
-              (push fn/list keys)
-              (push binding keys)))))
-      (cons keys descriptions)))
+  (let ((keys '())
+        (descriptions '()))
+    (while bindings
+      (let ((binding (concat prefix (pop bindings)))
+            (fn/list (pop bindings)))
+        (if (and (listp fn/list) (not (functionp fn/list)))
+            (let* ((desc (pop fn/list))
+                   (subbinds (config|parse-bindings fn/list binding))
+                   (subkeys (car subbinds))
+                   (subdescs (cdr subbinds)))
+              (setq keys (append keys subkeys))
+              (push (cons binding desc) descriptions)
+              (setq descriptions (append descriptions subdescs)))
+          (progn
+            (when (and (functionp fn/list)
+                       (not (symbolp fn/list)))
+              ;; fn/list is a lambda. Use its Docstring as description
+              (message (concat "DOC!!:: " (documentation fn/list)))
+              (push (cons binding (or (documentation fn/list) "lambda"))
+                    descriptions))
+            (push fn/list keys)
+            (push binding keys)))))
+    (cons keys descriptions)))
 #+end_src
 
 When using [[./setup-which-key.org][which-key]], it's nice to have descriptions of what the 'submaps' do.
 Add a few helper functions for making that easier:
 #+begin_src emacs-lisp
-(defalias 'config/key-description 'which-key-declare-prefixes)
+(defun config/key-description (modes key name &rest rest)
+  (if modes
+      (mapc (lambda (m) (apply 'which-key-add-major-mode-key-based-replacements
+                          m key name rest))
+            modes)
+    (apply 'which-key-add-key-based-replacements key name rest)))
 
 (defun config/global-key-desc (key desc)
-  (config/key-description (concat config/global-leader-key " " key)
+  (config/key-description nil
+    (concat config/global-leader-key " " key)
                           desc))
 #+end_src
 
 Then, set up a helper function for binding all keys to a given map
 #+begin_src emacs-lisp
-(defun config|bind-all-keys (leader map bindings)
+(defun config|bind-all-keys (leader map bindings &optional modes)
   "Takes a keymap and a (possibly nested) list of bindings
 and binds them all to the keymap."
   (let* ((binds (config|parse-bindings bindings))
@@ -91,7 +98,7 @@ and binds them all to the keymap."
            (define-key map (kbd key) fn)
            (setq key (pop keys)
                  fn (pop keys)))
-         (mapc (lambda (x) (config/key-description
+         (mapc (lambda (x) (config/key-description modes
                           (concat leader " " (car x))
                           (cdr x)))
                descriptions)))
@@ -129,6 +136,7 @@ Set up a function to bind keys to the global leader key
      (config|bind-all-keys config/global-leader-key
                            config/global-leader-map
                            bindings))
+
 (defun config/global-keys (key fn &rest bindings)
   (if after-init-time
       (config|global-keys (cons key (cons fn bindings)))
@@ -217,8 +225,9 @@ Set up a function to bind keys to one or more local modes
               :major-modes ,modes)))
         (config|bind-all-keys config/local-leader-key
                               (symbol-value map)
-                              bindings))
-  )
+                              bindings
+                              modes)))
+
 (defun config/local-keys (mode key fn &rest bindings)
   (if after-init-time
       (config|local-keys mode (cons key (cons fn bindings)))
