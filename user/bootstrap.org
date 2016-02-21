@@ -60,7 +60,6 @@ First, set up a parsing function that allows for nesting bindings:
             (when (and (functionp fn/list)
                        (not (symbolp fn/list)))
               ;; fn/list is a lambda. Use its Docstring as description
-              (message (concat "DOC!!:: " (documentation fn/list)))
               (push (cons binding (or (documentation fn/list) "lambda"))
                     descriptions))
             (push fn/list keys)
