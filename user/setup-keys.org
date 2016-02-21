@@ -39,7 +39,7 @@ Also provide it as an app on the global leader
 #+begin_src emacs-lisp
 (config/provide-feature :app
   "e" 'eshell
-  "E" (lambda () "Eshell" (interactive) (eshell t)))
+  "E" (lambda () "New Eshell" (interactive) (eshell t)))
 #+end_src
 
 Provide dired as an app aswell
