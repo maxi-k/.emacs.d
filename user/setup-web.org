@@ -1,27 +1,37 @@
 #+TITLE: Setup web
 #+DESCRIPTION: Setup web-development specific things
 #+AUTHOR: Maximilian Kuschewski
-#+PROPERTY: my-file-type emacs-config
+#+PROPERTY: my-file-type emacs-config-package
 
-* Require
+* :use-package simple-httpd
+** :defer t
+* :use-package skewer-mode
+Skewer: Interactive js-repl using browser-connection
+** :defer t
+** :init
 #+begin_src emacs-lisp
-(require-packages '(
-   simple-httpd
-   skewer-mode
-   php-mode
-   js2-mode
-   lorem-ipsum
-   impatient-mode
-   htmlize
-   emmet-mode
-   twig-mode
-   web-mode
-   tagedit
-))
+(add-hook 'js2-mode-hook 'skewer-mode)
+(add-hook 'css-mode-hook 'skewer-css-mode)
+(add-hook 'html-mode-hook 'skewer-html-mode)
 #+end_src
-* Setup
-** Hooks
-*** Emmet
+
+* :use-package php-mode
+** :defer t
+* :use-package js2-mode
+** :defer t
+** :mode
+#+begin_src emacs-lisp
+("\\.js\\'" . js2-mode)
+#+end_src
+* :use-package lorem-ipsum
+** :defer t
+* :use-package impatient-mode
+** :defer t
+* :use-package htmlize
+** :defer t
+* :use-package emmet-mode
+** :defer t
+** :init
 Emmet: Quick <tag> generation with nice syntax
 #+begin_src emacs-lisp
 ;; Autostart emmet mode on any markup modes
@@ -34,23 +44,17 @@ Emmet: Quick <tag> generation with nice syntax
 (add-hook 'nxml-mode-hook 'emmet-mode)
 #+end_src
 
-*** Skewer-mode
-Skewer: Interactive js-repl using browser-connection
+* :use-package twig-mode
+** :defer t
+* :use-package web-mode
+** :defer t
+** :mode
 #+begin_src emacs-lisp
-(add-hook 'js2-mode-hook 'skewer-mode)
-(add-hook 'css-mode-hook 'skewer-css-mode)
-(add-hook 'html-mode-hook 'skewer-html-mode)
+("\\.html?\\'" . web-mode)
+("\\.erb?\\'" . web-mode)
 #+end_src
-
-** File types
-#+begin_src emacs-lisp
-;; Web mode for html files (embedded js/css is common)
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-;; Web mode for eruby files
-(add-to-list 'auto-mode-alist '("\\.erb?\\'" . web-mode))
-;; js2-mode for Javascript files
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-#+end_src
+* :use-package tagedit
+** :defer t
 * Provide it
 #+begin_src emacs-lisp
 (provide 'setup-web)
