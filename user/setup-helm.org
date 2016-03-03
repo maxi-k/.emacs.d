@@ -92,11 +92,16 @@ Also provide a search-project-feature
 **** :use-package helm-dash
 ***** :defer t
 ***** :config
-Browse dash-documentation inside emacs,
-not outside.
+Browse dash-documentation inside emacs, not outside.
 #+begin_src emacs-lisp
 (setq helm-dash-browser-func 'eww)
 #+end_src
+***** :init
+Add a global leader key for it
+#+begin_src emacs-lisp
+(config/global-keys "d" 'helm-dash-at-point)
+#+end_src
+
 **** :use-package helm-descbinds
 ***** :defer 7
 ***** :init
