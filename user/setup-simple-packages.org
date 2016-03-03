@@ -34,6 +34,7 @@ packages by default.
      smooth-scroll
      ssh
      string-utils
+     swift-mode
      tree-mode
      undo-tree
      visual-regexp
