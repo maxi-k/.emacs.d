@@ -114,7 +114,7 @@ available.
  'window-setup-hook
  (lambda ()
    (font-set-by-preference
-    '("Source Code Pro" "inconsolata" "Lucida Console" "courier")
+    '("Hack" "Source Code Pro" "inconsolata" "Lucida Console" "courier")
     16)))
 #+end_src
 
