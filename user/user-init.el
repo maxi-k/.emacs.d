@@ -24,7 +24,7 @@
                general-settings))
 
 ;; Load packages that don't require any setup
-(require-all '(setup-simple-packages))
+;; (require-all '(setup-simple-packages))
 
 ;; Specific Setups
 ;; Bootstrap some stuff that every config file can rely on
