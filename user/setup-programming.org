@@ -3,6 +3,13 @@
 #+AUTHOR: Maximilian Kuschewski
 #+PROPERTY: my-file-type emacs-config-package
 
+* Autocomplete
+Don't to autocomplete for now - it slows down writing quite a bit
+#+begin_src emacs-lisp
+;; (add-hook 'prog-mode-hook 'auto-complete-mode)
+#+end_src
+* :use-package flycheck
+** :defer t
 * :use-package rainbow-delimiters
 ** :defer t
 ** :init
@@ -10,11 +17,6 @@
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 #+end_src
 *** :use-package rainbow-identifiers
-* Autocomplete
-Don't to autocomplete for now - it slows down writing quite a bit
-#+begin_src emacs-lisp
-;; (add-hook 'prog-mode-hook 'auto-complete-mode)
-#+end_src
 
 * :use-package quickrun
 Quickrun can 'run' any (most) buffers - useful for developing bigger chunks of
@@ -30,6 +32,9 @@ Use cmd-r to run it
 #+begin_src emacs-lisp
 ("s-r" . quickrun)
 #+end_src
+* Languages
+** :use-package swift-mode
+*** :defer t
 * Setups for single modes
 Require the mode-specific setup files that configure programming-modes:
 #+begin_src emacs-lisp
