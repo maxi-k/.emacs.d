@@ -20,6 +20,9 @@ Fix C-c C-c being bound to bury-buffer instead of org-mode stuff
 Kill the current buffer
 #+begin_src emacs-lisp
 (global-set-key (kbd "s-k") 'kill-this-buffer)
+
+(config/global-keys
+  "k" 'kill-this-buffer)
 #+end_src
 
 * Movement
@@ -97,17 +100,18 @@ Make a vertical split and set the current window to 80 characters width:
 "
 ^Movement^      ^Split^       ^Resize^                       ^Buffer
 -------------------------------------------------------------------------
-_h_: left       _d_: right    _<left>_ : shrink horizontal   _b_: buffer
-_j_: bottom     _s_: below    _<right>_: enlarge horizontal
-_k_: top        _O_: toggle   _<down>_ : shrink vertical
-_l_: right      _8_: 80-cols  _<up>_   : enlarge vertical
-_o_: other
+_h_: left       _d_: right    _H_ : shrink horizontal   _b_: buffer
+_j_: bottom     _s_: below    _J_ : enlarge vertical
+_k_: top        _O_: toggle   _K_ : shrink vertical
+_l_: right      _a_: delete   _L_ : enlarge horizontal
+_o_: other      _8_: 80-cols
 "
         ("b" switch-to-buffer)
         ("o" other-window)
         ("O" toggle-window-split)
         ("d" split-window-right)
         ("s" split-window-below)
+        ("a" delete-window)
         ("h" evil-window-left)
         ("j" evil-window-down)
         ("k" evil-window-up)
@@ -115,10 +119,10 @@ _o_: other
         ("8" (lambda () (interactive)
                (unless (window-right) (split-window-right))
                (set-window-width 80)))
-        ("<left>" 'shrink-window-horizontally)
-        ("<right>" 'enlarge-window-horizontally)
-        ("<down>" 'shrink-window)
-        ("<up>" 'enlarge-window)
+        ("H" shrink-window-horizontally)
+        ("J" enlarge-window)
+        ("K" shrink-window)
+        ("L" enlarge-window-horizontally)
         ("q" nil "quit" :color blue)))
 #+end_src
 * Provide it
