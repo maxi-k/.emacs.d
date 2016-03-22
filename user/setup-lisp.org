@@ -122,6 +122,15 @@ Improve cider
 * use-package pixie-mode
 Not for now, it gives an error that the docstring is missing...
 ** defer t
+* use-package parinfer-mode
+Don't for now -- I don't seem to get it to work how its supposed to yet
+** load-path "user/emacs-config/"
+** pin manual
+** ensure nil
+** init
+#+begin_src emacs-lisp
+;; (require 'parinfer-mode)
+#+end_src
 * Emacs Lisp
 ** Keys
 Add a key to evaluate the buffer
