@@ -45,7 +45,7 @@
 Add the themes folder and its subfolders to the load path
 #+begin_src emacs-lisp
 (add-hook
- 'window-setup-hook
+ 'after-init-hook
  (lambda ()
    (let ((theme-path (concat (expand-file-name user-emacs-directory) "themes/")))
      (add-to-list 'custom-theme-load-path theme-path)
@@ -60,8 +60,9 @@ Add the themes folder and its subfolders to the load path
 ** Easy theme loading
 Define a default light and dark theme and functions for loading them:
 #+begin_src emacs-lisp
-(defconst my/default-dark-theme 'sanityinc-tomorrow-eighties)
 (defconst my/default-light-theme 'my-light)
+(defconst my/default-dark-theme 'sanityinc-tomorrow-eighties)
+(defconst my/default-term-theme 'sanityinc-tomorrow-my-dark)
 
 (defun load-theme-dark ()
   (interactive)
@@ -91,6 +92,7 @@ Define a default light and dark theme and functions for loading them:
          (setq-default indicate-empty-lines t)
          (load-theme-dark))
      (progn
+       (load-theme-exclusively my/default-term-theme)
        (menu-bar-mode -1)))))
 #+end_src
 ** Font
@@ -129,7 +131,8 @@ Set up the styles for the fringe and linum-mode (line numbers)
 (add-hook 'after-init-hook
           (lambda ()
             (setq linum-format " %2d ")
-            (set-fringe-style 4)))
+            (when window-system
+              (set-fringe-style 4))))
 
 #+end_src
 
@@ -195,7 +198,7 @@ I've inserted one on the following line:
 *** Definitions
 #+begin_src emacs-lisp
 (defpowerline evil-mode-bar
-  (if (and (boundp 'evil-mode) evil-mode)
+  (if (and (evil-p) evil-mode)
       ;; evil-mode is active
       (format " %s " (upcase (symbol-name evil-state)))
     ;; evil-mode is not active
@@ -214,7 +217,9 @@ Set it up
            (mode-line (if active 'mode-line 'mode-line-inactive))
            (face1 (if active 'powerline-active1 'powerline-inactive1))
            (face2 (if active 'powerline-active2 'powerline-inactive2))
-           (face-evil (my/cur-evil-face))
+           (face-evil (if (and (fboundp 'my/cur-evil-face) (evil-p))
+                          (my/cur-evil-face)
+                        face1))
            (face-nil nil)
            (separator-left (intern (format "powerline-%s-%s"
                                            powerline-default-separator
