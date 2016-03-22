@@ -56,11 +56,11 @@ Display line-numbers relatively, which is cool for movement commands.
 ** :defer 3
 ** :init
 #+begin_src emacs-lisp
-(add-hook 'prog-mode-hook (lambda () (linum-mode)))
+;; (add-hook 'prog-mode-hook (lambda () (linum-mode)))
 #+end_src
 ** :config
 #+begin_src emacs-lisp
-(linum-relative-on)
+;; (linum-relative-on)
 #+end_src
 * Provide it
 #+begin_src emacs-lisp
