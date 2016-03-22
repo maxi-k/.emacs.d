@@ -187,9 +187,16 @@ Define some face colors to be used in the powerline and cursor colors:
 
    #+end_src
 ** :init
+*** Some key settings
+Normally, evil would bind C-i (which equals <tab> on the terminal) to
+evil-jump-forward. This prevents that behavior (which would break e.g
+org-mode)
+#+begin_src emacs-lisp
+    (setq evil-want-C-i-jump nil)
+#+end_src
 *** Activate it
 #+begin_src emacs-lisp
-(add-hook 'emacs-startup-hook 'evil-mode)
+(add-hook 'emacs-startup-hook (lambda () (require 'evil) (evil-mode)))
 #+end_src
 * Provide it
 #+begin_src emacs-lisp
