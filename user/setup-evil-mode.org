@@ -48,7 +48,7 @@ However, in some cases, other initial states are better:
 ***** :init
 #+begin_src emacs-lisp
 (config/global-keys
-  "c" '("Evil Nerd Commenter"
+  ";" '("Evil Nerd Commenter"
         "i" evilnc-comment-or-uncomment-lines
         "l" evilnc-quick-comment-or-uncomment-to-the-line
         "c" evilnc-copy-and-comment-lines

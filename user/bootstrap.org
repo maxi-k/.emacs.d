@@ -151,7 +151,7 @@ Set a few bindings following the prefix
   ;; Meta x
   "x" 'execute-extended-command
   "b" 'switch-to-buffer
-  "v" 'quick-switch-buffer
+  "B" 'quick-switch-buffer
   "g" 'keyboard-quit
   "u" 'universal-argument
   "z" (config/hydra hydra/zoom (:color red)
