@@ -81,7 +81,9 @@ Enable helm in for projectile
 (helm-projectile-on)
 #+end_src
 
-Also provide a search-project-feature
+Also provide a search-project-feature, which is declared in
+[[setup-projectile.org]]. The overall feature-system comes from
+[[bootstrap.org]] of course.
 #+begin_src emacs-lisp
 (config/provide-feature :search-project
   "f" 'helm-projectile-find-file

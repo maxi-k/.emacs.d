@@ -150,8 +150,6 @@ Set a few bindings following the prefix
 (config/global-keys
   ;; Meta x
   "x" 'execute-extended-command
-  "b" 'switch-to-buffer
-  "B" 'quick-switch-buffer
   "g" 'keyboard-quit
   "u" 'universal-argument
   "z" (config/hydra hydra/zoom (:color red)
@@ -201,9 +199,16 @@ Now, lets declare some features:
 #+begin_src emacs-lisp
 (config/declare-feature-space "a" "Apps" :app)
 (config/declare-feature-space "s" "Search" :search)
+(config/declare-feature-space "b" "Buffers" :buffer)
 #+end_src
 
-An example for the providing of features can be found in the [[./setup-helm.org][Helm Setup]].
+And provide some as well
+#+begin_src emacs-lisp
+(config/provide-feature :buffer
+  "B" 'buffer-menu
+  "b" 'switch-to-buffer
+  "v" 'quick-switch-buffer)
+#+end_src
 
 ** Local leaders
 Now For the mode-local leader-keys:

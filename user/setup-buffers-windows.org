@@ -20,9 +20,9 @@ Fix C-c C-c being bound to bury-buffer instead of org-mode stuff
 Kill the current buffer
 #+begin_src emacs-lisp
 (global-set-key (kbd "s-k") 'kill-this-buffer)
-
-(config/global-keys
-  "k" 'kill-this-buffer)
+(config/provide-feature :buffer
+  "k" 'kill-this-buffer
+  "K" 'kill-buffer)
 #+end_src
 
 * Movement

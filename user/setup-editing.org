@@ -36,8 +36,7 @@ Control-h and Meta-h for deleting backwards
 Not quite built-in, but defined myself:
 #+begin_src emacs-lisp
 (global-set-key (kbd "s-c") 'cleanup-buffer)
-
-(config/global-keys "c" 'cleanup-buffer)
+(config/provide-feature :buffer "c" 'cleanup-buffer)
 #+end_src
 
 Join lines more easily
