@@ -22,6 +22,11 @@ Don't to autocomplete for now - it slows down writing quite a bit
 Quickrun can 'run' any (most) buffers - useful for developing bigger chunks of
 code in a buffer, which quickrun turns into a kinda-repl
 ** :defer t
+** :init
+Bind a key to 'quickrun' the current buffer
+#+begin_src emacs-lisp
+(config/provide-feature :buffer "r" 'quickrun)
+#+end_src
 ** :config
 Don't timeout after 10 seconds if the program has not finished executing yet
 #+begin_src emacs-lisp
@@ -31,6 +36,25 @@ Don't timeout after 10 seconds if the program has not finished executing yet
 Use cmd-r to run it
 #+begin_src emacs-lisp
 ("s-r" . quickrun)
+#+end_src
+* :use-package company
+Autocompletion / Suggestions with support for various backends
+** :defer t
+** :init
+Add a hook to any programming-language-mode for company
+#+begin_src emacs-lisp
+(add-hook 'prog-mode-hook #'company-mode)
+#+end_src
+** :config
+*** :use-package company-quickhelp
+Show documentation for given function in a company-style popup
+**** :init
+#+begin_src emacs-lisp
+;; (company-quickhelp-mode 1)
+#+end_src
+**** :config
+#+begin_src emacs-lisp
+;; (define-key company-active-map (kbd "M-S-h") #'company-quickhelp-manual-begin)
 #+end_src
 * Languages
 ** :use-package swift-mode
