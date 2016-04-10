@@ -65,6 +65,12 @@ after helm is loaded.
   "X" 'execute-extended-command)
 #+end_src
 
+Add helm-mini as an application
+#+begin_src emacs-lisp
+(config/provide-feature :app
+  "m" 'helm-mini)
+#+end_src
+
 *** Plugins
 **** :use-package helm-projectile
 ***** :defer 5
