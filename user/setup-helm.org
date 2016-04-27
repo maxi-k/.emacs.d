@@ -102,7 +102,8 @@ Also provide a search-project-feature, which is declared in
 ***** :config
 Browse dash-documentation inside emacs, not outside.
 #+begin_src emacs-lisp
-(setq helm-dash-browser-func 'eww)
+(setq browse-url-generic-program "/usr/bin/open")
+(setq helm-dash-browser-func 'browse-url-generic)
 #+end_src
 ***** :init
 Add a global leader key for it
