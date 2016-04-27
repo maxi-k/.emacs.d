@@ -129,7 +129,7 @@ Set up a function to bind keys to the global leader key
      (unless (boundp 'config/global-leader-map)
        (eval
         `(bind-map config/global-leader-map
-           ;; :keys ("M-m")
+           :keys ("S-M-p")
            :evil-keys (,config/global-leader-key)
            :evil-states (normal motion visual))))
      (config|bind-all-keys config/global-leader-key

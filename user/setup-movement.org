@@ -3,6 +3,10 @@
 #+AUTHOR: Maximilian Kuschewski
 #+PROPERTY: my-file-type emacs-config-package
 
+* Key Bootstrap
+#+begin_src emacs-lisp
+(config/declare-feature-space "j" "Jumping" :movement)
+#+end_src
 * Built in
 Jump through the mark-ring
 #+begin_src emacs-lisp
@@ -12,6 +16,7 @@ Jump through the mark-ring
 Go to a specific line - who needs line-numbers?
 #+begin_src emacs-lisp
 (global-set-key (kbd "s-L") 'goto-line)
+(config/provide-feature :movement "l" 'goto-line)
 #+end_src
 
 Isearch: Use regex by default:
@@ -25,8 +30,8 @@ Isearch: Use regex by default:
 Jump to a definition in the current file.
 #+begin_src emacs-lisp
 (global-set-key (kbd "s-i") 'imenu)
+(config/provide-feature :movement "i" 'imenu)
 #+end_src
-
 * :use-package avy
 Ace jump mode allows you to jump to any visible char with just a few keystrokes.
 ** :bind
@@ -38,10 +43,9 @@ Bind it to some nice keys:
 ** :init
 Bind 'j' plus some some subkeys on the global-leader map
 #+begin_src emacs-lisp
-(config/global-keys
-"j" '("Avy Jump"
-       "j" avy-goto-char
-       "w" avy-goto-word-or-subword-1))
+(config/provide-feature :movement
+  "j" 'avy-goto-char
+  "w" 'avy-goto-word-or-subword-1)
 #+end_src
 * :use-package iy-go-to-char
 Go to the next/previous occurrence of the a character more easily.

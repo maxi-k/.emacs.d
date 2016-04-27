@@ -3,6 +3,10 @@
 #+AUTHOR: Maximilian Kuschewski
 #+PROPERTY: my-file-type emacs-config-package
 
+* Bootstrap Keys
+#+begin_src emacs-lisp
+(config/declare-feature-space "e" "Editing" :editing)
+#+end_src
 * Built-in
 Configure built-in functions.
 ** Keybindings
@@ -65,7 +69,18 @@ Every time this key is pressed, expand the region out one step further
 #+begin_src emacs-lisp
 ("s-e" . er/expand-region)
 #+end_src
-
+** :init
+Provide bindings in the global leader as well.
+#+begin_src emacs-lisp
+(config/provide-feature :editing
+  "e" 'er/expand-region
+  "E" (config/hydra hydra/expand-region (:color red)
+        "expand-region"
+        ("e" er/expand-region "expand")
+        ("E" er/expand-region "expand")
+        ("c" er/contract-region "contract")
+        ("q" nil "quit")))
+#+end_src
 * :use-package multiple-cursors
 ** :defer t
 ** :bind
@@ -75,6 +90,16 @@ Most. Awesome. Thing. Ever.
 ("s-g" . mc/mark-all-like-this)
 ;; ("C-s-d" . mc/mark-all-dwim)
 #+end_src
+** :init
+Provide bindings in the global leader as well.
+#+begin_src emacs-lisp
+(config/provide-feature :editing
+  "m" (config/hydra hydra/multiple-cursors (:color red)
+        "multiple-cursors"
+        ("n" mc/mark-next-like-this "mark next")
+        ("a" mc/mark-all-like-this "mark all")
+        ("q" nil "quit")))
+#+end_src
 
 * :use-package browse-kill-ring
 ** :defer t
@@ -82,8 +107,20 @@ Most. Awesome. Thing. Ever.
 Look through the kill ring and insert exactly what you want.
 #+begin_src emacs-lisp
 ("C-x C-y" . browse-kill-ring)
-#+end_src
 
+#+end_src
+** :init
+#+begin_src emacs-lisp
+(config/provide-feature :editing
+  "b" 'browse-kill-ring)
+#+end_src
+* :use-package undo-tree
+** :defer t
+** :init
+#+begin_src emacs-lisp
+(config/provide-feature :editing
+  "u" 'undo-tree-visualize)
+#+end_src
 * Provide it
 #+begin_src emacs-lisp
 (provide 'setup-editing)
