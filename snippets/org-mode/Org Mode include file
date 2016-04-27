@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Org Mode include file
+# key: include
+# --
+#+INCLUDE: ${1:File Path} ${2:Mode src/example etc.} $3{3:src lang}
