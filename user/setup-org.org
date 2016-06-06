@@ -38,6 +38,9 @@
 (setq org-agenda-default-appointment-duration 60)
 (setq diary-file (concat org-directory "diary/diary"))
 (setq org-default-notes-file (concat org-directory "capture/notes.org"))
+
+;; The [/] cookie should look for entries in subtrees also
+(setq org-hierarchical-todo-statistics nil)
 #+end_src
 *** Latex
 #+begin_src emacs-lisp
