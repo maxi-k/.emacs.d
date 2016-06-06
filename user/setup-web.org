@@ -58,6 +58,8 @@ Emmet: Quick <tag> generation with nice syntax
 * :use-package tagedit
 ** :defer t
 * :use-package coffee-mode
+* :use-package scss-mode
+** :defer t
 * :use-package yaml-mode
 ** :defer t
 ** :mode "\\.yml\\'"
