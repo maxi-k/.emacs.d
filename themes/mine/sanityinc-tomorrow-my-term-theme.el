@@ -1,0 +1,16 @@
+(require 'color-theme-sanityinc-tomorrow)
+(add-to-list 'color-theme-sanityinc-tomorrow-colors
+             '(my-term . ((background . "#undefined-bg")
+                          (current-line . "#393939")
+                          (selection . "#515151")
+                          (foreground . "#cccccc")
+                          (comment . "#999999")
+                          (red . "#f2777a")
+                          (orange . "#f99157")
+                          (yellow . "#ffcc66")
+                          (green . "#99cc99")
+                          (aqua . "#66cccc")
+                          (blue . "#6699cc")
+                          (purple . "#cc99cc"))))
+
+(color-theme-sanityinc-tomorrow--define-theme my-term)
