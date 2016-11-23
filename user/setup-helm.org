@@ -96,7 +96,8 @@ Also provide a search-project-feature, which is declared in
   "g" 'helm-projectile-grep
   "a" 'helm-projectile-ack)
 #+end_src
-
+**** :use-package helm-ag
+***** :defer t
 **** :use-package helm-dash
 ***** :defer t
 ***** :config
@@ -110,7 +111,6 @@ Add a global leader key for it
 #+begin_src emacs-lisp
 (config/global-keys "d" 'helm-dash-at-point)
 #+end_src
-
 **** :use-package helm-descbinds
 ***** :defer 7
 ***** :init
