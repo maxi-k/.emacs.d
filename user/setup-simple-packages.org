@@ -14,6 +14,7 @@ packages by default.
      browse-url-dwim
      dash
      discover
+     docker
      epl
      f
      flycheck
