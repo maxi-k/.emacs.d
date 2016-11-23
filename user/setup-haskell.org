@@ -5,13 +5,18 @@
 
 * Require it
 #+begin_src emacs-lisp
-(use-package haskell-mode
-  :defer t
-  :mode "\\.hs\\'"
-  :init
-  (add-hook 'haskell-mode-hook 'turn-on-haskell-doc)
-  (add-hook 'haskell-mode-hook 'inf-haskell-mode)
-  (add-hook 'haskell-mode-hook 'flycheck-mode))
+  (use-package haskell-mode
+    :defer t
+    :mode "\\.hs\\'"
+    :init
+    (add-hook 'haskell-mode-hook 'turn-on-haskell-doc)
+    (add-hook 'haskell-mode-hook 'inf-haskell-mode)
+    (add-hook 'haskell-mode-hook 'flycheck-mode))
+
+  (use-package hindent
+    :defer t
+    :init
+    (add-hook 'haskell-mode-hook #'hindent-mode))
 #+end_src
 * Provide it
 #+begin_src emacs-lisp
