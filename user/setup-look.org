@@ -55,8 +55,6 @@ Add the themes folder and its subfolders to the load path
 ** Install themes
 *** :use-package color-theme-sanityinc-tomorrow
 **** :defer t
-*** :use-package spacemacs-theme
-**** :defer t
 ** Easy theme loading
 Define a default light and dark theme and functions for loading them:
 #+begin_src emacs-lisp
@@ -90,7 +88,9 @@ Define a default light and dark theme and functions for loading them:
          (scroll-bar-mode 0)
          (setq-default fill-column 80)
          (setq-default indicate-empty-lines t)
-         (load-theme-dark))
+         (load-theme-exclusively my/default-dark-theme))
+
+
      (progn
        (load-theme-exclusively my/default-term-theme)
        (menu-bar-mode -1)))))
