@@ -40,6 +40,8 @@ However, in some cases, other initial states are better:
   (mapc (lambda (map)
           (evil-set-initial-state (car map) (cdr map)))
         '((eshell-mode . emacs)
+          (quickrun/mode . emacs)
+          (cider-stacktrace-mode . emacs)
           (undo-tree-visualizer-mode . emacs)
           (dired-mode . emacs)))
 #+end_src
