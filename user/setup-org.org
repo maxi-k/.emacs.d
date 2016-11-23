@@ -162,6 +162,13 @@ Evil-leader bindings:
         (org-call-with-arg 'org-ctrl-c-ctrl-c '(4))))
 #+end_src
 
+Key bindings for org-agenda mode
+#+begin_src emacs-lisp
+(add-hook 'org-agenda-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c m") 'org-agenda-month-view)))
+#+end_src
+
 *** Global Keys
 The standard global keys are defined in [[:bind]]. These use the bootstrap leader:
 #+begin_src emacs-lisp
@@ -171,6 +178,13 @@ The standard global keys are defined in [[:bind]]. These use the bootstrap leade
         "c"  org-capture
         "a"  org-agenda
         "b"  org-iswitchb))
+#+end_src
+
+*** MobileOrg
+Set up some stuff for syncing org mode with the phone
+#+begin_src emacs-lisp
+(setq org-mobile-directory "~/Dropbox/Apps/MobileOrg"
+      org-mobile-inbox-for-pull "~/Documents/Org/mobile")
 #+end_src
 *** Plugins
 **** :use-package org-alert
