@@ -99,6 +99,15 @@
 
 #+end_src
 
+* Emacs Server
+#+begin_src emacs-lisp
+(defun server-shutdown ()
+  "Save buffers, Quit, and Shutdown (kill) server"
+  (interactive)
+  (save-some-buffers)
+  (kill-emacs)
+  )
+#+end_src
 * General Utility
 #+begin_src emacs-lisp
 (defun org-create-link-in-org-dir ()
