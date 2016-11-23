@@ -47,6 +47,10 @@ Bind 'j' plus some some subkeys on the global-leader map
   "j" 'avy-goto-char
   "w" 'avy-goto-word-or-subword-1)
 #+end_src
+** :config
+#+begin_src emacs-lisp
+(define-key evil-normal-state-map (kbd "s") #'avy-goto-word-or-subword-1)
+#+end_src
 * :use-package iy-go-to-char
 Go to the next/previous occurrence of the a character more easily.
 Press the wanted character again to go to the occurrence after that etc.
