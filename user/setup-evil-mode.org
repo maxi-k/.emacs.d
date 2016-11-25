@@ -198,7 +198,8 @@ org-mode)
 #+end_src
 *** Activate it
 #+begin_src emacs-lisp
-(add-hook 'emacs-startup-hook (lambda () (require 'evil) (evil-mode)))
+(require 'evil)
+(evil-mode)
 #+end_src
 * Provide it
 #+begin_src emacs-lisp
