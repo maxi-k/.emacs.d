@@ -36,9 +36,13 @@ Jump to a definition in the current file.
 Ace jump mode allows you to jump to any visible char with just a few keystrokes.
 ** :bind
 Bind it to some nice keys:
+Bind 's' in evil normal state to jump to word-or-subword.
 #+begin_src emacs-lisp
-("s-j" . avy-goto-word-or-subword-1)
-("s-J" . avy-goto-char)
+  (("s-j" . avy-goto-word-or-subword-1)
+   ("s-J" . avy-goto-char)
+   :map evil-normal-state-map
+   ("s" . avy-goto-word-or-subword-1)
+   )
 #+end_src
 ** :init
 Bind 'j' plus some some subkeys on the global-leader map
@@ -46,10 +50,6 @@ Bind 'j' plus some some subkeys on the global-leader map
 (config/provide-feature :movement
   "j" 'avy-goto-char
   "w" 'avy-goto-word-or-subword-1)
-#+end_src
-** :config
-#+begin_src emacs-lisp
-(define-key evil-normal-state-map (kbd "s") #'avy-goto-word-or-subword-1)
 #+end_src
 * :use-package iy-go-to-char
 Go to the next/previous occurrence of the a character more easily.
