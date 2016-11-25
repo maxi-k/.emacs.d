@@ -15,8 +15,7 @@
             (function
              (lambda ()
                (add-hook 'after-save-hook
-                         (lambda ()
-                           (emacs-config/tangle-file (buffer-file-name) t))
+                         #'emacs-config/tangle-current-file
                          nil 'make-it-local)))))
 
 ;; Very General Setup
