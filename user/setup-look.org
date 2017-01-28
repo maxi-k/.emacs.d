@@ -69,6 +69,12 @@ Define a default light and dark theme and functions for loading them:
 (defun load-theme-light ()
   (interactive)
   (load-theme-exclusively my/default-light-theme))
+
+(defun theme-after-init (&rest args)
+  (unless (display-graphic-p (selected-frame))
+    (set-face-background 'default "unspecified-bg" (selected-frame))))
+
+(advice-add 'load-theme :after #'theme-after-init)
 #+end_src
 
 * General settings
@@ -89,8 +95,6 @@ Define a default light and dark theme and functions for loading them:
          (setq-default fill-column 80)
          (setq-default indicate-empty-lines t)
          (load-theme-exclusively my/default-dark-theme))
-
-
      (progn
        (load-theme-exclusively my/default-term-theme)
        (menu-bar-mode -1)))))
