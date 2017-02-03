@@ -121,7 +121,7 @@ available.
  (lambda ()
    (font-set-by-preference
     '("Hack" "Source Code Pro" "inconsolata" "Lucida Console" "courier")
-    16)))
+    14)))
 #+end_src
 
 And some test-characters to test it:
