@@ -3,7 +3,6 @@
 #+DESCRIPTION:
 #+PROPERTY: my-file-type emacs-config-package
 
-
 * General Functions
 ** Pretty Lambdas
 #+begin_src emacs-lisp
@@ -82,6 +81,27 @@ Set up a font-lock to make 'fn' into 'ƒ'
 *** Plugins
 **** :use-package cider
 ***** :defer t
+***** :init
+#+begin_src emacs-lisp
+(defun cider-figwheel-repl ()
+  (interactive)
+  (save-some-buffers)
+  (with-current-buffer (cider-current-repl-buffer)
+    (goto-char (point-max))
+    (insert "(require 'figwheel-sidecar.repl-api)
+             (figwheel-sidecar.repl-api/start-figwheel!) ; idempotent
+             (figwheel-sidecar.repl-api/cljs-repl)")
+    (cider-repl-return)))
+
+(defun user/cider-send-to-repl ()
+  (interactive)
+  (let ((s (buffer-substring-no-properties
+            (nth 0 (cider-last-sexp 'bounds))
+            (nth 1 (cider-last-sexp 'bounds)))))
+    (with-current-buffer (cider-current-connection)
+      (insert s)
+      (cider-repl-return))))
+#+end_src
 ***** :config
 Improve cider
 #+begin_src emacs-lisp
@@ -92,6 +112,11 @@ Improve cider
 (setq cider-auto-select-error-buffer t)
 (setq cider-repl-history-file "~/.emacs.d/cider-history")
 (setq cider-repl-wrap-history t)
+
+(setq cider-cljs-lein-repl
+      "(do (require 'figwheel-sidecar.repl-api)
+           (figwheel-sidecar.repl-api/start-figwheel!)
+           (figwheel-sidecar.repl-api/cljs-repl))")
 
 (add-hook 'cider-mode-hook 'cider-eldoc)
 (add-hook 'cider-repl-mode-hook 'subword-mode)
@@ -122,6 +147,10 @@ Improve cider
 * use-package pixie-mode
 Not for now, it gives an error that the docstring is missing...
 ** defer t
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+>>>>>>> master
 * :use-package parinfer
 ** :ensure t
 ** :init
