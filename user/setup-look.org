@@ -157,7 +157,7 @@ Change the fringe color to match the background color of the editor
 ;; Use whitespace mode for fill column indicator
 (setq
  whitespace-line-column 80
- whitespace-style       '(face lines-tail trailing tabs))
+ whitespace-style       '(face lines-tail trailing))
 (global-whitespace-mode)
 #+end_src
 

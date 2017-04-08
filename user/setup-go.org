@@ -12,6 +12,8 @@
             (setq tab-width 4
                   indent-tabs-mode t
                   standard-indent 4)))
+
+(add-hook 'before-save-hook #'gofmt-before-save)
 #+end_src
 
 * Provide it
