@@ -12,6 +12,13 @@
             (setq tab-width 4
                   indent-tabs-mode t
                   standard-indent 4)))
+
+;; (setq gofmt-command "goimports")
+(add-hook 'before-save-hook #'gofmt-before-save)
+
+(config/local-keys 'go-mode
+  "," 'godef-jump
+  "p" 'pop-tag-mark)
 #+end_src
 
 * Provide it

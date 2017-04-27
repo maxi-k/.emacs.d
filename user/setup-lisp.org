@@ -147,38 +147,37 @@ Improve cider
 * use-package pixie-mode
 Not for now, it gives an error that the docstring is missing...
 ** defer t
-<<<<<<< Updated upstream
-* :use-package parinfer
-** :ensure t
-** :init
-#+begin_src emacs-lisp
-(setq parinfer-extensions
-      '(defaults        ; should be included.
-         pretty-parens  ; different paren styles for different modes.
-         evil           ; If you use Evil.
-         paredit        ; Introduce some paredit commands.
-         smart-tab      ; C-b & C-f jump positions and smart shift with tab & S-tab.
-         smart-yank))   ; Yank behavior depend on mode.
-
-(setq parinfer-major-mode-hooks '(clojure-mode-hook
-                                  emacs-lisp-mode-hook
-                                  common-lisp-mode-hook
-                                  scheme-mode-hook
-                                  lisp-mode-hook))
-
-(setq parinfer-major-modes '(clojure-mode
-                             emacs-lisp-mode
-                             common-lisp-mode
-                             scheme-mode
-                             lisp-mode))
-
-(mapc (lambda (m) (add-hook m #'parinfer-mode))
-      parinfer-major-mode-hooks)
-
-(mapc (lambda (m) (config/local-keys m
-                   "," 'parinfer-toggle-mode))
-      parinfer-major-modes)
-#+end_src
+* use-package parinfer
+** ensure t
+** init
+# #+begin_src emacs-lisp
+#   (setq parinfer-extensions
+#         '(defaults        ; should be included.
+#            pretty-parens  ; different paren styles for different modes.
+#            evil           ; If you use Evil.
+#            paredit        ; Introduce some paredit commands.
+#            smart-tab      ; C-b & C-f jump positions and smart shift with tab & S-tab.
+#            smart-yank))   ; Yank behavior depend on mode.
+#
+#   (setq parinfer-major-mode-hooks '(clojure-mode-hook
+#                                     emacs-lisp-mode-hook
+#                                     common-lisp-mode-hook
+#                                     scheme-mode-hook
+#                                     lisp-mode-hook))
+#
+#   (setq parinfer-major-modes '(clojure-mode
+#                                emacs-lisp-mode
+#                                common-lisp-mode
+#                                scheme-mode
+#                                lisp-mode))
+#
+#   (mapc (lambda (m) (add-hook m #'parinfer-mode))
+#         parinfer-major-mode-hooks)
+#
+#   (mapc (lambda (m) (config/local-keys m
+#                          "," 'parinfer-toggle-mode))
+#         parinfer-major-modes)
+# #+end_src
 * Emacs Lisp
 ** Keys
 Add a key to evaluate the buffer
