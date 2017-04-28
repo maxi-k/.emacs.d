@@ -60,7 +60,7 @@ Define a default light and dark theme and functions for loading them:
 #+begin_src emacs-lisp
 (defconst my/default-light-theme 'my-light)
 (defconst my/default-dark-theme 'sanityinc-tomorrow-my-dark)
-(defconst my/default-term-theme 'sanityinc-tomorrow-my-dark)
+(defconst my/default-term-theme 'bleak)
 
 (defun load-theme-dark ()
   (interactive)
