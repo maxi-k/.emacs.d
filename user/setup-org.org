@@ -183,7 +183,7 @@ The standard global keys are defined in [[:bind]]. These use the bootstrap leade
 *** MobileOrg
 Set up some stuff for syncing org mode with the phone
 #+begin_src emacs-lisp
-(setq org-mobile-directory "~/Dropbox/Apps/MobileOrg"
+(setq org-mobile-directory "~/Documents/Cloud/Org/"
       org-mobile-inbox-for-pull "~/Documents/Org/mobile")
 #+end_src
 *** Plugins

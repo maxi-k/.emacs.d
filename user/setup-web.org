@@ -21,6 +21,11 @@ Skewer: Interactive js-repl using browser-connection
 ** :defer t
 * :use-package js2-mode
 ** :defer t
+** :init
+Don't warn on semicolons (Ecmascript 6)
+#+begin_src emacs-lisp
+(setq js2-strict-missing-semi-warning nil)
+#+end_src
 ** :mode
 #+begin_src emacs-lisp
 ("\\.js\\'" . js2-mode)
