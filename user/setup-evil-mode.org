@@ -125,6 +125,12 @@ Go to emacs/normal/god-state *from insert-state*
 (define-key evil-insert-state-map (kbd "C-;") #'evil-execute-in-normal-state)
 #+end_src
 
+Unbind the =,= key, as it is used as a mode-local leader key
+#+begin_src emacs-lisp
+(define-key evil-motion-state-map (kbd ",") nil)
+#+end_src
+
+
 *** Looks
 **** Face Defaults
 Define some face colors to be used in the powerline and cursor colors:
