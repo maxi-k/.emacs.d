@@ -67,20 +67,12 @@ Show documentation for given function in a company-style popup
 * Languages
 ** :use-package swift-mode
 *** :defer t
-** :use-package elixir-mode
-*** :defer t
-*** :init
-#+begin_src emacs-lisp
-
-#+end_src
-** :use-package alchemist
-*** :defer t
-
 * Setups for single modes
 Require the mode-specific setup files that configure programming-modes:
 #+begin_src emacs-lisp
   (require-all
    '(setup-c
+     setup-elixir
      setup-go
      setup-lisp
      setup-markdown

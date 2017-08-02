@@ -1,0 +1,33 @@
+#+TITLE: Setup Elixir
+#+DESCRIPTION: Set up elixir mode and others for working with elixir
+#+AUTHOR: Maximilian Kuschewski
+#+PROPERTY: my-file-type emacs-config
+
+* :use-package elixir-mode
+** :defer t
+** :config
+#+begin_src emacs-lisp
+(defun show-alchemist-keymap ()
+  (interactive)
+  (execute-kbd-macro (kbd "C-c a")))
+
+(config/local-keys 'elixir-mode
+  ;; Call alchemist
+  "a" 'show-alchemist-keymap)
+
+(add-hook 'elixir-mode-hook #'alchemist-mode)
+#+end_src
+** :init
+*** Plugins
+**** :use-package elixir-yasnippets
+**** :use-package alchemist
+***** :init
+#+begin_src emacs-lisp
+(config/local-keys 'alchemist-mode
+  "a" (lambda () (interactive) (call-interactively (global-key-binding "\C-c a")))
+  )
+#+end_src
+* Provide it
+#+begin_src emacs-lisp
+(provide 'setup-elixir)
+#+end_src
