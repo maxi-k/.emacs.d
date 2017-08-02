@@ -66,7 +66,6 @@ Switch windows more easily
 #+end_src
 
 * Manipulate
-** Configuration
 Bury and revert buffers more easily
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-c y") 'bury-buffer)
@@ -109,11 +108,11 @@ Make a vertical split and set the current window to 80 characters width:
 "
 ^Movement^      ^Split^       ^Resize^                       ^Buffer
 -------------------------------------------------------------------------
-_h_: left       _d_: right    _H_ : shrink horizontal   _b_: buffer
-_j_: bottom     _s_: below    _J_ : enlarge vertical
-_k_: top        _O_: toggle   _K_ : shrink vertical
-_l_: right      _a_: delete   _L_ : enlarge horizontal
-_o_: other      _g_: g-ratio  _G_ : golden-ratio-mode
+_h_: left       _d_: right    _H_: shrink horizontal   _b_: buffer
+_j_: bottom     _s_: below    _J_: enlarge vertical
+_k_: top        _O_: toggle   _K_: shrink vertical
+_l_: right      _a_: delete   _L_: enlarge horizontal
+_o_: other      _g_: g-ratio  _G_: golden-ratio-mode
 "
         ("b" switch-to-buffer)
         ("o" other-window)
@@ -129,8 +128,8 @@ _o_: other      _g_: g-ratio  _G_ : golden-ratio-mode
         ("J" enlarge-window)
         ("K" shrink-window)
         ("L" enlarge-window-horizontally)
-        ("g" golden-ratio)
-        ("G" golden-ratio-mode)
+        ("g" golden-ratio :color blue)
+        ("G" golden-ratio-mode :color blue)
         ("q" nil "quit" :color blue)))
 #+end_src
 * Provide it
