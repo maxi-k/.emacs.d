@@ -1,8 +1,9 @@
-#+TITLE: Setup Projectile
+#+TITLE: Setup Projects
 #+DESCRIPTION:
 #+AUTHOR: Maximilian Kuschewski
 #+PROPERTY: my-file-type emacs-config-package
 
+Set up Project Management with Projectile and Perspective
 * :use-package projectile
 Projectile should be accessible from everywhere, even if there's no apparent
 project root:
@@ -27,7 +28,18 @@ Bind global-leader-p to the projectile command map:
 #+end_src
 
 #+begin_src emacs-lisp
-(projectile-global-mode)
+(projectile-mode)
+#+end_src
+* use-package perspective
+** init
+#+begin_src emacs-lisp
+;(persp-mode)
+#+end_src
+*** Plugins
+**** use-package persp-projectile
+***** init
+#+begin_src emacs-lisp
+;(define-key projectile-command-map (kbd "SPC") 'projectile-persp-switch-project)
 #+end_src
 * Provide it
 #+begin_src emacs-lisp

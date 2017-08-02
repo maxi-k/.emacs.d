@@ -36,12 +36,12 @@
                setup-buffers-windows ;; No Packages
                setup-movement
                setup-editing
+               setup-projects
                setup-misc
                ))
 
 ;; Mode-specific setups
 (require-all '(setup-git
-               setup-projectile
                setup-helm
                setup-text-mode
                setup-programming
