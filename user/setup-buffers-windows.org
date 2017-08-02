@@ -16,6 +16,14 @@ Fix C-c C-c being bound to bury-buffer instead of org-mode stuff
 #+begin_src emacs-lisp
 (add-hook 'remember-notes-mode-hook (lambda () (org-mode)))
 #+end_src
+* Packages
+** :use-package golden-ratio
+Golden Ration always keeps the current window at a nice size to work
+in, while keeping the content of other windows readable.
+*** :init
+#+begin_src emacs-lisp
+(golden-ratio-mode 1)
+#+end_src
 * Killing
 Kill the current buffer
 #+begin_src emacs-lisp
@@ -58,6 +66,7 @@ Switch windows more easily
 #+end_src
 
 * Manipulate
+** Configuration
 Bury and revert buffers more easily
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-c y") 'bury-buffer)
@@ -104,7 +113,7 @@ _h_: left       _d_: right    _H_ : shrink horizontal   _b_: buffer
 _j_: bottom     _s_: below    _J_ : enlarge vertical
 _k_: top        _O_: toggle   _K_ : shrink vertical
 _l_: right      _a_: delete   _L_ : enlarge horizontal
-_o_: other      _8_: 80-cols
+_o_: other      _g_: g-ratio  _G_ : golden-ratio-mode
 "
         ("b" switch-to-buffer)
         ("o" other-window)
@@ -116,13 +125,12 @@ _o_: other      _8_: 80-cols
         ("j" evil-window-down)
         ("k" evil-window-up)
         ("l" evil-window-right)
-        ("8" (lambda () (interactive)
-               (unless (window-right) (split-window-right))
-               (set-window-width 80)))
         ("H" shrink-window-horizontally)
         ("J" enlarge-window)
         ("K" shrink-window)
         ("L" enlarge-window-horizontally)
+        ("g" golden-ratio)
+        ("G" golden-ratio-mode)
         ("q" nil "quit" :color blue)))
 #+end_src
 * Provide it
