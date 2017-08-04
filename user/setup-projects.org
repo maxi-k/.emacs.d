@@ -43,5 +43,5 @@ Bind global-leader-p to the projectile command map:
 #+end_src
 * Provide it
 #+begin_src emacs-lisp
-(provide 'setup-projectile)
+(provide 'setup-projects)
 #+end_src
