@@ -30,6 +30,8 @@ Don't warn on semicolons (Ecmascript 6)
 #+begin_src emacs-lisp
 ("\\.js\\'" . js2-mode)
 #+end_src
+* :use-package elm-mode
+** :defer t
 * :use-package lorem-ipsum
 ** :defer t
 * :use-package impatient-mode
@@ -64,6 +66,8 @@ Emmet: Quick <tag> generation with nice syntax
 ** :defer t
 * :use-package coffee-mode
 * :use-package scss-mode
+** :defer t
+* :use-package less-css-mode
 ** :defer t
 * :use-package yaml-mode
 ** :defer t
