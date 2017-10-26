@@ -131,7 +131,17 @@ Improve cider
 (add-hook 'clojure-mode-hook (lambda ()
                                (clj-refactor-mode 1)
                                (cljr-add-keybindings-with-prefix "s-r")))
-
+***** :config
+#+end_src
+Add a keybinding use the mode-local leader keys as well
+#+begin_src emacs-lisp
+(defun call-cljr-interactively ()
+  (interactive)
+  (call-interactively (global-key-binding "s-r")))
+(fset 'clj-refactor-map-fn clj-refactor-map)
+(config/local-keys 'clojure-mode
+  "r" #'call-cljr-interactively
+  "R" #'clj-refactor-map-fn)
 #+end_src
 **** :use-package clojure-snippets
 ***** :defer t
