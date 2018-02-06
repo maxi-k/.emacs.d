@@ -94,7 +94,7 @@ Define a default light and dark theme and functions for loading them:
          (scroll-bar-mode 0)
          (setq-default fill-column 80)
          (setq-default indicate-empty-lines t)
-         (load-theme-exclusively my/default-dark-theme))
+         (load-theme-exclusively my/default-light-theme))
      (progn
        (load-theme-exclusively my/default-term-theme)
        (menu-bar-mode -1)))))
