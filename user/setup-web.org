@@ -26,6 +26,11 @@ Don't warn on semicolons (Ecmascript 6)
 #+begin_src emacs-lisp
 (setq js2-strict-missing-semi-warning nil)
 #+end_src
+*** :use-package jsx-mode
+**** :mode
+#+begin_src emacs-lisp
+("\\.jsx\\'" . js2-jsx-mode)
+#+end_src
 ** :mode
 #+begin_src emacs-lisp
 ("\\.js\\'" . js2-mode)
@@ -65,6 +70,9 @@ Emmet: Quick <tag> generation with nice syntax
 * :use-package tagedit
 ** :defer t
 * :use-package coffee-mode
+** :defer t
+* :use-package typescript
+** :defer t
 * :use-package scss-mode
 ** :defer t
 * :use-package less-css-mode
