@@ -61,15 +61,15 @@ Load more languages for org-babel
  (lambda ()
    (org-babel-do-load-languages
     'org-babel-load-languages
-    '((sh         . t)
+    '(;;(bash       . t)
       (js         . t)
       (emacs-lisp . t)
       (perl       . t)
-      (scala      . t)
-      (clojure    . t)
-      (python     . t)
-      (ruby       . t)
-      (dot        . t)
+      ;; (scala      . t)
+      ;; (clojure    . t)
+      ;; (python     . t)
+      ;; (ruby       . t)
+      ;; (dot        . t)
       (css        . t)
       (plantuml   . t)))))
 #+end_src

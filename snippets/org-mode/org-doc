@@ -1,0 +1,18 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: org-doc
+# key: doc
+# binding: direct-keybinding
+# --
+#+TITLE: $1
+#+AUTHOR: Maximilian Kuschewski
+#+OPTIONS: toc:nil date:nil author:nil
+# Set the language and require babel to translate the latex pdf document.
+# Org mode automatically fills the language option for the babel package
+# to the language specified in the 'LAUNGUAGE' option.
+#+LANGUAGE: de-DE
+#+LATEX_HEADER: \usepackage[]{babel}
+# Use a custom page margin of 3cm
+#+LaTeX_HEADER:\usepackage[margin=3cm]{geometry}
+# Set the line spacing if necessary
+#+LaTeX_HEADER:\usepackage{setspace}
+# \onehalfspacing

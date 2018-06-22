@@ -16,13 +16,13 @@
 
 ** Delete `.elc` on save
 #+begin_src emacs-lisp
-  (defun remove-elc-on-save ()
-    "If you're saving an elisp file, likely the .elc is no longer valid."
-    (make-local-variable 'after-save-hook)
-    (add-hook 'after-save-hook
-              (lambda ()
-                (if (file-exists-p (concat buffer-file-name "c"))
-                    (delete-file (concat buffer-file-name "c"))))))
+(defun remove-elc-on-save ()
+  "If you're saving an elisp file, likely the .elc is no longer valid."
+  (make-local-variable 'after-save-hook)
+  (add-hook 'after-save-hook
+            (lambda ()
+              (if (file-exists-p (concat buffer-file-name "c"))
+                  (delete-file (concat buffer-file-name "c"))))))
 
 #+end_src
 
@@ -35,8 +35,9 @@ Add a forward slurping keybinding
 #+end_src
 ** :init
 Load it on all the lisps:
+(Replaced with parinfer)
 #+begin_src emacs-lisp
-(add-hook 'lisp-mode-hook #'enable-paredit-mode)
+;; (add-hook 'lisp-mode-hook #'enable-paredit-mode)
 #+end_src
 And when evaluating expressions (minibuffer)
 #+begin_src emacs-lisp
@@ -123,14 +124,24 @@ Improve cider
 (add-hook 'cider-repl-mode-hook 'enable-paredit-mode)
 (add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
 #+end_src
-**** :use-package clj-refactor
-***** :defer t
-***** :init
+**** use-package clj-refactor
+***** defer t
+***** init
 #+begin_src emacs-lisp
-(add-hook 'clojure-mode-hook (lambda ()
-                               (clj-refactor-mode 1)
-                               (cljr-add-keybindings-with-prefix "s-r")))
-
+;; (add-hook 'clojure-mode-hook (lambda ()
+;;                                (clj-refactor-mode 1)
+;;                                (cljr-add-keybindings-with-prefix "s-r")))
+#+end_src
+***** :config
+Add a keybinding use the mode-local leader keys as well
+#+begin_src emacs-lisp
+;; (defun call-cljr-interactively ()
+;;   (interactive)
+;;   (call-interactively (global-key-binding "s-r")))
+;; (fset 'clj-refactor-map-fn clj-refactor-map)
+;; (config/local-keys 'clojure-mode
+;;   "r" #'call-cljr-interactively
+;;   "R" #'clj-refactor-map-fn)
 #+end_src
 **** :use-package clojure-snippets
 ***** :defer t
@@ -147,37 +158,44 @@ Improve cider
 * use-package pixie-mode
 Not for now, it gives an error that the docstring is missing...
 ** defer t
-* use-package parinfer
-** ensure t
-** init
-# #+begin_src emacs-lisp
-#   (setq parinfer-extensions
-#         '(defaults        ; should be included.
-#            pretty-parens  ; different paren styles for different modes.
-#            evil           ; If you use Evil.
-#            paredit        ; Introduce some paredit commands.
-#            smart-tab      ; C-b & C-f jump positions and smart shift with tab & S-tab.
-#            smart-yank))   ; Yank behavior depend on mode.
-#
-#   (setq parinfer-major-mode-hooks '(clojure-mode-hook
-#                                     emacs-lisp-mode-hook
-#                                     common-lisp-mode-hook
-#                                     scheme-mode-hook
-#                                     lisp-mode-hook))
-#
-#   (setq parinfer-major-modes '(clojure-mode
-#                                emacs-lisp-mode
-#                                common-lisp-mode
-#                                scheme-mode
-#                                lisp-mode))
-#
-#   (mapc (lambda (m) (add-hook m #'parinfer-mode))
-#         parinfer-major-mode-hooks)
-#
-#   (mapc (lambda (m) (config/local-keys m
-#                          "," 'parinfer-toggle-mode))
-#         parinfer-major-modes)
-# #+end_src
+* :use-package parinfer
+** :ensure t
+** :init
+#+begin_src emacs-lisp
+(setq parinfer-extensions
+      '(defaults       ; should be included.
+         pretty-parens  ; different paren styles for different modes.
+         evil           ; If you use Evil.
+         paredit        ; Introduce some paredit commands.
+         smart-tab      ; C-b & C-f jump positions and smart shift with tab & S-tab.
+         smart-yank))   ; Yank behavior depend on mode.
+
+(setq parinfer-major-mode-hooks '(clojure-mode-hook
+                                  clojurescript-mode-hook
+                                  clojurec-mode-hook
+                                  emacs-lisp-mode-hook
+                                  common-lisp-mode-hook
+                                  scheme-mode-hook
+                                  lisp-mode-hook))
+
+(setq parinfer-major-modes '(clojure-mode
+                             clojurescript-mode
+                             clojurec-mode
+                             emacs-lisp-mode
+                             common-lisp-mode
+                             scheme-mode
+                             lisp-mode))
+
+(mapc (lambda (m) (add-hook m #'parinfer-mode))
+      parinfer-major-mode-hooks)
+
+(mapc (lambda (m) (config/local-keys m
+               "," 'parinfer-toggle-mode))
+      parinfer-major-modes)
+
+;; Use paren mode by default.
+(add-hook 'parinfer-mode-hook #'parinfer--switch-to-paren-mode)
+#+end_src
 * Emacs Lisp
 ** Keys
 Add a key to evaluate the buffer
@@ -227,16 +245,16 @@ Improve Tab and Enter:
 * Extensions :noexport:
 ** Paredit
 #+begin_src emacs-lisp
-  ;; (dolist (mode '(scheme emacs-lisp lisp clojure))
-  ;;   (when (> (display-color-cells) 8)
-  ;;     (font-lock-add-keywords (intern (concat (symbol-name mode) "-mode"))
-  ;;                             '(("(\\|)" . 'paren-face))))
-  ;;   (add-hook (intern (concat (symbol-name mode) "-mode-hook"))
-  ;;             'enable-paredit-mode)
-  ;;   (add-hook (intern (concat (symbol-name mode) "-mode-hook"))
-  ;;             'enable-paredit-mode))
+;; (dolist (mode '(scheme emacs-lisp lisp clojure))
+;;   (when (> (display-color-cells) 8)
+;;     (font-lock-add-keywords (intern (concat (symbol-name mode) "-mode"))
+;;                             '(("(\\|)" . 'paren-face))))
+;;   (add-hook (intern (concat (symbol-name mode) "-mode-hook"))
+;;             'enable-paredit-mode)
+;;   (add-hook (intern (concat (symbol-name mode) "-mode-hook"))
+;;             'enable-paredit-mode))
 #+end_src
 * Provide it
 #+begin_src emacs-lisp
-  (provide 'setup-lisp)
+(provide 'setup-lisp)
 #+end_src
