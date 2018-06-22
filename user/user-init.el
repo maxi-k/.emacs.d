@@ -49,10 +49,12 @@
                setup-deft
                setup-which-key
                setup-engine-mode
+               setup-eshell
                ))
 
 ;; Load the machine-local setup if present
 (when (has-local-config)
-  (require 'setup-local))
+  (require 'setup-local)
+  (require 'netlogo-mode))
 
 (provide 'user-init)

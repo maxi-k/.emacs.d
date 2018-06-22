@@ -67,6 +67,8 @@ Show documentation for given function in a company-style popup
 * Languages
 ** :use-package swift-mode
 *** :defer t
+** :use-package arduino-mode
+** :use-package company-arduino
 * Setups for single modes
 Require the mode-specific setup files that configure programming-modes:
 #+begin_src emacs-lisp

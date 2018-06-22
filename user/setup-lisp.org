@@ -124,13 +124,13 @@ Improve cider
 (add-hook 'cider-repl-mode-hook 'enable-paredit-mode)
 (add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
 #+end_src
-**** :use-package clj-refactor
-***** :defer t
-***** :init
+**** use-package clj-refactor
+***** defer t
+***** init
 #+begin_src emacs-lisp
-(add-hook 'clojure-mode-hook (lambda ()
-                               (clj-refactor-mode 1)
-                               (cljr-add-keybindings-with-prefix "s-r")))
+;; (add-hook 'clojure-mode-hook (lambda ()
+;;                                (clj-refactor-mode 1)
+;;                                (cljr-add-keybindings-with-prefix "s-r")))
 
 #+end_src
 **** :use-package clojure-snippets
@@ -182,6 +182,9 @@ Not for now, it gives an error that the docstring is missing...
 (mapc (lambda (m) (config/local-keys m
                "," 'parinfer-toggle-mode))
       parinfer-major-modes)
+
+;; Use paren mode by default.
+(add-hook 'parinfer-mode-hook #'parinfer--switch-to-paren-mode)
 #+end_src
 * Emacs Lisp
 ** Keys

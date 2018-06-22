@@ -7,6 +7,10 @@
 ** :defer t
 * :use-package restclient
 ** :defer t
+** :mode
+#+begin_src emacs-lisp
+("\\.restclient\\'" . restclient-mode)
+#+end_src
 * :use-package skewer-mode
 Skewer: Interactive js-repl using browser-connection
 ** :defer t
@@ -26,10 +30,10 @@ Don't warn on semicolons (Ecmascript 6)
 #+begin_src emacs-lisp
 (setq js2-strict-missing-semi-warning nil)
 #+end_src
-*** :use-package jsx-mode
+*** :use-package rjsx-mode
 **** :mode
 #+begin_src emacs-lisp
-("\\.jsx\\'" . js2-jsx-mode)
+("\\.jsx\\'" . rjsx-mode)
 #+end_src
 ** :mode
 #+begin_src emacs-lisp
@@ -37,6 +41,19 @@ Don't warn on semicolons (Ecmascript 6)
 #+end_src
 * :use-package elm-mode
 ** :defer t
+** :config
+#+begin_src emacs-lisp
+(config/local-keys 'elm-mode
+  "," 'elm-mode-format-buffer
+  "t" 'elm-oracle-type-at-point
+  "T" 'elm-compile-add-annotations
+  "d" 'elm-oracle-doc-at-point
+  "r" 'elm-repl-load
+  "p" 'elm-preview-buffer
+  "i" 'elm-compile-clean-imports
+  )
+#+end_src
+
 * :use-package lorem-ipsum
 ** :defer t
 * :use-package impatient-mode
@@ -80,6 +97,8 @@ Emmet: Quick <tag> generation with nice syntax
 * :use-package yaml-mode
 ** :defer t
 ** :mode "\\.yml\\'"
+* :use-package reason-mode
+** :defer t
 * Provide it
 #+begin_src emacs-lisp
 (provide 'setup-web)
