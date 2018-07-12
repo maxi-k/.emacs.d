@@ -8,6 +8,8 @@
 Set the style to the linux kernel coding style.
 #+begin_src emacs-lisp
 ;; Or not
+(setq c-default-style "linux"
+      c-basic-offset 4)
 #+end_src
 * Provide it
 #+begin_src emacs-lisp
