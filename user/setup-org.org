@@ -207,8 +207,8 @@ timer to check the agenda and remind me of stuff:
 ***** :defer t
 **** :use-package ox-mediawiki
 ***** :defer t
-**** :use-package ox-reveal
-***** :defer t
+**** use-package ox-reveal
+***** defer t
 **** :use-package ox-twbs
 ***** :defer t
 **** Org-Confluence

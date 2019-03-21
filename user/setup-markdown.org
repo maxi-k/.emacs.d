@@ -5,6 +5,12 @@
 
 * :use-package markdown-mode
 ** :defer t
+** :mode
+#+begin_src emacs-lisp
+("\\.apib?\\'" . markdown-mode)
+("\\.md?\\'" . markdown-mode)
+("\\.markdown?\\'" . markdown-mode)
+#+end_src
 ** :config
 #+begin_src emacs-lisp
 (setq markdown-command (executable-find "pandoc"))

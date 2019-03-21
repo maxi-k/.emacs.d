@@ -44,6 +44,9 @@ Autocompletion / Suggestions with support for various backends
 Add a hook to any programming-language-mode for company
 #+begin_src emacs-lisp
 (add-hook 'prog-mode-hook #'company-mode)
+
+;; aligns annotation to the right hand side
+(setq company-tooltip-align-annotations t)
 #+end_src
 ** :config
 *** :use-package company-quickhelp
@@ -69,6 +72,12 @@ Show documentation for given function in a company-style popup
 *** :defer t
 ** :use-package arduino-mode
 ** :use-package company-arduino
+** :use-package kotlin-mode
+*** :defer t
+*** :mode
+#+begin_src emacs-lisp
+("\\.kt\\'" . kotlin-mode)
+#+end_src
 * Setups for single modes
 Require the mode-specific setup files that configure programming-modes:
 #+begin_src emacs-lisp
