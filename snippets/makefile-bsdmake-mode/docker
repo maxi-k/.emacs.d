@@ -1,0 +1,27 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Docker Makefile
+# key: docker
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# --
+.PHONY: list
+list: # List available tasks
+	@$(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$'
+
+# DOCKER STUFF
+docker-rebuild:
+	docker-compose up --build
+
+docker-stop:
+	docker-compose stop
+
+docker-run:
+	docker-compose up
+
+docker-run-detached:
+	docker-compose up -d
+
+docker-list:
+	docker-compose ps
+
+docker-cmd:
+        docker exec -i -t $(container) /bin/bash

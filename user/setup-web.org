@@ -143,6 +143,7 @@ Emmet: Quick <tag> generation with nice syntax
 ** :mode "\\.yml\\'"
 * :use-package reason-mode
 ** :defer t
+* :use-package swagger-to-org
 * Provide it
 #+begin_src emacs-lisp
 (provide 'setup-web)
