@@ -1,10 +1,15 @@
 #+TITLE: Setup Elixir
 #+DESCRIPTION: Set up elixir mode and others for working with elixir
 #+AUTHOR: Maximilian Kuschewski
-#+PROPERTY: my-file-type emacs-config
+#+PROPERTY: my-file-type emacs-config-package
 
 * :use-package elixir-mode
 ** :defer t
+** :mode
+#+begin_src emacs-lisp
+("\\.ex\\'" . elixir-mode)
+("\\.exs\\'" . elixir-mode)
+#+end_src
 ** :config
 #+begin_src emacs-lisp
 (defun show-alchemist-keymap ()
@@ -18,9 +23,8 @@
 (add-hook 'elixir-mode-hook #'alchemist-mode)
 #+end_src
 ** :init
-*** Plugins
-**** :use-package elixir-yasnippets
-**** :use-package alchemist
+*** :use-package elixir-yasnippets
+*** :use-package alchemist
 ***** :init
 #+begin_src emacs-lisp
 (config/local-keys 'alchemist-mode
