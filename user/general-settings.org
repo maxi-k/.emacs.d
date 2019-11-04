@@ -39,7 +39,7 @@
  'after-init-hook
  (lambda ()
    ;; Use the right ispell version, if it exists
-   (let ((path (executable-find "ispell")))
+   (let ((path (executable-find "aspell")))
      (when (and path (file-exists-p path))
        (setq ispell-program-name path)))
 
