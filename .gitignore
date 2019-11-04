@@ -1,3 +1,5 @@
+.DS_Store
+
 data/
 games/
 smex-items
@@ -10,9 +12,11 @@ bookmarks
 transient/
 elpa/
 eshell/
-.DS_Store
+irony/
+backups/
+
+abbrev_defs
 auto-save-list
-backups
 notes
 tramp
 url
