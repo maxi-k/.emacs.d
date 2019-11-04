@@ -61,7 +61,7 @@ Load more languages for org-babel
  (lambda ()
    (org-babel-do-load-languages
     'org-babel-load-languages
-    '(;;(bash       . t)
+    '((shell      . t)
       (js         . t)
       (emacs-lisp . t)
       (perl       . t)
@@ -158,6 +158,7 @@ Evil-leader bindings:
   "d" 'org-toggle-timestamp-type
   "c" 'org-ctrl-c-ctrl-c
   "e" 'org-export-dispatch
+  "q" 'org-set-tags-command
   "x" (lambda () "c-u-ctrl-c-c" (interactive)
         (org-call-with-arg 'org-ctrl-c-ctrl-c '(4))))
 #+end_src
