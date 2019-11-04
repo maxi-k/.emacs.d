@@ -11,6 +11,25 @@ Set the style to the linux kernel coding style.
 (setq c-default-style "linux"
       c-basic-offset 2)
 #+end_src
+* CMake
+** :use-package cmake-ide
+*** :init
+#+begin_src emacs-lisp
+(cmake-ide-setup)
+(setq cmake-ide-build-pool-dir "/tmp/cmake")
+(setq cmake-ide-build-pool-use-persistent-naming 't)
+#+end_src
+**** :use-package company-cmake
+**** :use-package irony-server
+***** :init
+#+begin_src emacs-lisp
+(condition-case err
+    (irony--find-server-executable)
+  (irony-server-error
+   (interactive
+    (irony-install-server))))
+#+end_src
+
 * Provide it
 #+begin_src emacs-lisp
 (provide 'setup-c)
