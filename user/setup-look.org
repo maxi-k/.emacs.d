@@ -161,7 +161,16 @@ Change the fringe color to match the background color of the editor
 (global-whitespace-mode)
 #+end_src
 
-** Highlight cursor line
+** Cursor
+By default, emacs uses a "very visible cursor" (from [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Cursor-Display.html][the emacs
+manual]]).
+This might lead to the cursor blinking in some terminals, even though
+=blink-cursor-mode= is turned off.
+We don't want blinking, ever. So turn the visible cursor off:
+#+begin_src emacs-lisp
+(setq visible-cursor nil)
+#+end_src
+
 Highlight the line the cursor is currently on
 #+begin_src emacs-lisp
 (add-hook 'window-setup-hook #'global-hl-line-mode)
