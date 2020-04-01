@@ -212,6 +212,9 @@ timer to check the agenda and remind me of stuff:
 ***** defer t
 **** :use-package ox-twbs
 ***** :defer t
+**** :use-package ob-async
+Async code execution using the =:async= source block parameter.
+***** :defer t
 **** Org-Confluence
 Org-Confluence allows you to export a file to confluence markup. It was not
 available on elpa last time I checked.
