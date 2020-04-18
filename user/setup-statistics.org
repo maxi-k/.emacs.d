@@ -1,0 +1,15 @@
+#+TITLE: Setup Statistics
+#+DESCRIPTION: Setup packages for data analysis and statistical programming.
+#+AUTHOR: Maximilian Kuschewski
+#+PROPERTY: my-file-type emacs-config-package
+
+* :use-package ess
+** :defer t
+** :config
+*** :use-package ess-R-data-view
+**** :defer t
+
+* Provide it
+#+begin_src emacs-lisp
+(provide 'setup-statistics)
+#+end_src
