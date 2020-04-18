@@ -47,6 +47,8 @@ Add a hook to any programming-language-mode for company
 
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
+
+(setq company-idle-delay 0.05)
 #+end_src
 ** :config
 *** :use-package company-quickhelp
@@ -105,6 +107,7 @@ Require the mode-specific setup files that configure programming-modes:
      setup-lisp
      setup-markdown
      setup-haskell
+     setup-statistics
      setup-web
      ))
 #+end_src
