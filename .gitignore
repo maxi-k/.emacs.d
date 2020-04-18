@@ -9,6 +9,8 @@ projectile.cache
 skewer-cache/
 bookmarks
 
+.org-id-locations
+recentf
 transient/
 elpa/
 eshell/
