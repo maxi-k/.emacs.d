@@ -65,6 +65,9 @@ Load more languages for org-babel
       (js         . t)
       (emacs-lisp . t)
       (perl       . t)
+      (python     . t)
+      (C          . t)
+      (R          . t)
       ;; (scala      . t)
       ;; (clojure    . t)
       ;; (python     . t)
@@ -223,6 +226,10 @@ available on elpa last time I checked.
 #+begin_src emacs-lisp
 ;; Change per-file with #+BIND: org-confluence-src-block-theme "Emacs"
 (setq org-confluence-src-block-theme "Default")
+#+end_src
+**** Ox-ipnb
+#+begin_src emacs-lisp
+(require 'ox-ipynb)
 #+end_src
 *** Looks
 **** Org Bullets
