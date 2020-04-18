@@ -23,11 +23,11 @@ Set the style to the linux kernel coding style.
 **** :use-package irony-server
 ***** :init
 #+begin_src emacs-lisp
-(condition-case err
-    (irony--find-server-executable)
-  (irony-server-error
-   (interactive
-    (irony-install-server))))
+;;  (condition-case err
+;;      (irony--find-server-executable)
+;;    (irony-server-error
+;;     (interactive
+;;      (irony-install-server))))
 #+end_src
 
 * Provide it
