@@ -5,11 +5,11 @@
 # --
 #+TITLE: $1
 #+AUTHOR: Maximilian Kuschewski
-#+OPTIONS: toc:nil date:nil author:nil
+#+OPTIONS: toc:nil date:nil author:nil num:nil
 # Set the language and require babel to translate the latex pdf document.
 # Org mode automatically fills the language option for the babel package
 # to the language specified in the 'LAUNGUAGE' option.
-#+LANGUAGE: de-DE
+#+LANGUAGE: en-US
 #+LATEX_HEADER: \usepackage[]{babel}
 # Use a custom page margin of 3cm
 #+LaTeX_HEADER:\usepackage[margin=3cm]{geometry}
