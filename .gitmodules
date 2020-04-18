@@ -44,3 +44,6 @@
 [submodule "themes/emacs-bleak-theme"]
 	path = themes/emacs-bleak-theme
 	url = https://github.com/maxi-k/emacs-bleak-theme.git
+[submodule "user/plugins/ox-ipynb"]
+	path = user/plugins/ox-ipynb
+	url = https://github.com/jkitchin/ox-ipynb
