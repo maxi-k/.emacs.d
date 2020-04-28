@@ -42,6 +42,16 @@
 ;; The [/] cookie should look for entries in subtrees also
 (setq org-hierarchical-todo-statistics nil)
 #+end_src
+
+Movement to headlines using =org-goto=, which is configured to be
+similar to imenu:
+#+begin_src emacs-lisp
+;; Use a completion interface
+(setq org-goto-interface 'outline-path-completionp)
+;; Show headlines on all levels
+(setq org-outline-path-complete-in-steps nil)
+#+end_src
+
 *** Latex
 #+begin_src emacs-lisp
 ;; (require 'ox-latex)
@@ -74,7 +84,8 @@ Load more languages for org-babel
       ;; (ruby       . t)
       ;; (dot        . t)
       (css        . t)
-      (plantuml   . t)))))
+      (plantuml   . t)))
+   (require 'ob-session-async-R)))
 #+end_src
 
 Don't ask before evaluating code snippets
@@ -157,6 +168,7 @@ Evil-leader bindings:
   "A" 'org-remove-file
   "t" (config/hydra hydra/org/todo (:pre (org-todo) :color red)
         ("t" org-todo "Toggle Todo"))
+  "g" 'org-goto
   "p" 'org-priority
   "d" 'org-toggle-timestamp-type
   "c" 'org-ctrl-c-ctrl-c

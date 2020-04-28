@@ -1,6 +1,7 @@
 (let ((default-directory (concat user-emacs-directory "user/")))
   (normal-top-level-add-subdirs-to-load-path)
-  (setq emacs-config/dir default-directory))
+  (setq emacs-config/dir default-directory)
+  (add-to-list 'load-path (concat default-directory "plugins/ob-session-async/lisp/")))
 
 (use-package emacs-config
   :load-path "user/emacs-config/"
@@ -54,7 +55,7 @@
 
 ;; Load the machine-local setup if present
 (when (has-local-config)
-  (require 'setup-local)
-  (require 'netlogo-mode))
+  (require 'setup-local))
+
 
 (provide 'user-init)
