@@ -80,22 +80,31 @@ Show documentation for given function in a company-style popup
 #+begin_src emacs-lisp
 ("\\.kt\\'" . kotlin-mode)
 #+end_src
-** :use-package rust-mode
+** :use-package rustic
 *** :defer t
 *** :mode
 #+begin_src emacs-lisp
 ("\\.rs\\'" . rust-mode)
 #+end_src
 *** :init
-**** :use-package flycheck-rust
-**** :use-package flymake-rust
-**** :use-package racer
+**** :use-package company-racer
+***** :defer t
+**** :use-package lsp-mode
+***** :defer t
 *** :config
+**** Activate important modes
 #+begin_src emacs-lisp
 (racer-mode +1)
 (company-mode +1)
 (eldoc-mode +1)
 (flycheck-mode +1)
+#+end_src
+**** Set up local keys
+#+begin_src emacs-lisp
+(config/local-keys 'rustic-mode
+  "d" 'lsp-find-definition
+  "f" 'rustic-format-buffer
+  "?" 'lsp-describe-thing-at-point)
 #+end_src
 * Setups for single modes
 Require the mode-specific setup files that configure programming-modes:
