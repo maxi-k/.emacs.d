@@ -7,12 +7,12 @@ Set up Project Management with Projectile and Perspective
 * :use-package projectile
 Projectile should be accessible from everywhere, even if there's no apparent
 project root:
-** :defer 5
+** :defer
 ** :init
 Bind global-leader-p to the projectile command map:
 #+begin_src emacs-lisp
 (config/global-keys
-  "p" #'projectile-command-map)
+  "p" 'projectile-command-map)
 
 (config/declare-feature-space "p" "Search Project" :search-project :search)
 #+end_src

@@ -3,7 +3,8 @@
 #+AUTHOR: Maximilian Kuschewski
 #+PROPERTY: my-file-type emacs-config
 
-* Hydra
+* Packages
+** Hydra
 [[https://github.com/abo-abo/hydra][Hydra]] is awesome!
 #+begin_src emacs-lisp
   (use-package hydra
@@ -11,6 +12,27 @@
     (put 'config/hydra 'lisp-indent-function 'defun))
   (defmacro config/hydra (&rest args)
     `(defhydra ,@args))
+#+end_src
+
+** :use-package which-key
+After entering a prefix key, which-key shows which keys can be pressed
+afterwards and gives descriptions for them (most of the time).
+*** :defer t
+*** :config
+The timer before =which-key= kicks in defaults to 1.0. Decrease that.
+#+begin_src emacs-lisp
+(setq which-key-idle-delay 0.5)
+#+end_src
+
+Note: =C-h= does not work for paging because in this configuration it is set to
+delete backwards (See: [[setup-editing.org]]). I have to use backspace instead.
+#+begin_src emacs-lisp
+
+#+end_src
+*** :init
+Activate it globally
+#+begin_src emacs-lisp
+(which-key-mode)
 #+end_src
 
 * Leader Keys

@@ -4,7 +4,6 @@
 #+PROPERTY: my-file-type emacs-config-package
 
 * :use-package helm
-** :defer 4
 ** :bind
 Helm mini can be quite useful
 #+begin_src emacs-lisp
@@ -51,11 +50,6 @@ Instead, enable it selectively:
 (setq helm-buffers-fuzzy-matching t)
 (setq helm-recentf-fuzzy-match t)
 #+end_src
-*** Activate it
-Enable helm everywhere:
-#+begin_src emacs-lisp
-(helm-mode)
-#+end_src
 ** :init
 Use =helm-M-x= instead of =execute-extended-command= on the global leader key
 after helm is loaded.
@@ -71,9 +65,15 @@ Add helm-mini as an application
   "m" 'helm-mini)
 #+end_src
 
+*** Activate it
+Enable helm everywhere:
+#+begin_src emacs-lisp
+(helm-mode)
+#+end_src
+
 *** Plugins
 **** :use-package helm-projectile
-***** :defer 5
+***** :defer t
 ***** :bind
 Use cmd-o to find any file in the current project
 #+begin_src emacs-lisp
@@ -112,17 +112,11 @@ Add a global leader key for it
 (config/global-keys "d" 'helm-dash-at-point)
 #+end_src
 **** :use-package helm-descbinds
-***** :defer 7
+***** :defer t
 ***** :init
 #+begin_src emacs-lisp
 (config/global-keys
   "?" 'helm-descbinds)
-#+end_src
-**** :use-package helm-itunes
-***** :defer t
-***** :init
-#+begin_src emacs-lisp
-(config/provide-feature :app "i" 'helm-itunes)
 #+end_src
 * Provide it
 #+begin_src emacs-lisp
