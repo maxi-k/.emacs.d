@@ -29,10 +29,11 @@
 ;; Specific Setups
 ;; Bootstrap some stuff that every config file can rely on
 (require-all '(bootstrap
+               setup-system ;; No Packages
                setup-evil-mode
+               setup-helm
                setup-look
                setup-PATH ;; No Packages
-               setup-system ;; No Packages
                setup-keys ;; No Packages
                setup-buffers-windows ;; No Packages
                setup-movement
@@ -43,12 +44,10 @@
 
 ;; Mode-specific setups
 (require-all '(setup-git
-               setup-helm
                setup-text-mode
                setup-programming
                setup-org
                setup-deft
-               setup-which-key
                setup-engine-mode
                setup-eshell
                ))
