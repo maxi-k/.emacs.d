@@ -30,6 +30,7 @@ to the exec-path after init is done
 #+begin_src emacs-lisp
   (add-hook 'after-init-hook
             (lambda ()
+              (set-exec-path-from-shell-PATH)
               (delete-dups (add-PATH-to-exec-path))))
 #+end_src
 * Provide it
