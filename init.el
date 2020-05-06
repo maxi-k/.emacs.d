@@ -11,6 +11,7 @@
 ;; ;; Add the package archives
 (add-to-list 'package-archives '("melpa" . "https://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
+(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
 
 
 (defun list-network-connections ()
