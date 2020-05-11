@@ -8,6 +8,7 @@
       (hl "#D4EDFF")
       (cursor "red")
       (line-hl "#F7F7F7")
+      (block-hl "#FAFAFA")
       (string "#036DD0")
       (light-gray "#E6E6E6")
       (medium-gray "#7F7F7F")
@@ -51,6 +52,11 @@
    `(powerline-active1 ((t (:background ,dark-gray))))
    `(powerline-active2 ((t (:background ,medium-gray))))
    `(mode-line-inactive ((t (:background ,medium-gray :foreground ,light-gray))))
-   `(mode-line ((t (:background ,dark-gray :foreground ,light-gray))))))
+   `(mode-line ((t (:background ,dark-gray :foreground ,light-gray))))
+
+   `(org-block-begin-line ((t (:foreground ,fg :background ,light-gray))))
+   `(org-block ((t (:background ,block-hl))))
+   `(org-block-end-line ((t (:foreground ,fg :background ,light-gray))))
+   ))
 
 (provide-theme 'my-light)
