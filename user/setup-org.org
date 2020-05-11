@@ -261,6 +261,7 @@ Setup bigger fonts instead of lots of colors for headings and more:
 (defun do-beautify-org (&optional theme)
   (unless (featurep 'org-beautify-theme)
     (package-install 'org-beautify-theme))
+  (setq org-beautify-theme-use-box-hack nil)
   (ignore-errors (require 'org-beautify-theme))
   ;; Toggle bullets-mode twice so it recognizes the theme.
   ;; This is quite weird, but it works
