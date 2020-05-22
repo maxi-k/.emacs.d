@@ -87,6 +87,13 @@ Show documentation for given function in a company-style popup
 ("\\.rs\\'" . rust-mode)
 #+end_src
 *** :init
+**** :use-package racer
+***** :defer t
+***** :init
+#+begin_src emacs-lisp
+(add-hook 'rust-mode-hook #'racer-mode)
+(add-hook 'racer-mode-hook #'eldoc-mode)
+#+end_src
 **** :use-package company-racer
 ***** :defer t
 **** :use-package lsp-mode
