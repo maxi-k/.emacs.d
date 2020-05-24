@@ -48,7 +48,7 @@ Add a hook to any programming-language-mode for company
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
 
-(setq company-idle-delay 0.05)
+(setq company-idle-delay 0.2)
 #+end_src
 ** :config
 *** :use-package company-quickhelp
@@ -87,6 +87,9 @@ Show documentation for given function in a company-style popup
 ("\\.rs\\'" . rust-mode)
 #+end_src
 *** :init
+#+begin_src emacs-lisp
+(add-hook  bv
+#+end_src
 **** :use-package racer
 ***** :defer t
 ***** :init
@@ -94,15 +97,16 @@ Show documentation for given function in a company-style popup
 (add-hook 'rust-mode-hook #'racer-mode)
 (add-hook 'racer-mode-hook #'eldoc-mode)
 #+end_src
-**** :use-package company-racer
-***** :defer t
+***** :hook
+#+begin_src emacs-lisp
+(rustic-mode)
+#+end_src
 **** :use-package lsp-mode
 ***** :defer t
 *** :config
 **** Activate important modes
 #+begin_src emacs-lisp
 (racer-mode +1)
-(company-mode +1)
 (eldoc-mode +1)
 (flycheck-mode +1)
 #+end_src
