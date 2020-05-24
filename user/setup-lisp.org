@@ -121,8 +121,6 @@ Improve cider
 
 (add-hook 'cider-mode-hook 'cider-eldoc)
 (add-hook 'cider-repl-mode-hook 'subword-mode)
-(add-hook 'cider-repl-mode-hook 'enable-paredit-mode)
-(add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
 #+end_src
 **** use-package clj-refactor
 ***** defer t
@@ -153,11 +151,6 @@ Add a keybinding use the mode-local leader keys as well
 ** :defer t
 ** :config
 *** :use-package elisp-slime-nav
-* :use-package racket-mode
-** :defer t
-* use-package pixie-mode
-Not for now, it gives an error that the docstring is missing...
-** defer t
 * :use-package parinfer
 ** :ensure t
 ** :init

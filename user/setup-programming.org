@@ -11,13 +11,13 @@ Don't to autocomplete for now - it slows down writing quite a bit
 * :use-package flycheck
 ** :defer t
 * :use-package rainbow-delimiters
-** :defer t
 ** :init
 #+begin_src emacs-lisp
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 #+end_src
+** :init
 *** :use-package rainbow-identifiers
-
+**** :defer t
 * :use-package quickrun
 Quickrun can 'run' any (most) buffers - useful for developing bigger chunks of
 code in a buffer, which quickrun turns into a kinda-repl
@@ -79,43 +79,6 @@ Show documentation for given function in a company-style popup
 *** :mode
 #+begin_src emacs-lisp
 ("\\.kt\\'" . kotlin-mode)
-#+end_src
-** :use-package rustic
-*** :defer t
-*** :mode
-#+begin_src emacs-lisp
-("\\.rs\\'" . rust-mode)
-#+end_src
-*** :init
-#+begin_src emacs-lisp
-(add-hook  bv
-#+end_src
-**** :use-package racer
-***** :defer t
-***** :init
-#+begin_src emacs-lisp
-(add-hook 'rust-mode-hook #'racer-mode)
-(add-hook 'racer-mode-hook #'eldoc-mode)
-#+end_src
-***** :hook
-#+begin_src emacs-lisp
-(rustic-mode)
-#+end_src
-**** :use-package lsp-mode
-***** :defer t
-*** :config
-**** Activate important modes
-#+begin_src emacs-lisp
-(racer-mode +1)
-(eldoc-mode +1)
-(flycheck-mode +1)
-#+end_src
-**** Set up local keys
-#+begin_src emacs-lisp
-(config/local-keys 'rustic-mode
-  "d" 'lsp-find-definition
-  "f" 'rustic-format-buffer
-  "?" 'lsp-describe-thing-at-point)
 #+end_src
 * Setups for single modes
 Require the mode-specific setup files that configure programming-modes:

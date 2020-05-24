@@ -1,7 +1,7 @@
 #+TITLE: Setup buffers
 #+DESCRIPTION: Setup buffer movement, killing, initial-buffers etc
 #+AUTHOR: Maximilian Kuschewski
-#+PROPERTY: my-file-type emacs-config
+#+PROPERTY: my-file-type emacs-config-package
 
 * Initial Buffers
 Set the initial buffer choice to the remember-notes buffer, which is persisted
@@ -20,6 +20,7 @@ Fix C-c C-c being bound to bury-buffer instead of org-mode stuff
 ** :use-package golden-ratio
 Golden Ration always keeps the current window at a nice size to work
 in, while keeping the content of other windows readable.
+*** :demand t
 *** :init
 #+begin_src emacs-lisp
 (golden-ratio-mode 1)

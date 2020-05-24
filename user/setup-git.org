@@ -3,14 +3,11 @@
 #+AUTHOR: Maximilian Kuschewski
 #+PROPERTY: my-file-type emacs-config-package
 
+* :use-package transient
+** :defer t
 * :use-package magit
 ** :defer t
 ** :init
-This is the last version magit gave me setup instructions:
-#+begin_src emacs-lisp
-(setq magit-last-seen-setup-instructions "1.4.0")
-#+end_src
-
 Bind magit in the global leader map:
 #+begin_src emacs-lisp
 (config/provide-feature :app "g" 'magit-status)

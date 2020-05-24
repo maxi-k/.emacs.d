@@ -217,8 +217,12 @@ timer to check the agenda and remind me of stuff:
 #+end_src
 ***** :defer t
 
-**** :use-package org-bullets
+**** :use-package org-superstar
 ***** :defer t
+***** :init
+#+begin_src emacs-lisp
+(add-hook 'org-mode-hook #'org-superstar-mode)
+#+end_src
 **** :use-package ox-gfm
 ***** :defer t
 **** :use-package ox-mediawiki
@@ -247,23 +251,19 @@ available on elpa last time I checked.
 (require 'ox-ipynb)
 #+end_src
 *** Looks
-**** Org Bullets
-   #+begin_src emacs-lisp
-;; Make the bullets look nicer
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-   #+end_src
-
 **** Org Beautify Theme
 Setup bigger fonts instead of lots of colors for headings and more:
 #+begin_src emacs-lisp
 (defun do-beautify-org (&optional theme)
   (unless (featurep 'org-beautify-theme)
     (package-install 'org-beautify-theme))
-  (ignore-errors (require 'org-beautify-theme))
+  (ignore-errors
+    (setq org-beautify-theme-use-box-hack nil)
+    (require 'org-beautify-theme)
+    )
   ;; Toggle bullets-mode twice so it recognizes the theme.
   ;; This is quite weird, but it works
-  (org-bullets-mode)
-  (org-bullets-mode))
+  (org-superstar-mode))
 
 (advice-add 'load-theme :after #'do-beautify-org)
 #+end_src
