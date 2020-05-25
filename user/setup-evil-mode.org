@@ -44,7 +44,9 @@ However, in some cases, other initial states are better:
         (cider-stacktrace-mode . emacs)
         (rustic-popup-mode . emacs)
         (undo-tree-visualizer-mode . emacs)
-        (dired-mode . emacs)))
+        (dired-mode . emacs)
+        (ess-r-help-mode . motion)
+        ))
 #+end_src
 *** Plugins
 **** :use-package evil-nerd-commenter

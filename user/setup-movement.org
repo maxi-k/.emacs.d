@@ -50,6 +50,9 @@ Bind 'j' plus some some subkeys on the global-leader map
 (config/provide-feature :movement
   "j" 'avy-goto-char
   "w" 'avy-goto-word-or-subword-1)
+
+(config/global-keys
+  "m" 'avy-goto-word-or-subword-1)
 #+end_src
 * :use-package iy-go-to-char
 Go to the next/previous occurrence of the a character more easily.

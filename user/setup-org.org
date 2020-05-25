@@ -175,7 +175,9 @@ Evil-leader bindings:
   "e" 'org-export-dispatch
   "q" 'org-set-tags-command
   "x" (lambda () "c-u-ctrl-c-c" (interactive)
-        (org-call-with-arg 'org-ctrl-c-ctrl-c '(4))))
+        (org-call-with-arg 'org-ctrl-c-ctrl-c '(4)))
+  "s" 'org-babel-switch-to-session
+  "S" 'org-babel-switch-to-session-with-code)
 #+end_src
 
 Key bindings for org-agenda mode

@@ -8,6 +8,12 @@
 ** :config
 *** :use-package ess-R-data-view
 **** :defer t
+** :init
+Add some mode-local key bindings for ess-r-mode.
+#+begin_src emacs-lisp
+(config/local-keys 'ess-r-mode
+  "?" 'ess-display-help-on-object)
+#+end_src
 
 * Provide it
 #+begin_src emacs-lisp
