@@ -68,8 +68,20 @@ Show documentation for given function in a company-style popup
 (setq outshine-use-speed-commands t)
 (add-hook 'outline-minor-mode-hook 'outshine-hook-function)
 #+end_src
-
 * Languages
+** :use-package lsp-mode
+The language server protocol can (and should) be used by any language
+specific mode to provide auto-completion, highlighting etc.
+*** :defer t
+*** :init
+#+begin_src emacs-lisp
+(config/global-keys
+  "l" 'lsp-command-map)
+
+#+end_src
+**** :use-package lsp-ui
+Lsp-UI can be used to display information about the code in the ui
+***** :defer t
 ** :use-package swift-mode
 *** :defer t
 ** :use-package arduino-mode
@@ -80,6 +92,46 @@ Show documentation for given function in a company-style popup
 #+begin_src emacs-lisp
 ("\\.kt\\'" . kotlin-mode)
 #+end_src
+** :use-package rustic
+*** :init
+Use the default client provided by `lsp-mode', not the one rustic-mode sets up.
+#+begin_src emacs-lisp
+(setq rustic-lsp-server 'rust-analyzer)
+#+end_src
+
+Disable the flycheck error display in the mode-line, it's distracting.
+#+begin_src emacs-lisp
+(setq rustic-flycheck-setup-mode-line-p nil)
+#+end_src
+
+*** :hook
+#+begin_src emacs-lisp
+((rustic-mode . (lambda ()
+                  (when (functionp 'lsp-ui-mode)
+                    (lsp-ui-doc-mode)
+                    (lsp-ui-sideline-mode)
+                    (lsp-ui-sideline-toggle-symbols-info))
+                  (company-mode))))
+#+end_src
+*** :config
+Some more configuration settings
+#+begin_src emacs-lisp
+(setq rust-indent-method-chain t)
+(setq rustic-format-on-save t)
+(setq rustic-format-display-method #'display-buffer-at-bottom)
+#+end_src
+
+Set up mode-local keys
+#+begin_src emacs-lisp
+(config/local-keys 'rustic-mode
+  "," 'rustic-popup
+  "d" 'lsp-find-definition
+  "r" 'lsp-find-references
+  "i" 'lsp-find-implementation
+  "h" 'lsp-describe-thing-at-point
+  "o" 'lsp-organize-imports)
+#+end_src
+
 * Setups for single modes
 Require the mode-specific setup files that configure programming-modes:
 #+begin_src emacs-lisp
