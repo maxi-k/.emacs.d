@@ -20,6 +20,12 @@
 ;; (setq gofmt-command "goimports")
 (add-hook 'before-save-hook #'gofmt-before-save)
 #+end_src
+*** :use-package go-imenu
+**** :init
+#+begin_src emacs-lisp
+(add-hook 'go-mode-hook 'go-imenu-setup)
+#+end_src
+
 
 * Provide it
 #+begin_src emacs-lisp
