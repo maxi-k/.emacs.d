@@ -1,7 +1,7 @@
 #+TITLE: Setup C
 #+DESCRIPTION: Setup C mode and C-specific settings
 #+AUTHOR: Maximilian Kuschewski
-#+PROPERTY: my-file-type emacs-config
+#+PROPERTY: my-file-type emacs-config-package
 
 * Settings
 ** Coding-Style
@@ -11,23 +11,28 @@ Set the style to the linux kernel coding style.
 (setq c-default-style "linux"
       c-basic-offset 2)
 #+end_src
-* CMake
-** :use-package cmake-ide
-*** :init
+* :use-package ccls
+[[https://github.com/MaskRay/ccls][ccls]] is a c++ language server, and there is an emacs plugin for it.
+** :ensure t
+** :config
+Tell ccls-mode where the ccls executable is.
 #+begin_src emacs-lisp
-(cmake-ide-setup)
-(setq cmake-ide-build-pool-dir "/tmp/cmake")
-(setq cmake-ide-build-pool-use-persistent-naming 't)
+(setq ccls-executable "/usr/local/bin/ccls")
 #+end_src
-**** :use-package company-cmake
-**** :use-package irony-server
-***** :init
+
+Set the flycheck options correctly.
 #+begin_src emacs-lisp
-;;  (condition-case err
-;;      (irony--find-server-executable)
-;;    (irony-server-error
-;;     (interactive
-;;      (irony-install-server))))
+(setq lsp-prefer-flymake nil)
+(setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-cppcheck c/c++-gcc))
+#+end_src
+
+Bind some keys
+#+begin_src emacs-lisp
+
+#+end_src
+** :hook
+#+begin_src emacs-lisp
+  ((c-mode c++-mode objc-mode) . (lambda () (require 'ccls) (lsp)))
 #+end_src
 
 * Provide it
