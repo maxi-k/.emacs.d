@@ -155,6 +155,9 @@ Set up mode-local keys
   "o" 'lsp-organize-imports)
 #+end_src
 ** :use-package go-mode
+The go-setup uses the go language server from golang tools, gpls.
+To install it, run =go get golang.org/x/tools/gopls@latest=
+in a shell.
 *** :defer t
 *** :mode
 #+begin_src emacs-lisp
