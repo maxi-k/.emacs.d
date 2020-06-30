@@ -83,6 +83,7 @@ Define a default light and dark theme and functions for loading them:
 (add-hook
  'window-setup-hook
  (lambda ()
+   (menu-bar-mode -1)
    (if window-system
        (progn
          (setq frame-resize-pixelwise t)
@@ -96,8 +97,7 @@ Define a default light and dark theme and functions for loading them:
          (setq-default indicate-empty-lines t)
          (load-theme-exclusively my/default-light-theme))
      (progn
-       (load-theme-exclusively my/default-term-theme)
-       (menu-bar-mode -1)))))
+       (load-theme-exclusively my/default-term-theme)))))
 #+end_src
 ** Font
 Increase the font size and set it to the very nice source-code-pro font, if
@@ -156,7 +156,7 @@ Change the fringe color to match the background color of the editor
 #+begin_src emacs-lisp
 ;; Use whitespace mode for fill column indicator
 (setq
- whitespace-line-column 80
+ whitespace-line-column 100
  whitespace-style       '(face lines-tail trailing))
 (global-whitespace-mode)
 #+end_src
