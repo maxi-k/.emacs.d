@@ -210,20 +210,19 @@ I've inserted one on the following line:
 ** :init
 *** Definitions
 #+begin_src emacs-lisp
-(defpowerline evil-mode-bar
-  (if (and (evil-p) evil-mode)
-      ;; evil-mode is active
-      (format " %s " (upcase (symbol-name evil-state)))
-    ;; evil-mode is not active
-    " "))
+  (defpowerline evil-mode-bar
+    (if (and (evil-p) evil-mode)
+        ;; evil-mode is active
+        (format " %s " (upcase (symbol-name evil-state)))
+      ;; evil-mode is not active
+      " "))
 
-(defpowerline parinfer-mode-bar
-  (if (and (boundp 'parinfer-mode)
-           (boundp 'parinfer--mode)
-           parinfer-mode)
-      (format " %s " (symbol-name parinfer--mode))
-    ;; Parinfer is not installed or not active
-    " "))
+  (defpowerline parinfer-mode-bar
+    (if (and (boundp 'parinfer-mode)
+             parinfer-mode)
+        (format " %s " (symbol-name parinfer-mode))
+      ;; Parinfer is not installed or not active
+      " "))
 #+end_src
 
 ** :config
@@ -248,7 +247,7 @@ Set it up
                                             powerline-default-separator
                                             (cdr powerline-default-separator-dir))))
 
-           (symbol-name parinfer--mode)
+           (symbol-name parinfer-mode)
            (lhs (list (powerline-raw "%*" face-nil 'l)
                       (powerline-raw mode-line-mule-info face-nil 'l)
                       (powerline-buffer-id face-nil 'l)
