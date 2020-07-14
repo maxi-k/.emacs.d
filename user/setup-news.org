@@ -1,0 +1,34 @@
+#+TITLE: Setup News
+#+DESCRIPTION:
+#+AUTHOR: Maximilian Kuschewski
+#+PROPERTY: my-file-type emacs-config-package
+
+* :use-package elfeed
+** :init
+#+begin_src emacs-lisp
+(config/provide-feature :app "f" 'elfeed)
+#+end_src
+*** :use-package elfeed-org
+**** :config
+#+begin_src emacs-lisp
+(setq rmh-elfeed-org-tree-id "elfeed")
+#+end_src
+** :config
+#+begin_src emacs-lisp
+(config/local-keys 'elfeed-search-mode
+  "," 'elfeed-search-show-entry
+  "g" 'elfeed-update
+  "f" 'elfeed-search-set-filter
+  "F" 'elfeed-search-clear-filter
+  "c" 'elfeed-search-clear-filter
+  "r" 'elfeed-search-untag-all-unread
+  "e" (lambda () (interactive) (find-file (car rmh-elfeed-org-files))))
+
+(evil-define-key 'normal elfeed-search-mode-map
+  (kbd "RET") 'elfeed-search-show-entry)
+#+end_src
+
+* Provide it
+#+begin_src emacs-lisp
+(provide 'setup-news)
+#+end_src

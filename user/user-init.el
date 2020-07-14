@@ -39,6 +39,7 @@
                setup-movement
                setup-editing
                setup-projects
+               setup-news
                setup-misc
                ))
 
