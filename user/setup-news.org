@@ -18,10 +18,13 @@
 (config/local-keys 'elfeed-search-mode
   "," 'elfeed-search-show-entry
   "g" 'elfeed-update
-  "f" 'elfeed-search-set-filter
+  "f" 'elfeed-search-live-filter
   "F" 'elfeed-search-clear-filter
   "c" 'elfeed-search-clear-filter
+  "u" 'elfeed-search-tag-all-unread
   "r" 'elfeed-search-untag-all-unread
+  "+" 'elfeed-search-tag-all
+  "-" 'elfeed-search-untag-all
   "e" (lambda () (interactive) (find-file (car rmh-elfeed-org-files))))
 
 (evil-define-key 'normal elfeed-search-mode-map
